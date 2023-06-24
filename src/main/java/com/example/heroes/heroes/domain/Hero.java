@@ -2,9 +2,9 @@ package com.example.heroes.heroes.domain;
 
 public final class Hero {
 
-    private HeroId id;
-    private HeroName name;
-    private HeroPower power;
+    private final HeroId id;
+    private final HeroName name;
+    private final HeroPower power;
 
     public Hero(String id, String name, String power) {
         this.id = new HeroId(id);

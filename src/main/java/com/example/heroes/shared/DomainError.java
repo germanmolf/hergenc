@@ -1,6 +1,7 @@
 package com.example.heroes.shared;
 
 public abstract class DomainError extends RuntimeException {
+
     private final String errorCode;
     private final String errorMessage;
 
