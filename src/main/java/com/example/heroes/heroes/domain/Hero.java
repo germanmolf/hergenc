@@ -1,6 +1,8 @@
 package com.example.heroes.heroes.domain;
 
-public final class Hero {
+import com.example.heroes.shared.AggregateRoot;
+
+public final class Hero extends AggregateRoot {
 
     private final HeroId id;
     private final HeroName name;
@@ -10,6 +12,7 @@ public final class Hero {
         this.id = new HeroId(id);
         this.name = new HeroName(name);
         this.power = new HeroPower(power);
+        record(new HeroCreated(id, name, power));
     }
 
     public String getId() {
