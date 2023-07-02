@@ -12,6 +12,17 @@ public enum OrderType {
         this.type = type;
     }
 
+    public static OrderType fromValue(String value) {
+        switch (value) {
+            case "asc":
+                return OrderType.ASC;
+            case "desc":
+                return OrderType.DESC;
+            default:
+                return OrderType.NONE;
+        }
+    }
+
     public String value() {
         return type;
     }

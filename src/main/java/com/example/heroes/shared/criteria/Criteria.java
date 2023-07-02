@@ -1,5 +1,8 @@
 package com.example.heroes.shared.criteria;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public final class Criteria {
 
     private final Filters filters;
@@ -12,6 +15,10 @@ public final class Criteria {
         this.order = order;
         this.limit = limit;
         this.offset = offset;
+    }
+
+    public static Criteria fromValues(HashMap<String, Serializable> values) {
+        return new Criteria(Filters.fromValues(values), Order.fromValues(values), (Integer) values.get("limit"), (Integer) values.get("offset"));
     }
 
     public Filters getFilters() {
@@ -30,13 +37,4 @@ public final class Criteria {
         return offset;
     }
 
-    public String serialize() {
-        return String.format(
-                "%s~~%s~~%s~~%s",
-                filters.serialize(),
-                order.serialize(),
-                offset,
-                limit
-        );
-    }
 }

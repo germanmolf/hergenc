@@ -1,5 +1,8 @@
 package com.example.heroes.shared.criteria;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public final class Order {
 
     private final OrderBy orderBy;
@@ -10,6 +13,14 @@ public final class Order {
         this.orderType = orderType;
     }
 
+    public static Order fromValues(HashMap<String, Serializable> values) {
+        String orderBY = (String) values.get("orderBy");
+        if (orderBY == null || orderBY.isBlank()) {
+            return Order.none();
+        }
+        return new Order(new OrderBy(orderBY), OrderType.fromValue((String) values.get("orderType")));
+    }
+
     public String getOrderBy() {
         return orderBy.value();
     }
@@ -18,7 +29,7 @@ public final class Order {
         return orderType.value();
     }
 
-    public String serialize() {
-        return String.format("%s.%s", orderBy.value(), orderType.value());
+    private static Order none() {
+        return new Order(new OrderBy(""), OrderType.NONE);
     }
 }

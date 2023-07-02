@@ -1,5 +1,7 @@
 package com.example.heroes.shared.criteria;
 
+import java.util.HashMap;
+
 public final class Filter {
 
     private final FilterField field;
@@ -18,6 +20,14 @@ public final class Filter {
         this.value = new FilterValue(value);
     }
 
+    public static Filter fromValues(HashMap<String, String> values) {
+        return new Filter(
+                values.get("field"),
+                values.get("operator"),
+                values.get("value")
+        );
+    }
+
     public String getField() {
         return field.value();
     }
@@ -30,7 +40,4 @@ public final class Filter {
         return value.value();
     }
 
-    public String serialize() {
-        return String.format("%s.%s.%s", field.value(), operator.value(), value.value());
-    }
 }
