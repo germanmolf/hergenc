@@ -1,4 +1,6 @@
-package com.example.heroes.shared;
+package com.example.heroes.shared.domain.event;
+
+import com.example.heroes.shared.domain.Utils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

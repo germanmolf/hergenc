@@ -1,4 +1,4 @@
-package com.example.heroes.shared.criteria;
+package com.example.heroes.shared.domain.criteria;
 
 public enum FilterOperator {
 

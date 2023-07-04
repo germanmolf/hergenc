@@ -1,4 +1,4 @@
-package com.example.heroes.shared;
+package com.example.heroes.shared.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -2,7 +2,7 @@ package com.example.heroes.heroes.domain;
 
 import com.example.heroes.heroes.domain.exceptions.HeroPowerInvalidLength;
 import com.example.heroes.heroes.domain.exceptions.HeroPowerNull;
-import com.example.heroes.shared.StringValueObject;
+import com.example.heroes.shared.domain.StringValueObject;
 
 public final class HeroPower extends StringValueObject {
 

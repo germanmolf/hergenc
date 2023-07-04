@@ -2,7 +2,7 @@ package com.example.heroes.heroes.domain;
 
 import com.example.heroes.heroes.domain.exceptions.HeroNameInvalidLength;
 import com.example.heroes.heroes.domain.exceptions.HeroNameNull;
-import com.example.heroes.shared.StringValueObject;
+import com.example.heroes.shared.domain.StringValueObject;
 
 public final class HeroName extends StringValueObject {
 

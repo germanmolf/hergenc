@@ -1,4 +1,4 @@
-package com.example.heroes.shared.criteria;
+package com.example.heroes.shared.domain.criteria;
 
 import java.io.Serializable;
 import java.util.HashMap;

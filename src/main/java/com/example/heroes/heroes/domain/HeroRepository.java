@@ -1,6 +1,6 @@
 package com.example.heroes.heroes.domain;
 
-import com.example.heroes.shared.criteria.Criteria;
+import com.example.heroes.shared.domain.criteria.Criteria;
 
 import java.util.List;
 import java.util.Optional;

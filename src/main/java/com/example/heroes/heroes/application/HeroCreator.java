@@ -2,7 +2,7 @@ package com.example.heroes.heroes.application;
 
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroRepository;
-import com.example.heroes.shared.EventBus;
+import com.example.heroes.shared.domain.event.EventBus;
 
 public final class HeroCreator {
 

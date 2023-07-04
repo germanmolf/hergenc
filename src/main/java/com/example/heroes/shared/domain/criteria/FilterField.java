@@ -1,6 +1,6 @@
-package com.example.heroes.shared.criteria;
+package com.example.heroes.shared.domain.criteria;
 
-import com.example.heroes.shared.StringValueObject;
+import com.example.heroes.shared.domain.StringValueObject;
 
 public final class FilterField extends StringValueObject {
 

@@ -1,6 +1,6 @@
 package com.example.heroes.heroes.domain;
 
-import com.example.heroes.shared.AggregateRoot;
+import com.example.heroes.shared.domain.AggregateRoot;
 
 public final class Hero extends AggregateRoot {
 

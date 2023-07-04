@@ -1,6 +1,6 @@
 package com.example.heroes.heroes.domain;
 
-import com.example.heroes.shared.DomainEvent;
+import com.example.heroes.shared.domain.event.DomainEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package com.example.heroes.heroes.domain;
 
 import com.example.heroes.heroes.domain.exceptions.HeroIdNull;
-import com.example.heroes.shared.Identifier;
+import com.example.heroes.shared.domain.Identifier;
 
 public final class HeroId extends Identifier {
 

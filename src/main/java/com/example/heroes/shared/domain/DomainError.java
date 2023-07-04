@@ -1,4 +1,4 @@
-package com.example.heroes.shared;
+package com.example.heroes.shared.domain;
 
 public abstract class DomainError extends RuntimeException {
 

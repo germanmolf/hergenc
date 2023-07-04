@@ -1,15 +1,12 @@
-package com.example.heroes.shared;
+package com.example.heroes.shared.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
-public abstract class Identifier implements Serializable {
+public abstract class StringValueObject {
 
-    final protected String value;
+    private final String value;
 
-    public Identifier(String value) {
-        checkValidUuid(value);
+    public StringValueObject(String value) {
         this.value = value;
     }
 
@@ -25,7 +22,7 @@ public abstract class Identifier implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Identifier that = (Identifier) o;
+        StringValueObject that = (StringValueObject) o;
         return Objects.equals(value, that.value);
     }
 
@@ -34,7 +31,8 @@ public abstract class Identifier implements Serializable {
         return Objects.hash(value);
     }
 
-    private void checkValidUuid(String value) throws IllegalArgumentException {
-        UUID.fromString(value);
+    @Override
+    public String toString() {
+        return value;
     }
 }

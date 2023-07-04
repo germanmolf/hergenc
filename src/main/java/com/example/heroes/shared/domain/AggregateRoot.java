@@ -1,4 +1,6 @@
-package com.example.heroes.shared;
+package com.example.heroes.shared.domain;
+
+import com.example.heroes.shared.domain.event.DomainEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
