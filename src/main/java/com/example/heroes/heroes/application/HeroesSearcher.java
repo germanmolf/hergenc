@@ -16,7 +16,7 @@ public final class HeroesSearcher {
 
     public List<HeroResponse> search(Criteria criteria) {
         return repository.search(criteria)
-                .stream().map(hero -> new HeroResponse(hero.getId(), hero.getName(), hero.getPower()))
+                .stream().map(HeroResponse::fromAggregate)
                 .collect(Collectors.toList());
     }
 }

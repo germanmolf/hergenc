@@ -12,7 +12,12 @@ public final class Hero extends AggregateRoot {
         this.id = new HeroId(id);
         this.name = new HeroName(name);
         this.power = new HeroPower(power);
-        record(new HeroCreated(id, name, power));
+    }
+
+    public static Hero create(String id, String name, String power) {
+        Hero hero = new Hero(id, name, power);
+        hero.record(new HeroCreated(id, name, power));
+        return hero;
     }
 
     public String getId() {

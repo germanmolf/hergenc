@@ -15,7 +15,7 @@ public final class HeroFinder {
     public HeroResponse find(String id) {
         HeroId heroId = new HeroId(id);
         return repository.search(heroId)
-                .map(hero -> new HeroResponse(hero.getId(), hero.getName(), hero.getPower()))
+                .map(HeroResponse::fromAggregate)
                 .orElseThrow(() -> new HeroNotExist(heroId));
     }
 }

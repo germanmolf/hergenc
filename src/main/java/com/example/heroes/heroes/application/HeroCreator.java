@@ -15,7 +15,7 @@ public final class HeroCreator {
     }
 
     public void create(String id, String name, String power) {
-        Hero hero = new Hero(id, name, power);
+        Hero hero = Hero.create(id, name, power);
         repository.save(hero);
         eventBus.publish(hero.pullDomainEvents());
     }
