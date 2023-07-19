@@ -4,29 +4,33 @@ import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
 import com.example.heroes.shared.domain.criteria.Criteria;
+import com.example.heroes.shared.infraestructure.persistence.MySqlRepository;
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
-public class MySqlHeroRepository implements HeroRepository {
+public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements HeroRepository {
 
-    private HashMap<String, Hero> heroes = new HashMap<>();
+    public MySqlHeroRepository(EntityManagerFactory entityManagerFactory) {
+        super(entityManagerFactory, HeroJpa.class);
+    }
 
     @Override
     public void save(Hero hero) {
-        heroes.put(hero.getId(), hero);
+        persist(HeroJpa.fromAggregate(hero));
     }
 
     @Override
     public Optional<Hero> search(HeroId id) {
-        return Optional.ofNullable(heroes.get(id.value()));
+        return byId(id).map(HeroJpa::fromJpaEntity);
     }
 
     @Override
     public List<Hero> search(Criteria criteria) {
-        return heroes.values().stream().toList();
+        return byCriteria(criteria).stream().map(HeroJpa::fromJpaEntity).collect(Collectors.toList());
     }
 }

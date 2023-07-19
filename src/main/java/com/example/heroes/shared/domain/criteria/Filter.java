@@ -8,12 +8,6 @@ public final class Filter {
     private final FilterOperator operator;
     private final FilterValue value;
 
-    public Filter(FilterField field, FilterOperator operator, FilterValue value) {
-        this.field = field;
-        this.operator = operator;
-        this.value = value;
-    }
-
     public Filter(String field, String operator, String value) {
         this.field = new FilterField(field);
         this.operator = FilterOperator.fromValue(operator);
@@ -32,8 +26,8 @@ public final class Filter {
         return field.value();
     }
 
-    public String getOperator() {
-        return operator.value();
+    public FilterOperator getOperator() {
+        return operator;
     }
 
     public String getValue() {

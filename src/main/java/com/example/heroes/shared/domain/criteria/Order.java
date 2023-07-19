@@ -25,8 +25,12 @@ public final class Order {
         return orderBy.value();
     }
 
-    public String getOrderType() {
-        return orderType.value();
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public boolean hasOrder() {
+        return orderType != OrderType.NONE;
     }
 
     private static Order none() {

@@ -13,14 +13,15 @@ public enum OrderType {
     }
 
     public static OrderType fromValue(String value) {
-        switch (value) {
-            case "asc":
-                return OrderType.ASC;
-            case "desc":
-                return OrderType.DESC;
-            default:
-                return OrderType.NONE;
-        }
+        return switch (value) {
+            case "asc" -> OrderType.ASC;
+            case "desc" -> OrderType.DESC;
+            default -> OrderType.NONE;
+        };
+    }
+
+    public boolean isAsc() {
+        return this == OrderType.ASC;
     }
 
     public String value() {
