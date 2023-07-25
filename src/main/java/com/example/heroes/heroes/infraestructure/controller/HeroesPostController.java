@@ -1,7 +1,7 @@
 package com.example.heroes.heroes.infraestructure.controller;
 
-import com.example.heroes.heroes.application.HeroCreator;
-import com.example.heroes.heroes.application.HeroRequest;
+import com.example.heroes.heroes.application.create.CreateHeroRequest;
+import com.example.heroes.heroes.application.create.HeroCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +20,8 @@ public final class HeroesPostController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postHero(@RequestBody HeroRequest hero) {
-        creator.create(hero.getId(), hero.getName(), hero.getPower());
+    public ResponseEntity<String> postHero(@RequestBody CreateHeroRequest request) {
+        creator.create(request);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

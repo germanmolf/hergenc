@@ -4,6 +4,7 @@ import com.example.heroes.shared.domain.event.DomainEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
 public final class HeroCreated extends DomainEvent {
 
@@ -40,4 +41,16 @@ public final class HeroCreated extends DomainEvent {
         return new HeroCreated(aggregateId, eventId, occurredOn, (String) body.get("name"), (String) body.get("power"));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HeroCreated that = (HeroCreated) o;
+        return Objects.equals(name, that.name) && Objects.equals(power, that.power);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, power);
+    }
 }

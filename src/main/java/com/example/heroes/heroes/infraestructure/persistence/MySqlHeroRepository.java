@@ -30,6 +30,11 @@ public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements Her
     }
 
     @Override
+    public List<Hero> searchAll() {
+        return all().stream().map(HeroJpa::fromJpaEntity).collect(Collectors.toList());
+    }
+
+    @Override
     public List<Hero> search(Criteria criteria) {
         return byCriteria(criteria).stream().map(HeroJpa::fromJpaEntity).collect(Collectors.toList());
     }

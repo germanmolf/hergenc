@@ -1,8 +1,8 @@
 package com.example.heroes.heroes.infraestructure.controller;
 
-import com.example.heroes.heroes.application.HeroFinder;
-import com.example.heroes.heroes.application.HeroResponse;
-import com.example.heroes.heroes.application.HeroesSearcher;
+import com.example.heroes.heroes.application.find.HeroFinder;
+import com.example.heroes.heroes.application.find.HeroResponse;
+import com.example.heroes.heroes.application.find.HeroesSearcher;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import org.springframework.web.bind.annotation.*;
 

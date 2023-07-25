@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.application;
+package com.example.heroes.heroes.application.create;
 
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroRepository;
@@ -14,8 +14,8 @@ public final class HeroCreator {
         this.eventBus = eventBus;
     }
 
-    public void create(String id, String name, String power) {
-        Hero hero = Hero.create(id, name, power);
+    public void create(CreateHeroRequest request) {
+        Hero hero = Hero.create(request.getId(), request.getName(), request.getPower());
         repository.save(hero);
         eventBus.publish(hero.pullDomainEvents());
     }

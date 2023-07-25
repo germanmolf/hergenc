@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.application;
+package com.example.heroes.heroes.application.find;
 
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;

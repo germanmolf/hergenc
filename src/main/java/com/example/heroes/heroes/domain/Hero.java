@@ -2,6 +2,8 @@ package com.example.heroes.heroes.domain;
 
 import com.example.heroes.shared.domain.AggregateRoot;
 
+import java.util.Objects;
+
 public final class Hero extends AggregateRoot {
 
     private final HeroId id;
@@ -30,5 +32,18 @@ public final class Hero extends AggregateRoot {
 
     public String getPower() {
         return power.value();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hero hero = (Hero) o;
+        return Objects.equals(id, hero.id) && Objects.equals(name, hero.name) && Objects.equals(power, hero.power);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, power);
     }
 }
