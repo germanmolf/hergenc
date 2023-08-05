@@ -22,11 +22,15 @@ public abstract class MySqlRepository<T> {
     }
 
     protected void persist(T entity) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(entity);
-        entityManager.flush();
-        entityManager.clear();
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.flush();
+            entityManager.clear();
+            entityManager.getTransaction().commit();
+        } finally {
+            entityManager.getTransaction().rollback();
+        }
     }
 
     protected Optional<T> byId(Identifier id) {
