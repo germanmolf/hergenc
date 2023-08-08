@@ -1,5 +1,7 @@
 package com.example.heroes.shared.domain;
 
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValid;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -35,6 +37,10 @@ public abstract class Identifier implements Serializable {
     }
 
     private void checkValidUuid(String value) throws IllegalArgumentException {
-        UUID.fromString(value);
+        try {
+            UUID.fromString(value);
+        } catch (IllegalArgumentException e) {
+            throw new IdentifierNotValid(value);
+        }
     }
 }
