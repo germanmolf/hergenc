@@ -1,6 +1,7 @@
 package com.example.heroes.shared.domain;
 
-import com.example.heroes.shared.domain.exceptions.IdentifierNotValid;
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
+import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,12 +12,25 @@ public abstract class Identifier implements Serializable {
     final protected String value;
 
     public Identifier(String value) {
+        checkIsNotNull(value);
         checkValidUuid(value);
         this.value = value;
     }
 
     public String value() {
         return value;
+    }
+
+    private void checkIsNotNull(String value) {
+        if (value == null) throw new IdentifierNullException();
+    }
+
+    private void checkValidUuid(String value) throws IllegalArgumentException {
+        try {
+            UUID.fromString(value);
+        } catch (IllegalArgumentException e) {
+            throw new IdentifierNotValidException(value);
+        }
     }
 
     @Override
@@ -34,13 +48,5 @@ public abstract class Identifier implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(value);
-    }
-
-    private void checkValidUuid(String value) throws IllegalArgumentException {
-        try {
-            UUID.fromString(value);
-        } catch (IllegalArgumentException e) {
-            throw new IdentifierNotValid(value);
-        }
     }
 }

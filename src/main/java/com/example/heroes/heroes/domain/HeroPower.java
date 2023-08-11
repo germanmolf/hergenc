@@ -1,7 +1,7 @@
 package com.example.heroes.heroes.domain;
 
-import com.example.heroes.heroes.domain.exceptions.HeroPowerInvalidLength;
-import com.example.heroes.heroes.domain.exceptions.HeroPowerNull;
+import com.example.heroes.heroes.domain.exceptions.HeroPowerInvalidLengthException;
+import com.example.heroes.heroes.domain.exceptions.HeroPowerNullException;
 import com.example.heroes.shared.domain.StringValueObject;
 
 public final class HeroPower extends StringValueObject {
@@ -13,10 +13,10 @@ public final class HeroPower extends StringValueObject {
     }
 
     private void checkIsNotNull(String value) {
-        if (value == null) throw new HeroPowerNull();
+        if (value == null) throw new HeroPowerNullException();
     }
 
     private void checkIsValid(String value) {
-        if (value.isBlank() || value.length() > 30) throw new HeroPowerInvalidLength();
+        if (value.isBlank() || value.length() > 30) throw new HeroPowerInvalidLengthException();
     }
 }

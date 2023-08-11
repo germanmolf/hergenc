@@ -2,7 +2,7 @@ package com.example.heroes.heroes.application.find;
 
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
-import com.example.heroes.heroes.domain.exceptions.HeroNotExist;
+import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 
 public final class HeroFinder {
 
@@ -16,6 +16,6 @@ public final class HeroFinder {
         HeroId heroId = new HeroId(id);
         return repository.search(heroId)
                 .map(HeroResponse::fromAggregate)
-                .orElseThrow(() -> new HeroNotExist(heroId));
+                .orElseThrow(() -> new HeroNotFoundException(heroId));
     }
 }

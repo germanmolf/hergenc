@@ -1,5 +1,6 @@
 package com.example.heroes.heroes.application.create;
 
+import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroIdMother;
 import com.example.heroes.heroes.domain.HeroNameMother;
 import com.example.heroes.heroes.domain.HeroPowerMother;
@@ -12,5 +13,9 @@ public final class CreateHeroRequestMother {
 
     public static CreateHeroRequest random() {
         return new CreateHeroRequest(HeroIdMother.random(), HeroNameMother.random(), HeroPowerMother.random());
+    }
+
+    public static CreateHeroRequest fromAggregate(Hero hero) {
+        return new CreateHeroRequest(hero.getId().value(), hero.getName().value(), hero.getPower().value());
     }
 }

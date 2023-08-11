@@ -2,6 +2,8 @@ package com.example.heroes.heroes.application.find;
 
 import com.example.heroes.heroes.domain.Hero;
 
+import java.util.Objects;
+
 public final class HeroResponse {
 
     private final String id;
@@ -15,7 +17,7 @@ public final class HeroResponse {
     }
 
     public static HeroResponse fromAggregate(Hero hero) {
-        return new HeroResponse(hero.getId(), hero.getName(), hero.getPower());
+        return new HeroResponse(hero.getId().value(), hero.getName().value(), hero.getPower().value());
     }
 
     public String getId() {
@@ -28,5 +30,18 @@ public final class HeroResponse {
 
     public String getPower() {
         return power;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HeroResponse that = (HeroResponse) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(power, that.power);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, power);
     }
 }

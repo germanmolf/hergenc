@@ -18,20 +18,20 @@ public final class Hero extends AggregateRoot {
 
     public static Hero create(String id, String name, String power) {
         Hero hero = new Hero(id, name, power);
-        hero.record(new HeroCreated(id, name, power));
+        hero.record(new HeroCreatedEvent(id, name, power));
         return hero;
     }
 
-    public String getId() {
-        return id.value();
+    public HeroId getId() {
+        return id;
     }
 
-    public String getName() {
-        return name.value();
+    public HeroName getName() {
+        return name;
     }
 
-    public String getPower() {
-        return power.value();
+    public HeroPower getPower() {
+        return power;
     }
 
     @Override

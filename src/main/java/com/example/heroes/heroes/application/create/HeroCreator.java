@@ -3,7 +3,7 @@ package com.example.heroes.heroes.application.create;
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
-import com.example.heroes.heroes.domain.exceptions.HeroAlreadyExists;
+import com.example.heroes.heroes.domain.exceptions.HeroAlreadyExistsException;
 import com.example.heroes.shared.domain.event.EventBus;
 
 public final class HeroCreator {
@@ -23,11 +23,10 @@ public final class HeroCreator {
         eventBus.publish(hero.pullDomainEvents());
     }
 
-    private void checkHeroNotExists(String id) {
-        HeroId heroId = new HeroId(id);
-        repository.search(heroId)
+    private void checkHeroNotExists(HeroId id) {
+        repository.search(id)
                 .ifPresent(hero -> {
-                    throw new HeroAlreadyExists(heroId);
+                    throw new HeroAlreadyExistsException(id);
                 });
     }
 }

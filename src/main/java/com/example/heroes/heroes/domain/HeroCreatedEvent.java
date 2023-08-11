@@ -6,18 +6,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Objects;
 
-public final class HeroCreated extends DomainEvent {
+public final class HeroCreatedEvent extends DomainEvent {
 
     private final String name;
     private final String power;
 
-    public HeroCreated(String aggregateId, String name, String power) {
+    public HeroCreatedEvent(String aggregateId, String name, String power) {
         super(aggregateId);
         this.name = name;
         this.power = power;
     }
 
-    public HeroCreated(String aggregateId, String eventId, String occurredOn, String name, String power) {
+    public HeroCreatedEvent(String aggregateId, String eventId, String occurredOn, String name, String power) {
         super(aggregateId, eventId, occurredOn);
         this.name = name;
         this.power = power;
@@ -38,14 +38,14 @@ public final class HeroCreated extends DomainEvent {
 
     @Override
     public DomainEvent fromPrimitives(String aggregateId, HashMap<String, Serializable> body, String eventId, String occurredOn) {
-        return new HeroCreated(aggregateId, eventId, occurredOn, (String) body.get("name"), (String) body.get("power"));
+        return new HeroCreatedEvent(aggregateId, eventId, occurredOn, (String) body.get("name"), (String) body.get("power"));
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HeroCreated that = (HeroCreated) o;
+        HeroCreatedEvent that = (HeroCreatedEvent) o;
         return Objects.equals(name, that.name) && Objects.equals(power, that.power);
     }
 

@@ -23,7 +23,7 @@ public final class HeroJpa {
     private String power;
 
     public static HeroJpa fromAggregate(Hero hero) {
-        return new HeroJpa(hero.getId(), hero.getName(), hero.getPower());
+        return new HeroJpa(hero.getId().value(), hero.getName().value(), hero.getPower().value());
     }
 
     public static Hero fromJpaEntity(HeroJpa heroJpa) {
