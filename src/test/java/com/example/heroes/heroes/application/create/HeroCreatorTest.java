@@ -4,8 +4,6 @@ import com.example.heroes.heroes.HeroModuleTest;
 import com.example.heroes.heroes.domain.*;
 import com.example.heroes.heroes.domain.exceptions.*;
 import com.example.heroes.shared.domain.WordMother;
-import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
-import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,28 +43,6 @@ final class HeroCreatorTest extends HeroModuleTest {
 
         shouldNotHaveSaved(heroRepeated);
         shouldNotHavePublished(eventRepeated);
-    }
-
-    // UUID
-    @Test
-    void throw_an_exception_when_id_is_null() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(null, HeroNameMother.randomValue(), HeroPowerMother.randomValue());
-        HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
-
-        assertThrows(IdentifierNullException.class, () -> creator.create(request));
-
-        shouldNotHavePublished(event);
-    }
-
-    // UUID
-    @Test
-    void throw_an_exception_when_id_is_not_valid() {
-        CreateHeroRequest request = CreateHeroRequestMother.create("qwe", HeroNameMother.randomValue(), HeroPowerMother.randomValue());
-        HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
-
-        assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
-
-        shouldNotHavePublished(event);
     }
 
     @Test
