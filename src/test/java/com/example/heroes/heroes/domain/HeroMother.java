@@ -8,11 +8,15 @@ public final class HeroMother {
         return new Hero(id, name, power);
     }
 
+    public static Hero create(String name, String power) {
+        return new Hero(HeroIdMother.randomValue(), name, power);
+    }
+
     public static Hero random() {
         return new Hero(
-                HeroIdMother.random(),
-                HeroNameMother.random(),
-                HeroPowerMother.random()
+                HeroIdMother.randomValue(),
+                HeroNameMother.randomValue(),
+                HeroPowerMother.randomValue()
         );
     }
 

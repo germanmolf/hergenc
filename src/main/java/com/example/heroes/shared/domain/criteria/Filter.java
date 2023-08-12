@@ -10,14 +10,14 @@ public final class Filter {
 
     public Filter(String field, String operator, String value) {
         this.field = new FilterField(field);
-        this.operator = FilterOperator.fromValue(operator);
+        this.operator = FilterOperator.fromValue(operator.toUpperCase());
         this.value = new FilterValue(value);
     }
 
     public static Filter fromValues(HashMap<String, String> values) {
         return new Filter(
                 values.get("field"),
-                values.get("operator"),
+                values.get("operator").toUpperCase(),
                 values.get("value")
         );
     }

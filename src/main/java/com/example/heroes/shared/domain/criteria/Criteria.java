@@ -17,6 +17,13 @@ public final class Criteria {
         this.offset = offset;
     }
 
+    public Criteria(Filters filters, Order order) {
+        this.filters = filters;
+        this.order = order;
+        this.limit = null;
+        this.offset = null;
+    }
+
     public static Criteria fromValues(HashMap<String, Serializable> values) {
         return new Criteria(Filters.fromValues(values), Order.fromValues(values), (Integer) values.get("limit"), (Integer) values.get("offset"));
     }

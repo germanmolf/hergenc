@@ -5,7 +5,7 @@ import com.example.heroes.heroes.application.create.CreateHeroRequest;
 public final class HeroCreatedEventMother {
 
     public static HeroCreatedEvent random() {
-        return new HeroCreatedEvent(HeroIdMother.random(), HeroNameMother.random(), HeroPowerMother.random());
+        return new HeroCreatedEvent(HeroIdMother.randomValue(), HeroNameMother.randomValue(), HeroPowerMother.randomValue());
     }
 
     public static HeroCreatedEvent fromAggregate(Hero hero) {

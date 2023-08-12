@@ -33,7 +33,7 @@ public final class Order {
         return orderType != OrderType.NONE;
     }
 
-    private static Order none() {
+    public static Order none() {
         return new Order(new OrderBy(""), OrderType.NONE);
     }
 }

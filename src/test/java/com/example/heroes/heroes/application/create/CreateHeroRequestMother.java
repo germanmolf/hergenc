@@ -12,7 +12,7 @@ public final class CreateHeroRequestMother {
     }
 
     public static CreateHeroRequest random() {
-        return new CreateHeroRequest(HeroIdMother.random(), HeroNameMother.random(), HeroPowerMother.random());
+        return new CreateHeroRequest(HeroIdMother.randomValue(), HeroNameMother.randomValue(), HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest fromAggregate(Hero hero) {

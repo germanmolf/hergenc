@@ -50,7 +50,7 @@ final class HeroCreatorTest extends HeroModuleTest {
     // UUID
     @Test
     void throw_an_exception_when_id_is_null() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(null, HeroNameMother.random(), HeroPowerMother.random());
+        CreateHeroRequest request = CreateHeroRequestMother.create(null, HeroNameMother.randomValue(), HeroPowerMother.randomValue());
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(IdentifierNullException.class, () -> creator.create(request));
@@ -61,7 +61,7 @@ final class HeroCreatorTest extends HeroModuleTest {
     // UUID
     @Test
     void throw_an_exception_when_id_is_not_valid() {
-        CreateHeroRequest request = CreateHeroRequestMother.create("qwe", HeroNameMother.random(), HeroPowerMother.random());
+        CreateHeroRequest request = CreateHeroRequestMother.create("qwe", HeroNameMother.randomValue(), HeroPowerMother.randomValue());
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
@@ -71,7 +71,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_null() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), null, HeroPowerMother.random());
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), null, HeroPowerMother.randomValue());
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroNameNullException.class, () -> creator.create(request));
@@ -81,7 +81,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_blank() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), "     ", HeroPowerMother.random());
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), "     ", HeroPowerMother.randomValue());
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroNameInvalidLengthException.class, () -> creator.create(request));
@@ -91,7 +91,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_over_length() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), WordMother.randomMin(20), HeroPowerMother.random());
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), WordMother.randomMin(20), HeroPowerMother.randomValue());
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroNameInvalidLengthException.class, () -> creator.create(request));
@@ -101,7 +101,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_null() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), HeroNameMother.random(), null);
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), null);
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroPowerNullException.class, () -> creator.create(request));
@@ -111,7 +111,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_blank() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), HeroNameMother.random(), "     ");
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), "     ");
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroPowerInvalidLengthException.class, () -> creator.create(request));
@@ -121,7 +121,7 @@ final class HeroCreatorTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_over_length() {
-        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.random(), HeroNameMother.random(), WordMother.randomMin(30));
+        CreateHeroRequest request = CreateHeroRequestMother.create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), WordMother.randomMin(30));
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
         assertThrows(HeroPowerInvalidLengthException.class, () -> creator.create(request));

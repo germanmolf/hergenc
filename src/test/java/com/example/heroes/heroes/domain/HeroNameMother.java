@@ -3,8 +3,8 @@ package com.example.heroes.heroes.domain;
 import com.example.heroes.shared.domain.WordMother;
 
 public final class HeroNameMother {
-    
-    public static String random() {
+
+    public static String randomValue() {
         return WordMother.randomMinMax(1, 20);
     }
 }
