@@ -8,24 +8,24 @@ public final class Criteria {
     private final Filters filters;
     private final Order order;
     private final Integer limit;
-    private final Integer offset;
+    private final Integer start;
 
-    public Criteria(Filters filters, Order order, Integer limit, Integer offset) {
+    public Criteria(Filters filters, Order order, Integer limit, Integer start) {
         this.filters = filters;
         this.order = order;
         this.limit = limit;
-        this.offset = offset;
+        this.start = start;
     }
 
     public Criteria(Filters filters, Order order) {
         this.filters = filters;
         this.order = order;
-        this.limit = null;
-        this.offset = null;
+        this.limit = 100;
+        this.start = 0;
     }
 
     public static Criteria fromValues(HashMap<String, Serializable> values) {
-        return new Criteria(Filters.fromValues(values), Order.fromValues(values), (Integer) values.get("limit"), (Integer) values.get("offset"));
+        return new Criteria(Filters.fromValues(values), Order.fromValues(values), (Integer) values.get("limit"), (Integer) values.get("start"));
     }
 
     public Filters getFilters() {
@@ -40,8 +40,8 @@ public final class Criteria {
         return limit;
     }
 
-    public Integer getOffset() {
-        return offset;
+    public Integer getStart() {
+        return start;
     }
 
 }

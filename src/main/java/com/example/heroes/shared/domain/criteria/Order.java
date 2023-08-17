@@ -13,12 +13,18 @@ public final class Order {
         this.orderType = orderType;
     }
 
+    public Order(String orderBy, String orderType) {
+        this.orderBy = new OrderBy(orderBy);
+        this.orderType = OrderType.valueOf(orderType.toUpperCase());
+    }
+
     public static Order fromValues(HashMap<String, Serializable> values) {
-        String orderBY = (String) values.get("orderBy");
-        if (orderBY == null || orderBY.isBlank()) {
+        String orderBy = (String) values.get("orderBy");
+        if (orderBy == null || orderBy.isBlank()) {
             return Order.none();
         }
-        return new Order(new OrderBy(orderBY), OrderType.fromValue((String) values.get("orderType")));
+        String orderType = (String) values.get("orderType");
+        return new Order(new OrderBy(orderBy), OrderType.fromValue(orderType.toUpperCase()));
     }
 
     public String getOrderBy() {
