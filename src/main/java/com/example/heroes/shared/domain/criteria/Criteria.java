@@ -2,15 +2,16 @@ package com.example.heroes.shared.domain.criteria;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Optional;
 
 public final class Criteria {
 
     private final Filters filters;
     private final Order order;
-    private final Integer limit;
-    private final Integer start;
+    private final Optional<Integer> limit;
+    private final Optional<Integer> start;
 
-    public Criteria(Filters filters, Order order, Integer limit, Integer start) {
+    public Criteria(Filters filters, Order order, Optional<Integer> limit, Optional<Integer> start) {
         this.filters = filters;
         this.order = order;
         this.limit = limit;
@@ -20,12 +21,17 @@ public final class Criteria {
     public Criteria(Filters filters, Order order) {
         this.filters = filters;
         this.order = order;
-        this.limit = 100;
-        this.start = 0;
+        this.limit = Optional.empty();
+        this.start = Optional.empty();
     }
 
     public static Criteria fromValues(HashMap<String, Serializable> values) {
-        return new Criteria(Filters.fromValues(values), Order.fromValues(values), (Integer) values.get("limit"), (Integer) values.get("start"));
+        return new Criteria(
+                Filters.fromValues(values),
+                Order.fromValues(values),
+                Optional.ofNullable((Integer) values.get("limit")),
+                Optional.ofNullable((Integer) values.get("start"))
+        );
     }
 
     public Filters getFilters() {
@@ -36,11 +42,11 @@ public final class Criteria {
         return order;
     }
 
-    public Integer getLimit() {
+    public Optional<Integer> getLimit() {
         return limit;
     }
 
-    public Integer getStart() {
+    public Optional<Integer> getStart() {
         return start;
     }
 

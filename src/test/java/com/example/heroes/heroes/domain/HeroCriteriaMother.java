@@ -7,6 +7,7 @@ import com.example.heroes.shared.domain.criteria.Order;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 public final class HeroCriteriaMother {
 
@@ -28,6 +29,6 @@ public final class HeroCriteriaMother {
 
     public static Criteria withPaginationAndOrderByNameAsc(Integer limit, Integer start) {
         Order order = new Order("name", "asc");
-        return new Criteria(new Filters(Collections.emptyList()), order, limit, start);
+        return new Criteria(new Filters(Collections.emptyList()), order, Optional.of(limit), Optional.of(start));
     }
 }

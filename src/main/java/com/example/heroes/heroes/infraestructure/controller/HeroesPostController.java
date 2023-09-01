@@ -20,7 +20,7 @@ public final class HeroesPostController {
     }
 
     @PostMapping
-    public ResponseEntity<String> postHero(@RequestBody CreateHeroRequest request) {
+    public ResponseEntity<String> post(@RequestBody CreateHeroRequest request) {
         creator.create(request);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

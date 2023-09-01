@@ -22,6 +22,17 @@ final class HeroGetControllerTest extends ControllerTestModule {
         assertResponse(String.format("/heroes/%s", id), 404, body);
     }
 
+    @Test
+    void search_all_heroes() throws Exception {
+        String spiderman = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"araña\"}";
+        String superman = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"superfuerte\"}";
+        String body = "[" + spiderman + "," + superman + "]";
+        givenThereIsAHero(spiderman);
+        givenThereIsAHero(superman);
+
+        assertResponse("/heroes", 200, body);
+    }
+
     private void givenThereIsAHero(String body) throws Exception {
         assertRequestWithBody("POST", "/heroes", body, 201);
     }

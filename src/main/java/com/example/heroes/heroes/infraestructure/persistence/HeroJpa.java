@@ -12,10 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = HeroJpa.TABLE_NAME)
+@Table(name = "hero")
 public final class HeroJpa {
-
-    public final static String TABLE_NAME = "heroes";
 
     @Id
     private String id;
