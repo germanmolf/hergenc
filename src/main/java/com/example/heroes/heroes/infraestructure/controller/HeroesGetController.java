@@ -4,11 +4,11 @@ import com.example.heroes.heroes.application.find.HeroFinder;
 import com.example.heroes.heroes.application.find.HeroResponse;
 import com.example.heroes.heroes.application.find.HeroesSearcher;
 import com.example.heroes.shared.domain.criteria.Criteria;
+import com.example.heroes.shared.infraestructure.controller.CriteriaParser;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/heroes")
@@ -23,8 +23,9 @@ public final class HeroesGetController {
     }
 
     @GetMapping
-    public List<HeroResponse> getHeroes(@RequestParam HashMap<String, Serializable> params) {
-        return searcher.search(Criteria.fromValues(params));
+    public List<HeroResponse> getHeroes(@RequestParam Map<String, String> params) {
+        Criteria criteria = CriteriaParser.fromParams(params);
+        return searcher.search(criteria);
     }
 
     @GetMapping("/{id}")

@@ -2,7 +2,7 @@ package com.example.heroes.heroes.infraestructure.controller;
 
 import com.example.heroes.heroes.domain.exceptions.*;
 import com.example.heroes.shared.domain.DomainError;
-import com.example.heroes.shared.infraestructure.ErrorResponse;
+import com.example.heroes.shared.infraestructure.controller.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

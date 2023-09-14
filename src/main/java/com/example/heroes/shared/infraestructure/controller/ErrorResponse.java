@@ -1,4 +1,4 @@
-package com.example.heroes.shared.infraestructure;
+package com.example.heroes.shared.infraestructure.controller;
 
 import com.example.heroes.shared.domain.DomainError;
 import lombok.AllArgsConstructor;
