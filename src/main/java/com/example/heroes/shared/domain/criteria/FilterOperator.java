@@ -6,8 +6,8 @@ public enum FilterOperator {
     NOT_EQUAL("!="),
     GT(">"),
     LT("<"),
-    CONTAINS("CONTAINS"),
-    NOT_CONTAINS("NOT_CONTAINS");
+    CONTAINS("contains"),
+    NOT_CONTAINS("not_contains");
 
     private final String operator;
 
@@ -16,22 +16,14 @@ public enum FilterOperator {
     }
 
     public static FilterOperator fromValue(String value) {
-        switch (value) {
-            case "=":
-                return FilterOperator.EQUAL;
-            case "!=":
-                return FilterOperator.NOT_EQUAL;
-            case ">":
-                return FilterOperator.GT;
-            case "<":
-                return FilterOperator.LT;
-            case "CONTAINS":
-                return FilterOperator.CONTAINS;
-            case "NOT_CONTAINS":
-                return FilterOperator.NOT_CONTAINS;
-            default:
-                return null;
-        }
+        return switch (value) {
+            case "!=" -> NOT_EQUAL;
+            case ">" -> GT;
+            case "<" -> LT;
+            case "contains" -> CONTAINS;
+            case "not_contains" -> NOT_CONTAINS;
+            default -> EQUAL;
+        };
     }
 
     public String value() {

@@ -1,7 +1,5 @@
 package com.example.heroes.shared.domain.criteria;
 
-import java.util.HashMap;
-
 public final class Filter {
 
     private final FilterField field;
@@ -10,16 +8,8 @@ public final class Filter {
 
     public Filter(String field, String operator, String value) {
         this.field = new FilterField(field);
-        this.operator = FilterOperator.fromValue(operator.toUpperCase());
+        this.operator = FilterOperator.fromValue(operator.toLowerCase());
         this.value = new FilterValue(value);
-    }
-
-    public static Filter fromValues(HashMap<String, String> values) {
-        return new Filter(
-                values.get("field"),
-                values.get("operator").toUpperCase(),
-                values.get("value")
-        );
     }
 
     public String getField() {

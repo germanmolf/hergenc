@@ -46,8 +46,8 @@ public abstract class MySqlRepository<T> {
     protected List<T> byCriteria(Criteria criteria) {
         CriteriaQuery<T> hibernateCriteria = criteriaConverter.convert(criteria, aggregateClass);
         return entityManager.createQuery(hibernateCriteria)
-                .setFirstResult(criteria.getStart().orElse(0))
-                .setMaxResults(criteria.getLimit().orElse(Integer.MAX_VALUE))
+                .setFirstResult(criteria.getStart())
+                .setMaxResults(criteria.getLimit())
                 .getResultList();
     }
 }

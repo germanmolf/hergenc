@@ -1,53 +1,49 @@
 package com.example.heroes.shared.domain.criteria;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Criteria {
 
-    private final Filters filters;
-    private final Order order;
-    private final Optional<Integer> limit;
-    private final Optional<Integer> start;
+    private List<Filter> filters = new ArrayList<>();
+    private Order order = Order.none();
+    private Integer limit = Integer.MAX_VALUE;
+    private Integer start = 0;
 
-    public Criteria(Filters filters, Order order, Optional<Integer> limit, Optional<Integer> start) {
-        this.filters = filters;
-        this.order = order;
-        this.limit = limit;
-        this.start = start;
-    }
-
-    public Criteria(Filters filters, Order order) {
-        this.filters = filters;
-        this.order = order;
-        this.limit = Optional.empty();
-        this.start = Optional.empty();
-    }
-
-    public static Criteria fromValues(HashMap<String, Serializable> values) {
-        return new Criteria(
-                Filters.fromValues(values),
-                Order.fromValues(values),
-                Optional.ofNullable((Integer) values.get("limit")),
-                Optional.ofNullable((Integer) values.get("start"))
-        );
-    }
-
-    public Filters getFilters() {
+    public List<Filter> getFilters() {
         return filters;
+    }
+
+    public Criteria setFilters(List<Filter> filters) {
+        this.filters = filters;
+        return this;
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public Optional<Integer> getLimit() {
+    public Criteria setOrder(String orderBy, String orderType) {
+        this.order = new Order(orderBy, orderType);
+        return this;
+    }
+
+    public Integer getLimit() {
         return limit;
     }
 
-    public Optional<Integer> getStart() {
+    public Criteria setLimit(Integer limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    public Integer getStart() {
         return start;
+    }
+
+    public Criteria setStart(Integer start) {
+        this.start = start;
+        return this;
     }
 
 }
