@@ -6,7 +6,6 @@ import com.example.heroes.shared.infraestructure.persistence.PersistenceTestModu
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,17 +46,6 @@ final class MySqlHeroRepositoryTest extends PersistenceTestModule {
     }
 
     @Test
-    void search_all_heroes() {
-        Hero aHero = HeroMother.random();
-        Hero anotherHero = HeroMother.random();
-
-        repository.save(aHero);
-        repository.save(anotherHero);
-
-        assertThat(Arrays.asList(aHero, anotherHero), containsInAnyOrder(repository.searchAll().toArray()));
-    }
-
-    @Test
     void search_heroes_using_criteria() {
         Hero matchingHero1 = HeroMother.create("Superman", "Superfuerza");
         Hero matchingHero2 = HeroMother.create("Spiderman", "Fuerza");
@@ -75,6 +63,6 @@ final class MySqlHeroRepositoryTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(matchingHero1, matchingHero2), containsInAnyOrder(result.toArray()));
+        assertThat(List.of(matchingHero1, matchingHero2), containsInAnyOrder(result.toArray()));
     }
 }

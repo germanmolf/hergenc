@@ -31,4 +31,9 @@ public final class HeroCriteriaMother {
                 .setLimit(limit)
                 .setStart(start);
     }
+
+    public static Criteria withFilter(String field, String operator, String value) {
+        Filter filter = new Filter(field, operator, value);
+        return new Criteria().setFilters(Arrays.asList(filter));
+    }
 }

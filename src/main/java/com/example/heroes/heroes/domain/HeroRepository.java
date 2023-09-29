@@ -11,8 +11,6 @@ public interface HeroRepository {
 
     Optional<Hero> search(HeroId id);
 
-    List<Hero> searchAll();
-
     List<Hero> search(Criteria criteria);
 
 }

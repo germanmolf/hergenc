@@ -37,12 +37,6 @@ public abstract class MySqlRepository<T> {
         return Optional.ofNullable(entityManager.find(aggregateClass, id.value()));
     }
 
-    protected List<T> all() {
-        CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(aggregateClass);
-        criteria.from(aggregateClass);
-        return entityManager.createQuery(criteria).getResultList();
-    }
-
     protected List<T> byCriteria(Criteria criteria) {
         CriteriaQuery<T> hibernateCriteria = criteriaConverter.convert(criteria, aggregateClass);
         return entityManager.createQuery(hibernateCriteria)

@@ -8,7 +8,6 @@ import com.example.heroes.shared.domain.criteria.Criteria;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,7 +33,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(superman), containsInAnyOrder(result.toArray()));
+        assertThat(List.of(superman), containsInAnyOrder(result.toArray()));
     }
 
     @Test
@@ -51,7 +50,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(spiderman), containsInAnyOrder(result.toArray()));
+        assertThat(List.of(spiderman), containsInAnyOrder(result.toArray()));
     }
 
     @Test
@@ -68,7 +67,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(superman), containsInAnyOrder(result.toArray()));
+        assertThat(List.of(superman), containsInAnyOrder(result.toArray()));
     }
 
     @Test
@@ -85,7 +84,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(spiderman), containsInAnyOrder(result.toArray()));
+        assertThat(List.of(spiderman), containsInAnyOrder(result.toArray()));
     }
 
     @Test
@@ -102,7 +101,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(superman, spiderman), contains(result.toArray()));
+        assertThat(List.of(superman, spiderman), contains(result.toArray()));
     }
 
     @Test
@@ -119,7 +118,7 @@ final class CriteriaConverterTest extends PersistenceTestModule {
         List<Hero> result = repository.search(criteria);
 
 
-        assertThat(Arrays.asList(spiderman, superman), contains(result.toArray()));
+        assertThat(List.of(spiderman, superman), contains(result.toArray()));
     }
 
     @Test
@@ -135,13 +134,13 @@ final class CriteriaConverterTest extends PersistenceTestModule {
 
         List<Hero> result = repository.search(criteria);
 
-        assertThat(Arrays.asList(superman), contains(result.toArray()));
+        assertThat(List.of(superman), contains(result.toArray()));
     }
 
     @Test
     void ignore_unknown_field() {
         Criteria criteria = HeroCriteriaMother.withFilter("qwe", "qwe", "qwe");
 
-        List<Hero> result = repository.search(criteria);
+        repository.search(criteria);
     }
 }
