@@ -33,6 +33,6 @@ public abstract class ControllerTestModule {
     protected void assertResponse(String url, Integer expectedStatusCode, String expectedResponse) throws Exception {
         mockMvc.perform(get(url))
                 .andExpect(status().is(expectedStatusCode))
-                .andExpect(content().json(expectedResponse));
+                .andExpect(content().json(expectedResponse, true));
     }
 }

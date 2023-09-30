@@ -2,36 +2,93 @@ package com.example.heroes.shared.infraestructure.controller;
 
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.domain.criteria.Filter;
+import com.example.heroes.shared.domain.criteria.FilterOperator;
 import org.apache.logging.log4j.util.Strings;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 public final class CriteriaParser {
 
-    private CriteriaParser() {
+    private final Criteria criteria;
+    private final HashSet<String> filterFields;
+    private final HashSet<String> orderFields;
+
+    public CriteriaParser(HashSet<String> filterFields, HashSet<String> orderFields) {
+        this.filterFields = filterFields;
+        this.orderFields = orderFields;
+        criteria = new Criteria();
     }
 
-    public static Criteria fromParams(Map<String, String> params) {
-        Criteria criteria = new Criteria();
-        extractFilters(criteria, params);
-        extractOrder(criteria, params);
-        extractLimit(criteria, params);
-        extractStart(criteria, params);
+    public Criteria fromParams(Map<String, String> params) {
+        extractOrder(params);
+        extractLimit(params);
+        extractStart(params);
+        extractDefaultFilters(params);
+        extractFilters(params);
         return criteria;
     }
 
-    private static void extractFilters(Criteria criteria, Map<String, String> params) {
+    private void extractOrder(Map<String, String> params) {
+        String orderBy = params.remove("orderBy");
+        if (orderBy == null || orderBy.isBlank()) {
+            return;
+        }
+        if (!orderFields.contains(orderBy)) {
+            return;
+        }
+        String orderType = params.getOrDefault("orderType", Strings.EMPTY);
+        criteria.setOrder(orderBy, orderType);
+    }
+
+    private void extractLimit(Map<String, String> params) {
+        String limit = params.remove("limit");
+        if (limit == null || limit.isBlank()) {
+            return;
+        }
+        try {
+            criteria.setLimit(Integer.valueOf(limit));
+        } catch (NumberFormatException ignored) {
+        }
+    }
+
+    private void extractStart(Map<String, String> params) {
+        String start = params.remove("start");
+        if (start == null || start.isBlank()) {
+            return;
+        }
+        try {
+            criteria.setStart(Integer.valueOf(start));
+        } catch (NumberFormatException ignored) {
+        }
+    }
+
+    private void extractDefaultFilters(Map<String, String> params) {
+        List<Filter> filters = criteria.getFilters();
+        for (String filterField : filterFields) {
+            String value = params.remove(filterField);
+            if (value == null || value.isBlank()) {
+                continue;
+            }
+            Filter filter = new Filter(filterField, FilterOperator.EQUAL.value(), value);
+            filters.add(filter);
+        }
+        criteria.setFilters(filters);
+    }
+
+    private void extractFilters(Map<String, String> params) {
         int maxParams = params.size();
-        List<Filter> filters = new ArrayList<>();
+        List<Filter> filters = criteria.getFilters();
 
         for (int possibleKey = 0; possibleKey < maxParams; possibleKey++) {
-            if (!params.containsKey(String.format("filters.%s.field", possibleKey))
-                    || !params.containsKey(String.format("filters.%s.value", possibleKey))) {
+            if (!containsFieldAndValue(params, possibleKey)) {
                 continue;
             }
             String field = params.get(String.format("filters.%s.field", possibleKey));
+            if (!filterFields.contains(field)) {
+                continue;
+            }
             String operator = params.getOrDefault(String.format("filters.%s.operator", possibleKey), Strings.EMPTY);
             String value = params.get(String.format("filters.%s.value", possibleKey));
             if (field.isBlank() || value.isBlank()) {
@@ -44,34 +101,7 @@ public final class CriteriaParser {
         criteria.setFilters(filters);
     }
 
-    private static void extractOrder(Criteria criteria, Map<String, String> params) {
-        String orderBy = params.get("orderBy");
-        if (orderBy == null || orderBy.isBlank()) {
-            return;
-        }
-        String orderType = params.getOrDefault("orderType", Strings.EMPTY);
-        criteria.setOrder(orderBy, orderType);
-    }
-
-    private static void extractLimit(Criteria criteria, Map<String, String> params) {
-        String limit = params.get("limit");
-        if (limit == null || limit.isBlank()) {
-            return;
-        }
-        try {
-            criteria.setLimit(Integer.valueOf(limit));
-        } catch (NumberFormatException ignored) {
-        }
-    }
-
-    private static void extractStart(Criteria criteria, Map<String, String> params) {
-        String start = params.get("start");
-        if (start == null || start.isBlank()) {
-            return;
-        }
-        try {
-            criteria.setStart(Integer.valueOf(start));
-        } catch (NumberFormatException ignored) {
-        }
+    private static boolean containsFieldAndValue(Map<String, String> params, int possibleKey) {
+        return params.containsKey(String.format("filters.%s.field", possibleKey)) && params.containsKey(String.format("filters.%s.value", possibleKey));
     }
 }

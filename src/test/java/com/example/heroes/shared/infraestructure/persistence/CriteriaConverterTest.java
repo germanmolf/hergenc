@@ -136,11 +136,4 @@ final class CriteriaConverterTest extends PersistenceTestModule {
 
         assertThat(List.of(superman), contains(result.toArray()));
     }
-
-    @Test
-    void ignore_unknown_field() {
-        Criteria criteria = HeroCriteriaMother.withFilter("qwe", "qwe", "qwe");
-
-        repository.search(criteria);
-    }
 }

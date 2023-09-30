@@ -49,4 +49,10 @@ public final class CriteriaMother {
         params.put("start", start);
         return params;
     }
+
+    public static Map<String, String> createParamsWithDefaultFilter(String field, String value) {
+        Map<String, String> params = new HashMap<>();
+        params.put(field, value);
+        return params;
+    }
 }

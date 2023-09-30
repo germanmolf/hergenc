@@ -5,10 +5,17 @@ import java.util.List;
 
 public final class Criteria {
 
-    private List<Filter> filters = new ArrayList<>();
-    private Order order = Order.none();
-    private Integer limit = Integer.MAX_VALUE;
-    private Integer start = 0;
+    private List<Filter> filters;
+    private Order order;
+    private Integer limit;
+    private Integer start;
+
+    public Criteria() {
+        filters = new ArrayList<>();
+        order = Order.none();
+        limit = Integer.MAX_VALUE;
+        start = 0;
+    }
 
     public List<Filter> getFilters() {
         return filters;

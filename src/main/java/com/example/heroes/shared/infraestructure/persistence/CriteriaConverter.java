@@ -5,7 +5,6 @@ import com.example.heroes.shared.domain.criteria.Filter;
 import com.example.heroes.shared.domain.criteria.FilterOperator;
 import jakarta.persistence.criteria.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,18 +43,10 @@ public final class CriteriaConverter<T> {
     }
 
     private Predicate[] formatPredicates(List<Filter> filters, Root<T> root) {
-        List<Predicate> predicates = new ArrayList<>();
-        for (Filter filter : filters) {
-            try {
-                Predicate predicate = formatPredicate(filter, root);
-                predicates.add(predicate);
-            } catch (IllegalArgumentException ignored) {
-            }
-        }
-        return predicates.toArray(new Predicate[0]);
+        return filters.stream().map(filter -> formatPredicate(filter, root)).toArray(Predicate[]::new);
     }
 
-    private Predicate formatPredicate(Filter filter, Root<T> root) throws IllegalArgumentException {
+    private Predicate formatPredicate(Filter filter, Root<T> root) {
         BiFunction<Filter, Root<T>, Predicate> transformer = predicateTransformers.get(filter.getOperator());
         return transformer.apply(filter, root);
     }

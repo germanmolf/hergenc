@@ -33,6 +33,78 @@ final class HeroGetControllerTest extends ControllerTestModule {
         assertResponse("/heroes", 200, body);
     }
 
+    @Test
+    void search_by_name() throws Exception {
+        String spiderman = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"araña\"}";
+        String superman = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"superfuerte\"}";
+        String params = "filters.0.field=name&filters.0.operator==&filters.0.value=spiderman";
+        String body = "[" + spiderman + "]";
+        givenThereIsAHero(spiderman);
+        givenThereIsAHero(superman);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
+    @Test
+    void search_by_power() throws Exception {
+        String spiderman = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"araña\"}";
+        String superman = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"superfuerte\"}";
+        String params = "filters.0.field=power&filters.0.operator==&filters.0.value=araña";
+        String body = "[" + spiderman + "]";
+        givenThereIsAHero(spiderman);
+        givenThereIsAHero(superman);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
+    @Test
+    void ignore_not_allowed_filter() throws Exception {
+        String spiderman = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"araña\"}";
+        String superman = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"superfuerte\"}";
+        String params = "filters.0.field=id&filters.0.operator==&filters.0.value=cc77f9b4-3209-11ee-be56-0242ac120002";
+        String body = "[" + spiderman + "," + superman + "]";
+        givenThereIsAHero(spiderman);
+        givenThereIsAHero(superman);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
+    @Test
+    void order_by_name() throws Exception {
+        String heroA = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"a\",\"power\":\"araña\"}";
+        String heroB = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"b\",\"power\":\"superfuerte\"}";
+        String params = "orderBy=name&orderType=asc";
+        String body = "[" + heroA + "," + heroB + "]";
+        givenThereIsAHero(heroA);
+        givenThereIsAHero(heroB);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
+    @Test
+    void order_by_power() throws Exception {
+        String heroA = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"a\"}";
+        String heroB = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"b\"}";
+        String params = "orderBy=power&orderType=asc";
+        String body = "[" + heroA + "," + heroB + "]";
+        givenThereIsAHero(heroA);
+        givenThereIsAHero(heroB);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
+    @Test
+    void ignore_not_allowed_orderBy() throws Exception {
+        String spiderman = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"spiderman\",\"power\":\"araña\"}";
+        String superman = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"superman\",\"power\":\"superfuerte\"}";
+        String params = "orderBy=id&orderType=desc";
+        String body = "[" + spiderman + "," + superman + "]";
+        givenThereIsAHero(spiderman);
+        givenThereIsAHero(superman);
+
+        assertResponse(String.format("/heroes?%s", params), 200, body);
+    }
+
     private void givenThereIsAHero(String body) throws Exception {
         assertRequestWithBody("POST", "/heroes", body, 201);
     }
