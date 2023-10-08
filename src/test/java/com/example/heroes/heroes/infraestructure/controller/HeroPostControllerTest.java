@@ -3,7 +3,7 @@ package com.example.heroes.heroes.infraestructure.controller;
 import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
 import org.junit.jupiter.api.Test;
 
-final class HeroPutControllerTest extends ControllerTestModule {
+final class HeroPostControllerTest extends ControllerTestModule {
 
     @Test
     void create_a_valid_hero() throws Exception {
