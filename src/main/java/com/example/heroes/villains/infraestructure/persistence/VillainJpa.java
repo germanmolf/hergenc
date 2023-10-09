@@ -18,13 +18,14 @@ public final class VillainJpa {
     @Id
     private String id;
     private String name;
+    private String power;
 
     public static VillainJpa fromAggregate(Villain villain) {
-        return new VillainJpa(villain.getId().value(), villain.getName().value());
+        return new VillainJpa(villain.getId().value(), villain.getName().value(), villain.getPower().value());
     }
 
     public static Villain fromJpaEntity(VillainJpa villainJpa) {
-        return new Villain(villainJpa.getId(), villainJpa.getName());
+        return new Villain(villainJpa.getId(), villainJpa.getName(), villainJpa.getPower());
     }
 }
 

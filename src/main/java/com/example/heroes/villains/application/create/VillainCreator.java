@@ -17,7 +17,7 @@ public final class VillainCreator {
     }
 
     public void create(CreateVillainRequest request) {
-        Villain villain = Villain.create(request.getId(), request.getName());
+        Villain villain = Villain.create(request.getId(), request.getName(), request.getPower());
         checkVillainNotExists(villain.getId());
         repository.save(villain);
         eventBus.publish(villain.pullDomainEvents());
