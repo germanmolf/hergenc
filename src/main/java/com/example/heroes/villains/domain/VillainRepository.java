@@ -12,8 +12,6 @@ public interface VillainRepository {
 
     Optional<Villain> search(VillainId id);
 
-    List<Villain> searchAll();
-
     List<Villain> search(Criteria criteria);
 
 }

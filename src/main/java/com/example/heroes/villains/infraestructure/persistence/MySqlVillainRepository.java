@@ -18,7 +18,6 @@ public class MySqlVillainRepository extends MySqlRepository<VillainJpa> implemen
         super(entityManagerFactory, VillainJpa.class);
     }
 
-
     @Override
     public void save(Villain villain) {
         persist(VillainJpa.fromAggregate(villain));
@@ -30,12 +29,7 @@ public class MySqlVillainRepository extends MySqlRepository<VillainJpa> implemen
     }
 
     @Override
-    public List<Villain> searchAll() {
-        return null;
-    }
-
-    @Override
     public List<Villain> search(Criteria criteria) {
-        return null;
+        return byCriteria(criteria).stream().map(VillainJpa::fromJpaEntity).toList();
     }
 }
