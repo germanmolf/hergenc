@@ -19,4 +19,9 @@ public final class VillainExceptionHandler extends ResponseEntityExceptionHandle
         return handleExceptionInternal(e, ErrorResponse.fromDomainError(e), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
+    @ExceptionHandler(value = {VillainNameNullException.class, VillainNameInvalidLengthException.class,
+            VillainPowerNullException.class, VillainPowerInvalidLengthException.class})
+    private ResponseEntity<Object> handleBadRequest(DomainError e, WebRequest request) {
+        return handleExceptionInternal(e, ErrorResponse.fromDomainError(e), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }
