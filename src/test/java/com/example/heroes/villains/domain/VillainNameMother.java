@@ -4,7 +4,7 @@ import com.example.heroes.shared.domain.WordMother;
 
 public final class VillainNameMother {
 
-    public static String random() {
-        return WordMother.randomMinMax(1, 20);
+    public static VillainName random() {
+        return new VillainName(WordMother.randomMinMax(1, 20));
     }
 }

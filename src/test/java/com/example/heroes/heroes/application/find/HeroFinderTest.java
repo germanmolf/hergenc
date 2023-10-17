@@ -33,7 +33,7 @@ final class HeroFinderTest extends HeroModuleTest {
 
     @Test
     void throw_an_exception_when_hero_not_found() {
-        String id = HeroIdMother.randomValue();
+        String id = HeroIdMother.random().value();
 
         assertThrows(HeroNotFoundException.class, () -> finder.find(id));
     }

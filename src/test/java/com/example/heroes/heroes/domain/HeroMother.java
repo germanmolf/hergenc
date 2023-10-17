@@ -4,19 +4,19 @@ import com.example.heroes.heroes.application.create.CreateHeroRequest;
 
 public final class HeroMother {
 
-    public static Hero create(String id, String name, String power) {
+    private static Hero create(String id, String name, String power) {
         return new Hero(id, name, power);
     }
 
     public static Hero create(String name, String power) {
-        return new Hero(HeroIdMother.randomValue(), name, power);
+        return create(HeroIdMother.random().value(), name, power);
     }
 
     public static Hero random() {
-        return new Hero(
-                HeroIdMother.randomValue(),
-                HeroNameMother.randomValue(),
-                HeroPowerMother.randomValue()
+        return create(
+                HeroIdMother.random().value(),
+                HeroNameMother.random().value(),
+                HeroPowerMother.random().value()
         );
     }
 

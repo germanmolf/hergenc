@@ -1,7 +1,10 @@
 package com.example.heroes.villains.application.create;
 
 import com.example.heroes.villains.VillainModuleTest;
-import com.example.heroes.villains.domain.*;
+import com.example.heroes.villains.domain.Villain;
+import com.example.heroes.villains.domain.VillainCreatedEvent;
+import com.example.heroes.villains.domain.VillainCreatedEventMother;
+import com.example.heroes.villains.domain.VillainMother;
 import com.example.heroes.villains.domain.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +50,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_null() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), null, VillainPowerMother.random());
+        CreateVillainRequest request = CreateVillainRequestMother.withNameNull();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainNameNullException.class, () -> creator.create(request));
@@ -57,7 +60,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_blank() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), "", VillainPowerMother.random());
+        CreateVillainRequest request = CreateVillainRequestMother.withNameBlank();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainNameInvalidLengthException.class, () -> creator.create(request));
@@ -67,7 +70,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_name_is_over_length() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), "villainnamevillainname", VillainPowerMother.random());
+        CreateVillainRequest request = CreateVillainRequestMother.withNameOverLength();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainNameInvalidLengthException.class, () -> creator.create(request));
@@ -77,7 +80,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_null() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), VillainNameMother.random(), null);
+        CreateVillainRequest request = CreateVillainRequestMother.withPowerNull();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainPowerNullException.class, () -> creator.create(request));
@@ -87,7 +90,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_blank() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), VillainNameMother.random(), "");
+        CreateVillainRequest request = CreateVillainRequestMother.withPowerBlank();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainPowerInvalidLengthException.class, () -> creator.create(request));
@@ -97,7 +100,7 @@ public final class VillainCreatorTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_power_is_over_length() {
-        CreateVillainRequest request = CreateVillainRequestMother.create(VillainIdMother.randomValue(), VillainNameMother.random(), "villainpowervillainpowervillain");
+        CreateVillainRequest request = CreateVillainRequestMother.withPowerOverLength();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
         assertThrows(VillainPowerInvalidLengthException.class, () -> creator.create(request));

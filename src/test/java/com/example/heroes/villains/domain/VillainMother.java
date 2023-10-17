@@ -4,15 +4,20 @@ import com.example.heroes.villains.application.create.CreateVillainRequest;
 
 public final class VillainMother {
 
+    private static Villain create(String id, String name, String power) {
+        return new Villain(id, name, power);
+    }
+
     public static Villain random() {
-        return new Villain(VillainIdMother.randomValue(), VillainNameMother.random(), VillainPowerMother.random());
+        return create(VillainIdMother.random().value(), VillainNameMother.random().value(),
+                VillainPowerMother.random().value());
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
-        return new Villain(request.getId(), request.getName(), request.getPower());
+        return create(request.getId(), request.getName(), request.getPower());
     }
 
     public static Villain create(String name, String power) {
-        return new Villain(VillainIdMother.randomValue(), name, power);
+        return create(VillainIdMother.random().value(), name, power);
     }
 }

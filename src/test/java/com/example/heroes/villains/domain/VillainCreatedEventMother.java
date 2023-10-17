@@ -4,11 +4,15 @@ import com.example.heroes.villains.application.create.CreateVillainRequest;
 
 public final class VillainCreatedEventMother {
 
+    private static VillainCreatedEvent create(String id, String name, String power) {
+        return new VillainCreatedEvent(id, name, power);
+    }
+
     public static VillainCreatedEvent fromAggregate(Villain villain) {
-        return new VillainCreatedEvent(villain.getId().value(), villain.getName().value());
+        return create(villain.getId().value(), villain.getName().value(), villain.getPower().value());
     }
 
     public static VillainCreatedEvent fromRequest(CreateVillainRequest request) {
-        return new VillainCreatedEvent(request.getId(), request.getName());
+        return create(request.getId(), request.getName(), request.getPower());
     }
 }

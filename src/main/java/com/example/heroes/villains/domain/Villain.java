@@ -18,7 +18,7 @@ public final class Villain extends AggregateRoot {
 
     public static Villain create(String id, String name, String power) {
         Villain villain = new Villain(id, name, power);
-        villain.record(new VillainCreatedEvent(id, name));
+        villain.record(new VillainCreatedEvent(id, name, power));
         return villain;
     }
 
