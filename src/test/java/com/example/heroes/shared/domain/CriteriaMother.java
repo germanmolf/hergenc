@@ -5,6 +5,9 @@ import java.util.Map;
 
 public final class CriteriaMother {
 
+    public static final String filterString = String.join("&", "filters.0.field=%s", "filters.0.operator=%s", "filters.0.value=%s");
+    public static final String orderString = "orderBy=%s&orderType=%s";
+
     public static Map<String, String> createParamsWithFilter(String field, String operator, String value) {
         Map<String, String> params = new HashMap<>();
         params.put("filters.0.field", field);

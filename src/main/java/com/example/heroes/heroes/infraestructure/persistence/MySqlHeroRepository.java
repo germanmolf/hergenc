@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements HeroRepository {
@@ -31,6 +30,6 @@ public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements Her
 
     @Override
     public List<Hero> search(Criteria criteria) {
-        return byCriteria(criteria).stream().map(HeroJpa::fromJpaEntity).collect(Collectors.toList());
+        return byCriteria(criteria).stream().map(HeroJpa::fromJpaEntity).toList();
     }
 }

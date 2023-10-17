@@ -3,12 +3,15 @@ package com.example.heroes.villains.infraestructure.controller;
 import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
 import org.junit.jupiter.api.Test;
 
+import static com.example.heroes.shared.domain.CriteriaMother.filterString;
+import static com.example.heroes.shared.domain.CriteriaMother.orderString;
+
 final class VillainGetControllerTest extends ControllerTestModule {
 
     @Test
     void find_an_existing_villain() throws Exception {
         String id = "cc77f9b4-3209-11ee-be56-0242ac120002";
-        String body = "{\"id\":\"" + id + "\",\"name\":\"supervillano\",\"power\":\"superpoder\"}";
+        String body = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"supervillano\",\"power\":\"superpoder\"}";
         givenThereIsAVillain(body);
 
         assertResponse(String.format("/villains/%s", id), 200, body);
@@ -37,7 +40,8 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void search_by_name() throws Exception {
         String joker = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"joker\",\"power\":\"está loco\"}";
         String duendeVerde = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"duende verde\",\"power\":\"también loco\"}";
-        String params = "filters.0.field=name&filters.0.operator==&filters.0.value=joker";
+        String params = String.format(filterString, "name", "=", "joker");
+
         String body = "[" + joker + "]";
         givenThereIsAVillain(joker);
         givenThereIsAVillain(duendeVerde);
@@ -49,7 +53,8 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void search_by_power() throws Exception {
         String joker = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"joker\",\"power\":\"está loco\"}";
         String duendeVerde = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"duende verde\",\"power\":\"también loco\"}";
-        String params = "filters.0.field=power&filters.0.operator==&filters.0.value=está loco";
+        String params = String.format(filterString, "power", "=", "está loco");
+
         String body = "[" + joker + "]";
         givenThereIsAVillain(joker);
         givenThereIsAVillain(duendeVerde);
@@ -61,7 +66,8 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void ignore_not_allowed_filter() throws Exception {
         String joker = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"joker\",\"power\":\"está loco\"}";
         String duendeVerde = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"duende verde\",\"power\":\"también loco\"}";
-        String params = "filters.0.field=id&filters.0.operator==&filters.0.value=cc77f9b4-3209-11ee-be56-0242ac120002";
+        String params = String.format(filterString, "id", "=", "cc77f9b4-3209-11ee-be56-0242ac120002");
+
         String body = "[" + joker + "," + duendeVerde + "]";
         givenThereIsAVillain(joker);
         givenThereIsAVillain(duendeVerde);
@@ -73,7 +79,7 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void order_by_name() throws Exception {
         String villainA = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"a\",\"power\":\"está loco\"}";
         String villainB = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"b\",\"power\":\"también loco\"}";
-        String params = "orderBy=name&orderType=asc";
+        String params = String.format(orderString, "name", "asc");
         String body = "[" + villainA + "," + villainB + "]";
         givenThereIsAVillain(villainA);
         givenThereIsAVillain(villainB);
@@ -85,7 +91,7 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void order_by_power() throws Exception {
         String villainA = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"joker\",\"power\":\"a\"}";
         String villainB = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"duende verde\",\"power\":\"b\"}";
-        String params = "orderBy=power&orderType=asc";
+        String params = String.format(orderString, "power", "asc");
         String body = "[" + villainA + "," + villainB + "]";
         givenThereIsAVillain(villainA);
         givenThereIsAVillain(villainB);
@@ -97,7 +103,7 @@ final class VillainGetControllerTest extends ControllerTestModule {
     void ignore_not_allowed_orderBy() throws Exception {
         String joker = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"joker\",\"power\":\"está loco\"}";
         String duendeVerde = "{\"id\":\"f555eb50-4827-11ee-be56-0242ac120002\",\"name\":\"duende verde\",\"power\":\"también loco\"}";
-        String params = "orderBy=id&orderType=desc";
+        String params = String.format(orderString, "id", "desc");
         String body = "[" + joker + "," + duendeVerde + "]";
         givenThereIsAVillain(joker);
         givenThereIsAVillain(duendeVerde);
