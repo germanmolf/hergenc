@@ -21,6 +21,11 @@ public final class Criteria {
         return filters;
     }
 
+    public Criteria setFilter(String field, String operator, String value) {
+        filters.add(new Filter(field, operator, value));
+        return this;
+    }
+
     public Criteria setFilters(List<Filter> filters) {
         this.filters = filters;
         return this;
@@ -31,7 +36,7 @@ public final class Criteria {
     }
 
     public Criteria setOrder(String orderBy, String orderType) {
-        this.order = new Order(orderBy, orderType);
+        order = new Order(orderBy, orderType);
         return this;
     }
 
