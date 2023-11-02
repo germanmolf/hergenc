@@ -10,7 +10,7 @@ public final class HeroCriteriaMother {
 
     public static Criteria filterByName(String operator, String value) {
         Filter filter = new Filter("name", operator, value);
-        List<Filter> filters = Arrays.asList(filter);
+        List<Filter> filters = List.of(filter);
         return new Criteria().setFilters(filters);
     }
 
