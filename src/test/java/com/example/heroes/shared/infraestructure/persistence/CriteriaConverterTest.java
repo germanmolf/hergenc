@@ -88,6 +88,42 @@ final class CriteriaConverterTest extends PersistenceTestModule {
     }
 
     @Test
+    void search_by_in() {
+        Hero superman = HeroMother.create("Superman", "Volar");
+        Hero spiderman = HeroMother.create("Spiderman", "Fuerza");
+        Hero batman = HeroMother.create("Batman", "Tecnología");
+
+        Criteria criteria = HeroCriteriaMother.filterByName("in", "Spiderman,Batman");
+
+        repository.save(superman);
+        repository.save(spiderman);
+        repository.save(batman);
+
+        List<Hero> result = repository.search(criteria);
+
+
+        assertThat(List.of(spiderman, batman), containsInAnyOrder(result.toArray()));
+    }
+
+    @Test
+    void search_by_not_in() {
+        Hero superman = HeroMother.create("Superman", "Volar");
+        Hero spiderman = HeroMother.create("Spiderman", "Fuerza");
+        Hero batman = HeroMother.create("Batman", "Tecnología");
+
+        Criteria criteria = HeroCriteriaMother.filterByName("not_in", "Spiderman,Batman");
+
+        repository.save(superman);
+        repository.save(spiderman);
+        repository.save(batman);
+
+        List<Hero> result = repository.search(criteria);
+
+
+        assertThat(List.of(superman), containsInAnyOrder(result.toArray()));
+    }
+
+    @Test
     void search_ordered_asc() {
         Hero superman = HeroMother.create("ASuperman", "Volar");
         Hero spiderman = HeroMother.create("BSpiderman", "Fuerza");

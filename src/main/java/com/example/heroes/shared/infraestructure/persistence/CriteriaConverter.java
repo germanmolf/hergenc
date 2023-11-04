@@ -21,7 +21,11 @@ public final class CriteriaConverter<T> {
         put(FilterOperator.LT, CriteriaConverter.this::lowerThanPredicateTransformer);
         put(FilterOperator.CONTAINS, CriteriaConverter.this::containsPredicateTransformer);
         put(FilterOperator.NOT_CONTAINS, CriteriaConverter.this::notContainsPredicateTransformer);
+        put(FilterOperator.IN, CriteriaConverter.this::inPredicateTransformer);
+        put(FilterOperator.NOT_IN, CriteriaConverter.this::notInPredicateTransformer);
     }};
+
+    private static final String IN_DIVIDER = ",";
 
     public CriteriaConverter(CriteriaBuilder builder) {
         this.builder = builder;
@@ -73,5 +77,15 @@ public final class CriteriaConverter<T> {
 
     private Predicate notContainsPredicateTransformer(Filter filter, Root<T> root) {
         return builder.notLike(root.get(filter.getField()), String.format("%%%s%%", filter.getValue()));
+    }
+
+    private Predicate inPredicateTransformer(Filter filter, Root<T> root) {
+        Object[] values = filter.getValue().split(IN_DIVIDER);
+        return root.get(filter.getField()).in(values);
+    }
+
+    private Predicate notInPredicateTransformer(Filter filter, Root<T> root) {
+        Object[] values = filter.getValue().split(IN_DIVIDER);
+        return builder.not(root.get(filter.getField()).in(values));
     }
 }
