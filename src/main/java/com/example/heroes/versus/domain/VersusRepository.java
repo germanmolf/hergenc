@@ -13,4 +13,6 @@ public interface VersusRepository {
 
     List<Versus> search(Criteria criteria);
 
+    Long count(Criteria criteria);
+
 }

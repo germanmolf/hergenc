@@ -1,15 +1,16 @@
 package com.example.heroes.versus.application;
 
-import com.example.heroes.heroes.domain.Hero;
-import com.example.heroes.heroes.domain.HeroRepository;
+import com.example.heroes.heroes.application.find.HeroFinder;
+import com.example.heroes.heroes.domain.HeroId;
+import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 import com.example.heroes.shared.application.UnitTestModule;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusRepository;
-import com.example.heroes.villains.domain.Villain;
-import com.example.heroes.villains.domain.VillainRepository;
+import com.example.heroes.villains.application.find.VillainFinder;
+import com.example.heroes.villains.domain.VillainId;
+import com.example.heroes.villains.domain.exceptions.VillainNotFoundException;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -17,15 +18,15 @@ import static org.mockito.Mockito.*;
 public class VersusModuleTest extends UnitTestModule {
 
     protected VersusRepository repository;
-    protected HeroRepository heroRepository;
-    protected VillainRepository villainRepository;
+    protected HeroFinder heroFinder;
+    protected VillainFinder villainFinder;
 
     @Override
     protected void setUp() {
         super.setUp();
         repository = mock(VersusRepository.class);
-        heroRepository = mock(HeroRepository.class);
-        villainRepository = mock(VillainRepository.class);
+        heroFinder = mock(HeroFinder.class);
+        villainFinder = mock(VillainFinder.class);
     }
 
     protected void shouldHaveSaved(Versus versus) {
@@ -40,19 +41,15 @@ public class VersusModuleTest extends UnitTestModule {
         when(repository.search(versus.getId())).thenReturn(Optional.of(versus));
     }
 
-    public void shouldSearch(List<Versus> versus) {
-        when(repository.search(any(Criteria.class))).thenReturn(versus);
+    public void shouldCount(Long heroCount, Long villainCount) {
+        when(repository.count(any(Criteria.class))).thenReturn(heroCount, villainCount);
     }
 
-    public void shouldSearch(List<Versus> versus1, List<Versus> versus2) {
-        when(repository.search(any(Criteria.class))).thenReturn(versus1).thenReturn(versus2);
+    public void shouldNotFindHero(HeroId id) {
+        when(heroFinder.find(id.value())).thenThrow(HeroNotFoundException.class);
     }
 
-    public void shouldSearchHero(Hero hero) {
-        when(heroRepository.search(hero.getId())).thenReturn(Optional.of(hero));
-    }
-
-    public void shouldSearchVillain(Villain villain) {
-        when(villainRepository.search(villain.getId())).thenReturn(Optional.of(villain));
+    public void shouldNotFindVillain(VillainId id) {
+        when(villainFinder.find(id.value())).thenThrow(VillainNotFoundException.class);
     }
 }

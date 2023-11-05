@@ -1,43 +1,52 @@
 package com.example.heroes.versus.application.create;
 
-import com.example.heroes.shared.domain.UuidMother;
+import com.example.heroes.heroes.domain.HeroIdMother;
+import com.example.heroes.shared.domain.WordMother;
+import com.example.heroes.versus.domain.VersusDefeatedMother;
+import com.example.heroes.versus.domain.VersusIdMother;
+import com.example.heroes.villains.domain.VillainIdMother;
 
-import java.util.Random;
-
-//TODO que no pueda instanciarse
 public final class CreateVersusRequestMother {
+
+    private CreateVersusRequestMother() {
+    }
 
     private static CreateVersusRequest create(String id, String heroId, String villainId, String defeated) {
         return new CreateVersusRequest(id, heroId, villainId, defeated);
     }
 
     public static CreateVersusRequest random() {
-        String[] s = {"hero", "villain", "both", "none"};
-        Random ran = new Random();
-        String s_ran = s[ran.nextInt(s.length)];
-        return create(UuidMother.random(), UuidMother.random(), UuidMother.random(), s_ran);
+        return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                VersusDefeatedMother.random().value());
     }
 
     public static CreateVersusRequest withDefeatedNull() {
-        return create(UuidMother.random(), UuidMother.random(), UuidMother.random(), null);
+        return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                null);
     }
 
     public static CreateVersusRequest withDefeatedNotValid() {
-        return create(UuidMother.random(), UuidMother.random(), UuidMother.random(),
-                "value_not_valid");
+        return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                WordMother.random());
     }
 
     public static CreateVersusRequest withHeroDefeated() {
-        String[] s = {"hero", "both"};
-        Random ran = new Random();
-        String s_ran = s[ran.nextInt(s.length)];
-        return create(UuidMother.random(), UuidMother.random(), UuidMother.random(), s_ran);
+        return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                VersusDefeatedMother.heroDefeatedRandom().value());
     }
 
     public static CreateVersusRequest withVillainDefeated() {
-        String[] s = {"villain", "both"};
-        Random ran = new Random();
-        String s_ran = s[ran.nextInt(s.length)];
-        return create(UuidMother.random(), UuidMother.random(), UuidMother.random(), s_ran);
+        return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                VersusDefeatedMother.villainDefeatedRandom().value());
     }
 }

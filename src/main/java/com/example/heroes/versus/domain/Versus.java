@@ -2,8 +2,6 @@ package com.example.heroes.versus.domain;
 
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.shared.domain.AggregateRoot;
-import com.example.heroes.versus.domain.exceptions.VersusDefeatedInvalidValueException;
-import com.example.heroes.versus.domain.exceptions.VersusDefeatedNullException;
 import com.example.heroes.villains.domain.VillainId;
 
 import java.util.Objects;
@@ -13,20 +11,13 @@ public final class Versus extends AggregateRoot {
     private final VersusId id;
     private final HeroId heroId;
     private final VillainId villainId;
-    private final String defeated;
+    private final VersusDefeated defeated;
 
     public Versus(String id, String heroId, String villainId, String defeated) {
         this.id = new VersusId(id);
         this.heroId = new HeroId(heroId);
         this.villainId = new VillainId(villainId);
-        if (defeated == null) {
-            throw new VersusDefeatedNullException();
-        }
-        if (!(defeated.equals("hero") || defeated.equals("villain") || defeated.equals("both") || defeated.equals(
-                "none"))) {
-            throw new VersusDefeatedInvalidValueException(defeated);
-        }
-        this.defeated = defeated;
+        this.defeated = VersusDefeated.fromValue(defeated);
     }
 
     public static Versus create(String id, String heroId, String villainId, String defeated) {
@@ -47,7 +38,7 @@ public final class Versus extends AggregateRoot {
         return villainId;
     }
 
-    public String getDefeated() {
+    public VersusDefeated getDefeated() {
         return defeated;
     }
 

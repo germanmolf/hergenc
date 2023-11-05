@@ -4,6 +4,7 @@ import com.example.heroes.heroes.application.find.HeroFinder;
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroMother;
 import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
+import com.example.heroes.shared.domain.LongMother;
 import com.example.heroes.versus.application.VersusModuleTest;
 import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusCreatedEvent;
@@ -19,9 +20,6 @@ import com.example.heroes.villains.domain.VillainMother;
 import com.example.heroes.villains.domain.exceptions.VillainNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -43,29 +41,11 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.random();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Hero hero = HeroMother.create(versus.getHeroId().value());
-        Villain villain = VillainMother.create(versus.getVillainId().value());
-        shouldSearchHero(hero);
-        shouldSearchVillain(villain);
 
         creator.create(request);
 
         shouldHaveSaved(versus);
         shouldHavePublished(event);
-    }
-
-    @Test
-    void throw_an_exception_when_versus_already_exists() {
-        CreateVersusRequest request = CreateVersusRequestMother.random();
-        Versus versus = VersusMother.fromRequest(request);
-        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Versus versusExists = VersusMother.fromRequest(request);
-        shouldSearch(versusExists);
-        
-        assertThrows(VersusAlreadyExistsException.class, () -> creator.create(request));
-
-        shouldNotHaveSaved(versus);
-        shouldNotHavePublished(event);
     }
 
     @Test
@@ -89,12 +69,25 @@ public final class VersusCreatorTest extends VersusModuleTest {
     }
 
     @Test
+    void throw_an_exception_when_versus_already_exists() {
+        CreateVersusRequest request = CreateVersusRequestMother.random();
+        Versus versus = VersusMother.fromRequest(request);
+        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
+        Versus versusExists = VersusMother.fromRequest(request);
+        shouldSearch(versusExists);
+
+        assertThrows(VersusAlreadyExistsException.class, () -> creator.create(request));
+
+        shouldNotHaveSaved(versus);
+        shouldNotHavePublished(event);
+    }
+
+    @Test
     void throw_an_exception_when_hero_not_found() {
         CreateVersusRequest request = CreateVersusRequestMother.random();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Villain villain = VillainMother.create(versus.getVillainId().value());
-        shouldSearchVillain(villain);
+        shouldNotFindHero(versus.getHeroId());
 
         assertThrows(HeroNotFoundException.class, () -> creator.create(request));
 
@@ -107,8 +100,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.random();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Hero hero = HeroMother.create(versus.getHeroId().value());
-        shouldSearchHero(hero);
+        shouldNotFindVillain(versus.getVillainId());
 
         assertThrows(VillainNotFoundException.class, () -> creator.create(request));
 
@@ -121,13 +113,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.withHeroDefeated();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Versus versusWithHeroDefeated = VersusMother.fromRequest(CreateVersusRequestMother.withHeroDefeated());
-        Hero hero = HeroMother.create(versus.getHeroId().value());
-        Villain villain = VillainMother.create(versus.getVillainId().value());
-
-        shouldSearch(List.of(versusWithHeroDefeated));
-        shouldSearchHero(hero);
-        shouldSearchVillain(villain);
+        shouldCount(LongMother.greaterThanZero(), 0L);
 
         assertThrows(HeroAlreadyDefeatedException.class, () -> creator.create(request));
 
@@ -140,13 +126,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.withVillainDefeated();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        Versus versusWithVillainDefeated = VersusMother.fromRequest(CreateVersusRequestMother.withVillainDefeated());
-        Hero hero = HeroMother.create(versus.getHeroId().value());
-        Villain villain = VillainMother.create(versus.getVillainId().value());
-
-        shouldSearch(new ArrayList<>(), List.of(versusWithVillainDefeated));
-        shouldSearchHero(hero);
-        shouldSearchVillain(villain);
+        shouldCount(0L, LongMother.greaterThanZero());
 
         assertThrows(VillainAlreadyDefeatedException.class, () -> creator.create(request));
 
