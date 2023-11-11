@@ -1,8 +1,5 @@
 package com.example.heroes.versus.application.create;
 
-import com.example.heroes.heroes.application.find.HeroFinder;
-import com.example.heroes.heroes.domain.Hero;
-import com.example.heroes.heroes.domain.HeroMother;
 import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 import com.example.heroes.shared.domain.LongMother;
 import com.example.heroes.versus.application.VersusModuleTest;
@@ -10,22 +7,13 @@ import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusCreatedEvent;
 import com.example.heroes.versus.domain.VersusCreatedEventMother;
 import com.example.heroes.versus.domain.VersusMother;
-import com.example.heroes.versus.domain.exceptions.HeroAlreadyDefeatedException;
-import com.example.heroes.versus.domain.exceptions.VersusDefeatedInvalidValueException;
-import com.example.heroes.versus.domain.exceptions.VersusDefeatedNullException;
-import com.example.heroes.versus.domain.exceptions.VillainAlreadyDefeatedException;
-import com.example.heroes.villains.application.find.VillainFinder;
-import com.example.heroes.villains.domain.Villain;
-import com.example.heroes.villains.domain.VillainMother;
+import com.example.heroes.versus.domain.exceptions.*;
 import com.example.heroes.villains.domain.exceptions.VillainNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//un caso de uso para sumar los que ha derrotado y otro para ponerlo como derrotado
-//el listener que sea quien compruebe si hay que llamar al defeater
-//probar si hay condiciones de carreara si dos listener modifican la misma entidad
 public final class VersusCreatorTest extends VersusModuleTest {
 
     private VersusCreator creator;
@@ -33,7 +21,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        creator = new VersusCreator(repository, eventBus, new HeroFinder(heroRepository), new VillainFinder(villainRepository));
+        creator = new VersusCreator(repository, eventBus, heroFinder, villainFinder);
     }
 
     @Test
