@@ -1,4 +1,4 @@
-package com.example.heroes.versus.application.create.find;
+package com.example.heroes.versus.application.find;
 
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.versus.domain.VersusRepository;

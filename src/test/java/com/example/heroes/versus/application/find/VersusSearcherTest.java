@@ -2,7 +2,6 @@ package com.example.heroes.versus.application.find;
 
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.versus.application.VersusModuleTest;
-import com.example.heroes.versus.application.create.find.VersusSearcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
