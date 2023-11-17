@@ -27,4 +27,8 @@ public final class VersusExceptionHandler extends ResponseEntityExceptionHandler
         return handleExceptionInternal(e, ErrorResponse.fromDomainError(e), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(value = {VersusNotFoundException.class})
+    private ResponseEntity<Object> handleNotFound(DomainError e, WebRequest request) {
+        return handleExceptionInternal(e, ErrorResponse.fromDomainError(e), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 }
