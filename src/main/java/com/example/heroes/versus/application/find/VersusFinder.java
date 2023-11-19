@@ -1,9 +1,11 @@
 package com.example.heroes.versus.application.find;
 
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.versus.domain.VersusId;
 import com.example.heroes.versus.domain.VersusRepository;
 import com.example.heroes.versus.domain.exceptions.VersusNotFoundException;
 
+@Injectable
 public final class VersusFinder {
 
     private final VersusRepository repository;

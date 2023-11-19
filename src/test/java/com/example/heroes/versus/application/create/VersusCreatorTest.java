@@ -2,6 +2,8 @@ package com.example.heroes.versus.application.create;
 
 import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 import com.example.heroes.shared.domain.LongMother;
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
+import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import com.example.heroes.versus.application.VersusModuleTest;
 import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusCreatedEvent;
@@ -12,6 +14,7 @@ import com.example.heroes.villains.domain.exceptions.VillainNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class VersusCreatorTest extends VersusModuleTest {
@@ -34,6 +37,32 @@ public final class VersusCreatorTest extends VersusModuleTest {
 
         shouldHaveSaved(versus);
         shouldHavePublished(event);
+    }
+
+
+    @Test
+    void throw_an_exception_when_id_is_null() {
+        CreateVersusRequest request = CreateVersusRequestMother.withIdNull();
+        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
+
+        IdentifierNullException exception = assertThrows(IdentifierNullException.class, () -> creator.create(request));
+
+        assertEquals("versus_identifier_null", exception.getErrorCode());
+        assertEquals("The versus identifier is null", exception.getErrorMessage());
+        shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_id_is_not_valid() {
+        CreateVersusRequest request = CreateVersusRequestMother.withIdNotValid();
+        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
+
+        IdentifierNotValidException exception = assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+
+        assertEquals("versus_identifier_not_valid", exception.getErrorCode());
+        assertEquals(String.format("The versus identifier <%s> is not a valid UUID", request.id()),
+                exception.getErrorMessage());
+        shouldNotHavePublished(event);
     }
 
     @Test

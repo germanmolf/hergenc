@@ -11,9 +11,9 @@ public abstract class Identifier implements Serializable {
 
     final protected String value;
 
-    public Identifier(String value) {
-        checkIsNotNull(value);
-        checkValidUuid(value);
+    public Identifier(String value, String aggregateRootName) {
+        checkIsNotNull(value, aggregateRootName);
+        checkValidUuid(value, aggregateRootName);
         this.value = value;
     }
 
@@ -21,15 +21,15 @@ public abstract class Identifier implements Serializable {
         return value;
     }
 
-    private void checkIsNotNull(String value) {
-        if (value == null) throw new IdentifierNullException();
+    private void checkIsNotNull(String value, String aggregateRootName) {
+        if (value == null) throw new IdentifierNullException(aggregateRootName);
     }
 
-    private void checkValidUuid(String value) throws IllegalArgumentException {
+    private void checkValidUuid(String value, String aggregateRootName) throws IllegalArgumentException {
         try {
             UUID.fromString(value);
         } catch (IllegalArgumentException e) {
-            throw new IdentifierNotValidException(value);
+            throw new IdentifierNotValidException(value, aggregateRootName);
         }
     }
 

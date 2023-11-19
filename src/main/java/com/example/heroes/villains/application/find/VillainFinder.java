@@ -1,9 +1,11 @@
 package com.example.heroes.villains.application.find;
 
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.villains.domain.VillainId;
 import com.example.heroes.villains.domain.VillainRepository;
 import com.example.heroes.villains.domain.exceptions.VillainNotFoundException;
 
+@Injectable
 public final class VillainFinder {
 
     private final VillainRepository repository;

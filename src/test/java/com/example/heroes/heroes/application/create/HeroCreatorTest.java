@@ -6,9 +6,12 @@ import com.example.heroes.heroes.domain.HeroCreatedEvent;
 import com.example.heroes.heroes.domain.HeroCreatedEventMother;
 import com.example.heroes.heroes.domain.HeroMother;
 import com.example.heroes.heroes.domain.exceptions.*;
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
+import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class HeroCreatorTest extends HeroModuleTest {
@@ -34,17 +37,28 @@ final class HeroCreatorTest extends HeroModuleTest {
     }
 
     @Test
-    void throw_an_exception_when_hero_already_exists() {
-        Hero hero = HeroMother.random();
-        shouldSearch(hero);
-        CreateHeroRequest requestRepeated = CreateHeroRequestMother.fromAggregate(hero);
-        Hero heroRepeated = HeroMother.fromRequest(requestRepeated);
-        HeroCreatedEvent eventRepeated = HeroCreatedEventMother.fromAggregate(heroRepeated);
+    void throw_an_exception_when_id_is_null() {
+        CreateHeroRequest request = CreateHeroRequestMother.withIdNull();
+        HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
-        assertThrows(HeroAlreadyExistsException.class, () -> creator.create(requestRepeated));
+        IdentifierNullException exception = assertThrows(IdentifierNullException.class, () -> creator.create(request));
 
-        shouldNotHaveSaved(heroRepeated);
-        shouldNotHavePublished(eventRepeated);
+        assertEquals("hero_identifier_null", exception.getErrorCode());
+        assertEquals("The hero identifier is null", exception.getErrorMessage());
+        shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_id_is_not_valid() {
+        CreateHeroRequest request = CreateHeroRequestMother.withIdNotValid();
+        HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
+
+        IdentifierNotValidException exception = assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+
+        assertEquals("hero_identifier_not_valid", exception.getErrorCode());
+        assertEquals(String.format("The hero identifier <%s> is not a valid UUID", request.id()),
+                exception.getErrorMessage());
+        shouldNotHavePublished(event);
     }
 
     @Test
@@ -105,5 +119,19 @@ final class HeroCreatorTest extends HeroModuleTest {
         assertThrows(HeroPowerInvalidLengthException.class, () -> creator.create(request));
 
         shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_hero_already_exists() {
+        Hero hero = HeroMother.random();
+        shouldSearch(hero);
+        CreateHeroRequest requestRepeated = CreateHeroRequestMother.fromAggregate(hero);
+        Hero heroRepeated = HeroMother.fromRequest(requestRepeated);
+        HeroCreatedEvent eventRepeated = HeroCreatedEventMother.fromAggregate(heroRepeated);
+
+        assertThrows(HeroAlreadyExistsException.class, () -> creator.create(requestRepeated));
+
+        shouldNotHaveSaved(heroRepeated);
+        shouldNotHavePublished(eventRepeated);
     }
 }

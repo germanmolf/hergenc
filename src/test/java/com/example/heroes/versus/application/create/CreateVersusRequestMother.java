@@ -8,15 +8,26 @@ import com.example.heroes.villains.domain.VillainIdMother;
 
 public final class CreateVersusRequestMother {
 
-    private CreateVersusRequestMother() {
-    }
-
     private static CreateVersusRequest create(String id, String heroId, String villainId, String defeated) {
         return new CreateVersusRequest(id, heroId, villainId, defeated);
     }
 
     public static CreateVersusRequest random() {
         return create(VersusIdMother.random().value(),
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                VersusDefeatedMother.random().value());
+    }
+
+    public static CreateVersusRequest withIdNull() {
+        return create(null,
+                HeroIdMother.random().value(),
+                VillainIdMother.random().value(),
+                VersusDefeatedMother.random().value());
+    }
+
+    public static CreateVersusRequest withIdNotValid() {
+        return create("qwe",
                 HeroIdMother.random().value(),
                 VillainIdMother.random().value(),
                 VersusDefeatedMother.random().value());

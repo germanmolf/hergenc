@@ -2,6 +2,7 @@ package com.example.heroes.versus.application.create;
 
 import com.example.heroes.heroes.application.find.HeroFinder;
 import com.example.heroes.heroes.domain.HeroId;
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.domain.event.EventBus;
 import com.example.heroes.versus.domain.Versus;
@@ -14,6 +15,7 @@ import com.example.heroes.versus.domain.exceptions.VillainAlreadyDefeatedExcepti
 import com.example.heroes.villains.application.find.VillainFinder;
 import com.example.heroes.villains.domain.VillainId;
 
+@Injectable
 public final class VersusCreator {
 
     private final VersusRepository repository;

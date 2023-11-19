@@ -9,9 +9,6 @@ public final class VersusDefeatedMother {
     private final static VersusDefeated[] heroDefeatedValues = {VersusDefeated.HERO, VersusDefeated.BOTH};
     private final static VersusDefeated[] villainDefeatedValues = {VersusDefeated.VILLAIN, VersusDefeated.BOTH};
 
-    private VersusDefeatedMother() {
-    }
-
     public static VersusDefeated random() {
         return defeatedValues[random.nextInt(defeatedValues.length)];
     }

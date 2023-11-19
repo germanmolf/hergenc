@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MySqlVillainRepository extends MySqlRepository<VillainJpa> implements VillainRepository {
+public class VillainRepositoryMySql extends MySqlRepository<VillainJpa> implements VillainRepository {
 
-    public MySqlVillainRepository(EntityManagerFactory entityManagerFactory) {
+    public VillainRepositoryMySql(EntityManagerFactory entityManagerFactory) {
         super(entityManagerFactory, VillainJpa.class);
     }
 

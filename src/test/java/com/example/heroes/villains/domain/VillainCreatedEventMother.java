@@ -13,6 +13,6 @@ public final class VillainCreatedEventMother {
     }
 
     public static VillainCreatedEvent fromRequest(CreateVillainRequest request) {
-        return create(request.getId(), request.getName(), request.getPower());
+        return create(request.id(), request.name(), request.power());
     }
 }

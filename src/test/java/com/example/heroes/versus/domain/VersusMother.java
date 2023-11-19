@@ -5,10 +5,6 @@ import com.example.heroes.versus.application.create.CreateVersusRequest;
 
 public final class VersusMother {
 
-    private VersusMother() {
-
-    }
-
     private static Versus create(String id, String heroId, String villainId, String defeated) {
         return new Versus(id, heroId, villainId, defeated);
     }

@@ -8,10 +8,6 @@ import java.util.List;
 
 public final class VersusCriteriaMother {
 
-    private VersusCriteriaMother() {
-
-    }
-
     public static Criteria heroAndVillainNoneDefeated(String heroId, String villainId) {
         Filter heroIdFilter = new Filter("heroId", "=", heroId);
         Filter villainIdFilter = new Filter("villainId", "=", villainId);

@@ -21,6 +21,14 @@ public final class CreateVillainRequestMother {
         return create(villain.getId().value(), villain.getName().value(), villain.getPower().value());
     }
 
+    public static CreateVillainRequest withIdNull() {
+        return create(null, VillainNameMother.random().value(), VillainPowerMother.random().value());
+    }
+
+    public static CreateVillainRequest withIdNotValid() {
+        return create("qwe", VillainNameMother.random().value(), VillainPowerMother.random().value());
+    }
+
     public static CreateVillainRequest withNameNull() {
         return create(VillainIdMother.random().value(), null, VillainPowerMother.random().value());
     }

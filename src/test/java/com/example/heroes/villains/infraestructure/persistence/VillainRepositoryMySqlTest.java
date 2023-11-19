@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-final class MySqlVillainRepositoryTest extends PersistenceTestModule {
+final class VillainRepositoryMySqlTest extends PersistenceTestModule {
 
     @Autowired
     private VillainRepository repository;

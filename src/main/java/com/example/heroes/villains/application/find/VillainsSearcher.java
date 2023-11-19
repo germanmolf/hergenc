@@ -1,10 +1,12 @@
 package com.example.heroes.villains.application.find;
 
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.villains.domain.VillainRepository;
 
 import java.util.List;
 
+@Injectable
 public final class VillainsSearcher {
 
     private final VillainRepository repository;

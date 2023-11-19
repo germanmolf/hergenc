@@ -21,6 +21,14 @@ public final class CreateHeroRequestMother {
         return create(hero.getId().value(), hero.getName().value(), hero.getPower().value());
     }
 
+    public static CreateHeroRequest withIdNull() {
+        return create(null, HeroNameMother.random().value(), HeroPowerMother.random().value());
+    }
+
+    public static CreateHeroRequest withIdNotValid() {
+        return create("qwe", HeroNameMother.random().value(), HeroPowerMother.random().value());
+    }
+
     public static CreateHeroRequest withNameNull() {
         return create(HeroIdMother.random().value(), null, HeroPowerMother.random().value());
     }

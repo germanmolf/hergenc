@@ -1,5 +1,7 @@
 package com.example.heroes.villains.application.create;
 
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
+import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import com.example.heroes.villains.VillainModuleTest;
 import com.example.heroes.villains.domain.Villain;
 import com.example.heroes.villains.domain.VillainCreatedEvent;
@@ -9,6 +11,7 @@ import com.example.heroes.villains.domain.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -35,17 +38,28 @@ public final class VillainCreatorTest extends VillainModuleTest {
     }
 
     @Test
-    void throw_an_exception_when_villain_already_exists() {
-        Villain villain = VillainMother.random();
-        shouldSearch(villain);
-        CreateVillainRequest requestRepeated = CreateVillainRequestMother.fromAggregate(villain);
-        Villain villainRepeated = VillainMother.fromRequest(requestRepeated);
-        VillainCreatedEvent eventRepeated = VillainCreatedEventMother.fromAggregate(villainRepeated);
+    void throw_an_exception_when_id_is_null() {
+        CreateVillainRequest request = CreateVillainRequestMother.withIdNull();
+        VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
-        assertThrows(VillainAlreadyExistsException.class, () -> creator.create(requestRepeated));
+        IdentifierNullException exception = assertThrows(IdentifierNullException.class, () -> creator.create(request));
 
-        shouldNotHaveSaved(villainRepeated);
-        shouldNotHavePublished(eventRepeated);
+        assertEquals("villain_identifier_null", exception.getErrorCode());
+        assertEquals("The villain identifier is null", exception.getErrorMessage());
+        shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_id_is_not_valid() {
+        CreateVillainRequest request = CreateVillainRequestMother.withIdNotValid();
+        VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
+
+        IdentifierNotValidException exception = assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+
+        assertEquals("villain_identifier_not_valid", exception.getErrorCode());
+        assertEquals(String.format("The villain identifier <%s> is not a valid UUID", request.id()),
+                exception.getErrorMessage());
+        shouldNotHavePublished(event);
     }
 
     @Test
@@ -106,5 +120,19 @@ public final class VillainCreatorTest extends VillainModuleTest {
         assertThrows(VillainPowerInvalidLengthException.class, () -> creator.create(request));
 
         shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_villain_already_exists() {
+        Villain villain = VillainMother.random();
+        shouldSearch(villain);
+        CreateVillainRequest requestRepeated = CreateVillainRequestMother.fromAggregate(villain);
+        Villain villainRepeated = VillainMother.fromRequest(requestRepeated);
+        VillainCreatedEvent eventRepeated = VillainCreatedEventMother.fromAggregate(villainRepeated);
+
+        assertThrows(VillainAlreadyExistsException.class, () -> creator.create(requestRepeated));
+
+        shouldNotHaveSaved(villainRepeated);
+        shouldNotHavePublished(eventRepeated);
     }
 }

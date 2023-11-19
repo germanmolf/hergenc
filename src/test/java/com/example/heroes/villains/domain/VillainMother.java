@@ -14,7 +14,7 @@ public final class VillainMother {
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
-        return create(request.getId(), request.getName(), request.getPower());
+        return create(request.id(), request.name(), request.power());
     }
 
     public static Villain create(String name, String power) {

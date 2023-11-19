@@ -4,8 +4,10 @@ import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
 import com.example.heroes.heroes.domain.exceptions.HeroAlreadyExistsException;
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.event.EventBus;
 
+@Injectable
 public final class HeroCreator {
 
     private final HeroRepository repository;
@@ -17,7 +19,7 @@ public final class HeroCreator {
     }
 
     public void create(CreateHeroRequest request) {
-        Hero hero = Hero.create(request.getId(), request.getName(), request.getPower());
+        Hero hero = Hero.create(request.id(), request.name(), request.power());
         checkHeroNotExists(hero.getId());
         repository.save(hero);
         eventBus.publish(hero.pullDomainEvents());

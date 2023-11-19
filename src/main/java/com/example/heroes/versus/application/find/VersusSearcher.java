@@ -1,10 +1,12 @@
 package com.example.heroes.versus.application.find;
 
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.versus.domain.VersusRepository;
 
 import java.util.List;
 
+@Injectable
 public final class VersusSearcher {
 
     private final VersusRepository repository;

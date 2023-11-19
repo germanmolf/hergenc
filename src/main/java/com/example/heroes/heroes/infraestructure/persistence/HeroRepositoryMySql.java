@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements HeroRepository {
+public class HeroRepositoryMySql extends MySqlRepository<HeroJpa> implements HeroRepository {
 
-    public MySqlHeroRepository(EntityManagerFactory entityManagerFactory) {
+    public HeroRepositoryMySql(EntityManagerFactory entityManagerFactory) {
         super(entityManagerFactory, HeroJpa.class);
     }
 

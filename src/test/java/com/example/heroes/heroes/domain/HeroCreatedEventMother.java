@@ -18,6 +18,6 @@ public final class HeroCreatedEventMother {
     }
 
     public static HeroCreatedEvent fromRequest(CreateHeroRequest request) {
-        return create(request.getId(), request.getName(), request.getPower());
+        return create(request.id(), request.name(), request.power());
     }
 }

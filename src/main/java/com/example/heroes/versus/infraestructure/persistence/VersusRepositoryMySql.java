@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MySqlVersusRepository extends MySqlRepository<VersusJpa> implements VersusRepository {
+public class VersusRepositoryMySql extends MySqlRepository<VersusJpa> implements VersusRepository {
 
-    public MySqlVersusRepository(EntityManagerFactory entityManagerFactory) {
+    public VersusRepositoryMySql(EntityManagerFactory entityManagerFactory) {
         super(entityManagerFactory, VersusJpa.class);
     }
 

@@ -13,11 +13,17 @@ final class HeroPostControllerTest extends ControllerTestModule {
     }
 
     @Test
-    void not_create_hero_when_already_exists() throws Exception {
-        String body = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"superheroe\",\"power\":\"superpoder\"}";
-        assertRequestWithBody("POST", "/heroes", body, 201);
+    void not_create_hero_when_id_is_null() throws Exception {
+        String body = "{\"name\":\"superheroe\",\"power\":\"superpoder\"}";
 
-        assertRequestWithBody("POST", "/heroes", body, 409);
+        assertRequestWithBody("POST", "/heroes", body, 400);
+    }
+
+    @Test
+    void not_create_hero_when_id_is_not_valid() throws Exception {
+        String body = "{\"id\":\"qwe\",\"name\":\"superheroe\",\"power\":\"superpoder\"}";
+
+        assertRequestWithBody("POST", "/heroes", body, 400);
     }
 
     @Test
@@ -46,5 +52,17 @@ final class HeroPostControllerTest extends ControllerTestModule {
         String body = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"superheroe\",\"power\":\"superpodersuperpodersuperpodersuper\"}";
 
         assertRequestWithBody("POST", "/heroes", body, 400);
+    }
+
+    @Test
+    void not_create_hero_when_already_exists() throws Exception {
+        String body = "{\"id\":\"cc77f9b4-3209-11ee-be56-0242ac120002\",\"name\":\"superheroe\",\"power\":\"superpoder\"}";
+        givenThereIsAHero(body);
+
+        assertRequestWithBody("POST", "/heroes", body, 409);
+    }
+
+    private void givenThereIsAHero(String body) throws Exception {
+        assertRequestWithBody("POST", "/heroes", body, 201);
     }
 }
