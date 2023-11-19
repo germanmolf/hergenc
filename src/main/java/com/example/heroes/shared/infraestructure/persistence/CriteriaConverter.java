@@ -46,6 +46,13 @@ public final class CriteriaConverter<T> {
         return criteriaQuery;
     }
 
+    public CriteriaQuery<Long> convertForCount(Criteria criteria, Class<T> aggregateClass) {
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        Root<T> root = criteriaQuery.from(aggregateClass);
+        criteriaQuery.select(builder.count(root)).where(formatPredicates(criteria.getFilters(), root));
+        return criteriaQuery;
+    }
+
     private Predicate[] formatPredicates(List<Filter> filters, Root<T> root) {
         return filters.stream().map(filter -> formatPredicate(filter, root)).toArray(Predicate[]::new);
     }

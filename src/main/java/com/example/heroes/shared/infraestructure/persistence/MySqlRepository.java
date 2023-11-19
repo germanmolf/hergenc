@@ -44,4 +44,9 @@ public abstract class MySqlRepository<T> {
                 .setMaxResults(criteria.getLimit())
                 .getResultList();
     }
+
+    protected Long countByCriteria(Criteria criteria) {
+        CriteriaQuery<Long> hibernateCriteria = criteriaConverter.convertForCount(criteria, aggregateClass);
+        return entityManager.createQuery(hibernateCriteria).getSingleResult();
+    }
 }

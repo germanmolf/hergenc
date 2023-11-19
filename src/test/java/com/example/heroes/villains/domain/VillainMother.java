@@ -20,4 +20,8 @@ public final class VillainMother {
     public static Villain create(String name, String power) {
         return create(VillainIdMother.random().value(), name, power);
     }
+
+    public static Villain create(String id) {
+        return new Villain(id, VillainNameMother.random().value(), VillainPowerMother.random().value());
+    }
 }
