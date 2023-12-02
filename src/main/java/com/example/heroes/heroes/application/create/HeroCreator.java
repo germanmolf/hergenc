@@ -20,7 +20,7 @@ public final class HeroCreator {
 
     public void create(CreateHeroRequest request) {
         Hero hero = Hero.create(request.id(), request.name(), request.power());
-        checkHeroNotExists(hero.getId());
+        checkHeroNotExists(hero.id());
         repository.save(hero);
         eventBus.publish(hero.pullDomainEvents());
     }

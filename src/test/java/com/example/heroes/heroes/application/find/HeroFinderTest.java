@@ -25,7 +25,7 @@ final class HeroFinderTest extends HeroModuleTest {
     void find_an_existing_hero() {
         Hero hero = HeroMother.random();
         HeroResponse response = HeroResponseMother.fromAggregate(hero);
-        String id = hero.getId().value();
+        String id = hero.id().value();
         shouldSearch(hero);
 
         assertEquals(response, finder.find(id));
