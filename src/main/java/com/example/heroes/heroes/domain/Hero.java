@@ -7,30 +7,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class Hero extends AggregateRoot {
 
     private final HeroId id;
     private final HeroName name;
     private final HeroPower power;
-    private Integer villainsDefeatedTotal;
+    private HeroVillainsDefeatedTotal villainsDefeatedTotal;
     private final List<VillainId> villainsDefeated;
-    private String status;
+    private HeroStatus status;
     private Optional<VillainId> villainDefeater;
 
-    public Hero(String id, String name, String power, Integer villainsDefeatedTotal, List<VillainId> villainsDefeated,
+    public Hero(String id, String name, String power, Integer villainsDefeatedTotal, List<String> villainsDefeated,
                 String status, Optional<String> villainDefeater) {
         this.id = new HeroId(id);
         this.name = new HeroName(name);
         this.power = new HeroPower(power);
-        this.villainsDefeatedTotal = villainsDefeatedTotal;
-        this.villainsDefeated = villainsDefeated;
-        this.status = status;
-        this.villainDefeater = villainDefeater.isPresent() ? villainDefeater.map(VillainId::new) : Optional.empty();
+        this.villainsDefeatedTotal = new HeroVillainsDefeatedTotal(villainsDefeatedTotal);
+        this.villainsDefeated = villainsDefeated.stream().map(VillainId::new).collect(Collectors.toList());
+        this.status = HeroStatus.fromValue(status);
+        this.villainDefeater = villainDefeater.map(VillainId::new);
+    }
+
+    private Hero(String id, String name, String power) {
+        this.id = new HeroId(id);
+        this.name = new HeroName(name);
+        this.power = new HeroPower(power);
+        this.villainsDefeatedTotal = HeroVillainsDefeatedTotal.initialize();
+        this.villainsDefeated = new ArrayList<>();
+        this.status = HeroStatus.ACTIVE;
+        this.villainDefeater = Optional.empty();
     }
 
     public static Hero create(String id, String name, String power) {
-        Hero hero = new Hero(id, name, power, 0, new ArrayList<>(), "active", Optional.empty());
+        Hero hero = new Hero(id, name, power);
         hero.record(new HeroCreatedEvent(id, name, power));
         return hero;
     }
@@ -39,13 +50,13 @@ public final class Hero extends AggregateRoot {
         return villainsDefeated.contains(villainId);
     }
 
-    public void villainDefeated(VillainId villainId) {
-        villainsDefeatedTotal++;
+    public void addVillainDefeated(VillainId villainId) {
+        villainsDefeatedTotal = villainsDefeatedTotal.increment();
         villainsDefeated.add(villainId);
     }
 
     public void defeatedBy(VillainId villainId) {
-        status = "defeated";
+        status = HeroStatus.DEFEATED;
         villainDefeater = Optional.of(villainId);
     }
 
@@ -61,7 +72,7 @@ public final class Hero extends AggregateRoot {
         return power;
     }
 
-    public Integer villainsDefeatedTotal() {
+    public HeroVillainsDefeatedTotal villainsDefeatedTotal() {
         return villainsDefeatedTotal;
     }
 
@@ -69,7 +80,7 @@ public final class Hero extends AggregateRoot {
         return villainsDefeated;
     }
 
-    public String status() {
+    public HeroStatus status() {
         return status;
     }
 

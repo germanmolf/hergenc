@@ -24,7 +24,7 @@ public final class HeroJpa {
     private String name;
     private String power;
     private Integer villainsDefeatedTotal;
-    private List<VillainId> villainsDefeated;
+    private List<String> villainsDefeated;
     private String status;
     private String villainDefeater;
 
@@ -32,9 +32,9 @@ public final class HeroJpa {
         return new HeroJpa(hero.id().value(),
                 hero.name().value(),
                 hero.power().value(),
-                hero.villainsDefeatedTotal(),
-                hero.villainsDefeated(),
-                hero.status(),
+                hero.villainsDefeatedTotal().value(),
+                hero.villainsDefeated().stream().map(VillainId::value).toList(),
+                hero.status().value(),
                 hero.villainDefeater().map(VillainId::value).orElse(null));
     }
 

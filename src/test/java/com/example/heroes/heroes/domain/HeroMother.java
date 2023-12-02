@@ -6,6 +6,7 @@ import com.example.heroes.villains.domain.VillainId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class HeroMother {
 
@@ -34,11 +35,13 @@ public final class HeroMother {
     }
 
     public static Hero updatingVillainsDefeated(Hero hero, String villainId) {
-        List<VillainId> villainsDefeated = new ArrayList<>(hero.villainsDefeated());
-        villainsDefeated.add(new VillainId(villainId));
+        List<String> villainsDefeated =
+                new ArrayList<>(hero.villainsDefeated()).stream().map(VillainId::value).collect(Collectors.toList());
+        villainsDefeated.add(villainId);
 
         return new Hero(hero.id().value(), hero.name().value(), hero.power().value(),
-                villainsDefeated.size(), villainsDefeated, hero.status(), hero.villainDefeater().map(VillainId::value));
+                villainsDefeated.size(), villainsDefeated, hero.status().value(),
+                hero.villainDefeater().map(VillainId::value));
     }
 
     public static Hero updatingHeroDefeated(Hero hero, String villainId) {
@@ -48,7 +51,8 @@ public final class HeroMother {
 
     public static Hero copy(Hero hero) {
         return new Hero(hero.id().value(), hero.name().value(), hero.power().value(),
-                hero.villainsDefeatedTotal(), hero.villainsDefeated(), hero.status(),
+                hero.villainsDefeatedTotal().value(), hero.villainsDefeated().stream().map(VillainId::value).toList(),
+                hero.status().value(),
                 hero.villainDefeater().map(VillainId::value));
     }
 }

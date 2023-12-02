@@ -25,7 +25,7 @@ public final class UpdateHeroOnVersusCreated {
         VillainId villainId = new VillainId(event.getVillainId());
 
         if (versusDefeated.villainIsDefeated() && !hero.hasDefeated(villainId)) {
-            hero.villainDefeated(villainId);
+            hero.addVillainDefeated(villainId);
         }
         if (versusDefeated.heroIsDefeated()) {
             hero.defeatedBy(villainId);
