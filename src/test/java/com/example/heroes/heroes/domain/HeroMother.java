@@ -1,9 +1,10 @@
 package com.example.heroes.heroes.domain;
 
 import com.example.heroes.heroes.application.create.CreateHeroRequest;
+import com.example.heroes.shared.domain.ListMother;
 import com.example.heroes.villains.domain.VillainId;
+import com.example.heroes.villains.domain.VillainIdMother;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 public final class HeroMother {
 
     private static Hero create(String id, String name, String power) {
-        return new Hero(id, name, power, 0, new ArrayList<>(), "active", Optional.empty());
+        return new Hero(id, name, power);
     }
 
     public static Hero create(String name, String power) {
@@ -35,8 +36,7 @@ public final class HeroMother {
     }
 
     public static Hero updatingVillainsDefeated(Hero hero, String villainId) {
-        List<String> villainsDefeated =
-                new ArrayList<>(hero.villainsDefeated()).stream().map(VillainId::value).collect(Collectors.toList());
+        List<String> villainsDefeated = hero.villainsDefeated().stream().map(VillainId::value).collect(Collectors.toList());
         villainsDefeated.add(villainId);
 
         return new Hero(hero.id().value(), hero.name().value(), hero.power().value(),
@@ -45,13 +45,22 @@ public final class HeroMother {
     }
 
     public static Hero updatingHeroDefeated(Hero hero, String villainId) {
-        return new Hero(hero.id().value(), hero.name().value(), hero.power().value(),
-                0, new ArrayList<>(), "defeated", Optional.of(villainId));
+        Integer villainsDefeatedTotal = HeroVillainsDefeatedTotalMother.zero().value();
+        return new Hero(hero.id().value(),
+                hero.name().value(),
+                hero.power().value(),
+                villainsDefeatedTotal,
+                ListMother.create(villainsDefeatedTotal, () -> VillainIdMother.random().value()),
+                HeroStatusMother.defeated().value(),
+                Optional.of(villainId));
     }
 
     public static Hero copy(Hero hero) {
-        return new Hero(hero.id().value(), hero.name().value(), hero.power().value(),
-                hero.villainsDefeatedTotal().value(), hero.villainsDefeated().stream().map(VillainId::value).toList(),
+        return new Hero(hero.id().value(),
+                hero.name().value(),
+                hero.power().value(),
+                hero.villainsDefeatedTotal().value(),
+                hero.villainsDefeated().stream().map(VillainId::value).toList(),
                 hero.status().value(),
                 hero.villainDefeater().map(VillainId::value));
     }

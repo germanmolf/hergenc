@@ -25,20 +25,20 @@ public final class VersusCreatedEventMother {
         return create(VersusIdMother.random().value(),
                 HeroIdMother.random().value(),
                 VillainIdMother.random().value(),
-                VersusDefeatedMother.onlyHeroDefeatedRandom().value());
+                VersusDefeatedMother.onlyHeroDefeated().value());
     }
 
     public static VersusCreatedEvent withOnlyVillainDefeated() {
         return create(VersusIdMother.random().value(),
                 HeroIdMother.random().value(),
                 VillainIdMother.random().value(),
-                VersusDefeatedMother.onlyVillainDefeatedRandom().value());
+                VersusDefeatedMother.onlyVillainDefeated().value());
     }
 
     public static VersusCreatedEvent withNoneDefeated() {
         return create(VersusIdMother.random().value(),
                 HeroIdMother.random().value(),
                 VillainIdMother.random().value(),
-                VersusDefeatedMother.noneDefeatedRandom().value());
+                VersusDefeatedMother.noneDefeated().value());
     }
 }

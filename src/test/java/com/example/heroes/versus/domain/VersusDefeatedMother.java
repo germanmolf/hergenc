@@ -21,15 +21,15 @@ public final class VersusDefeatedMother {
         return villainDefeatedValues[random.nextInt(villainDefeatedValues.length)];
     }
 
-    public static VersusDefeated onlyHeroDefeatedRandom() {
+    public static VersusDefeated onlyHeroDefeated() {
         return VersusDefeated.HERO;
     }
 
-    public static VersusDefeated onlyVillainDefeatedRandom() {
+    public static VersusDefeated onlyVillainDefeated() {
         return VersusDefeated.VILLAIN;
     }
 
-    public static VersusDefeated noneDefeatedRandom() {
+    public static VersusDefeated noneDefeated() {
         return VersusDefeated.NONE;
     }
 }

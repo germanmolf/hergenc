@@ -30,7 +30,7 @@ public final class Hero extends AggregateRoot {
         this.villainDefeater = villainDefeater.map(VillainId::new);
     }
 
-    private Hero(String id, String name, String power) {
+    public Hero(String id, String name, String power) {
         this.id = new HeroId(id);
         this.name = new HeroName(name);
         this.power = new HeroPower(power);
