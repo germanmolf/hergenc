@@ -4,21 +4,21 @@ import java.util.Random;
 
 public final class VersusDefeatedMother {
 
-    private final static Random random = new Random();
+    private final static Random RANDOM = new Random();
     private final static VersusDefeated[] defeatedValues = VersusDefeated.values();
     private final static VersusDefeated[] heroDefeatedValues = {VersusDefeated.HERO, VersusDefeated.BOTH};
     private final static VersusDefeated[] villainDefeatedValues = {VersusDefeated.VILLAIN, VersusDefeated.BOTH};
 
     public static VersusDefeated random() {
-        return defeatedValues[random.nextInt(defeatedValues.length)];
+        return defeatedValues[RANDOM.nextInt(defeatedValues.length)];
     }
 
     public static VersusDefeated heroDefeatedRandom() {
-        return heroDefeatedValues[random.nextInt(heroDefeatedValues.length)];
+        return heroDefeatedValues[RANDOM.nextInt(heroDefeatedValues.length)];
     }
 
     public static VersusDefeated villainDefeatedRandom() {
-        return villainDefeatedValues[random.nextInt(villainDefeatedValues.length)];
+        return villainDefeatedValues[RANDOM.nextInt(villainDefeatedValues.length)];
     }
 
     public static VersusDefeated onlyHeroDefeated() {

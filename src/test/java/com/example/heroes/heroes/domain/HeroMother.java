@@ -20,11 +20,13 @@ public final class HeroMother {
     }
 
     public static Hero random() {
-        return create(
-                HeroIdMother.random().value(),
-                HeroNameMother.random().value(),
-                HeroPowerMother.random().value()
-        );
+        List<String> villainsDefeated = ListMother.random(() -> VillainIdMother.random().value());
+        return new Hero(HeroIdMother.random().value(),
+                HeroNameMother.random().value(), HeroPowerMother.random().value(),
+                villainsDefeated.size(),
+                villainsDefeated,
+                HeroStatusMother.defeated().value(),
+                Optional.of(VillainIdMother.random().value()));
     }
 
     public static Hero fromRequest(CreateHeroRequest request) {
@@ -45,12 +47,11 @@ public final class HeroMother {
     }
 
     public static Hero updatingHeroDefeated(Hero hero, String villainId) {
-        Integer villainsDefeatedTotal = HeroVillainsDefeatedTotalMother.zero().value();
         return new Hero(hero.id().value(),
                 hero.name().value(),
                 hero.power().value(),
-                villainsDefeatedTotal,
-                ListMother.create(villainsDefeatedTotal, () -> VillainIdMother.random().value()),
+                hero.villainsDefeatedTotal().value(),
+                hero.villainsDefeated().stream().map(VillainId::value).toList(),
                 HeroStatusMother.defeated().value(),
                 Optional.of(villainId));
     }

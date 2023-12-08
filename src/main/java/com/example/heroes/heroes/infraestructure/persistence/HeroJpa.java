@@ -2,12 +2,15 @@ package com.example.heroes.heroes.infraestructure.persistence;
 
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.villains.domain.VillainId;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,8 @@ public final class HeroJpa {
     private String name;
     private String power;
     private Integer villainsDefeatedTotal;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "json")
     private List<String> villainsDefeated;
     private String status;
     private String villainDefeater;
@@ -39,6 +44,6 @@ public final class HeroJpa {
     }
 
     public Hero toAggregate() {
-        return new Hero(id, name, power, villainsDefeatedTotal, villainsDefeated, status, Optional.of(villainDefeater));
+        return new Hero(id, name, power, villainsDefeatedTotal, villainsDefeated, status, Optional.ofNullable(villainDefeater));
     }
 }
