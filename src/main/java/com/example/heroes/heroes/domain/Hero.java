@@ -14,8 +14,8 @@ public final class Hero extends AggregateRoot {
     private final HeroId id;
     private final HeroName name;
     private final HeroPower power;
-    private HeroVillainsDefeatedTotal villainsDefeatedTotal;
     private final List<VillainId> villainsDefeated;
+    private HeroVillainsDefeatedTotal villainsDefeatedTotal;
     private HeroStatus status;
     private Optional<VillainId> villainDefeater;
 

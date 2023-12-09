@@ -18,13 +18,18 @@ public final class HeroesGetController {
     private final HeroFinder finder;
     private final HeroesSearcher searcher;
     private final CriteriaParser criteriaParser;
-    private static final HashSet<String> orderFields = new HashSet<>() {{
-        add("name");
-        add("power");
-    }};
     private static final HashSet<String> filterFields = new HashSet<>() {{
         add("name");
         add("power");
+        add("villainsDefeatedTotal");
+        add("status");
+        add("villainDefeater");
+    }};
+    private static final HashSet<String> orderFields = new HashSet<>() {{
+        add("name");
+        add("power");
+        add("villainsDefeatedTotal");
+        add("status");
     }};
 
     public HeroesGetController(HeroFinder finder, HeroesSearcher searcher) {
