@@ -31,7 +31,7 @@ final class HeroRepositoryMySqlTest extends PersistenceTestModule {
         Hero hero = HeroMother.random();
         repository.save(hero);
 
-        Optional<Hero> result = repository.search(hero.getId());
+        Optional<Hero> result = repository.search(hero.id());
 
         assertEquals(Optional.of(hero), result);
     }

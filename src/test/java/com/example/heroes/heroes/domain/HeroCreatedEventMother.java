@@ -14,7 +14,7 @@ public final class HeroCreatedEventMother {
     }
 
     public static HeroCreatedEvent fromAggregate(Hero hero) {
-        return create(hero.getId().value(), hero.getName().value(), hero.getPower().value());
+        return create(hero.id().value(), hero.name().value(), hero.power().value());
     }
 
     public static HeroCreatedEvent fromRequest(CreateHeroRequest request) {

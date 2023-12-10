@@ -28,6 +28,6 @@ public abstract class HeroModuleTest extends UnitTestModule {
     }
 
     public void shouldSearch(Hero hero) {
-        when(repository.search(hero.getId())).thenReturn(Optional.of(hero));
+        when(repository.search(hero.id())).thenReturn(Optional.of(hero));
     }
 }

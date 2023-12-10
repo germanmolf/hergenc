@@ -32,4 +32,12 @@ public enum VersusDefeated {
     public String value() {
         return defeated;
     }
+
+    public boolean heroIsDefeated() {
+        return this == HERO || this == BOTH;
+    }
+
+    public boolean villainIsDefeated() {
+        return this == VILLAIN || this == BOTH;
+    }
 }
