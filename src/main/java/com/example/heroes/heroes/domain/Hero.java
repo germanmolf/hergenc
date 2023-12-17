@@ -19,6 +19,16 @@ public final class Hero extends AggregateRoot {
     private HeroStatus status;
     private Optional<VillainId> villainDefeater;
 
+    public Hero(String id, String name, String power) {
+        this.id = new HeroId(id);
+        this.name = new HeroName(name);
+        this.power = new HeroPower(power);
+        this.villainsDefeatedTotal = HeroVillainsDefeatedTotal.initialize();
+        this.villainsDefeated = new ArrayList<>();
+        this.status = HeroStatus.ACTIVE;
+        this.villainDefeater = Optional.empty();
+    }
+
     public Hero(String id, String name, String power, Integer villainsDefeatedTotal, List<String> villainsDefeated,
                 String status, Optional<String> villainDefeater) {
         this.id = new HeroId(id);
@@ -28,16 +38,6 @@ public final class Hero extends AggregateRoot {
         this.villainsDefeated = villainsDefeated.stream().map(VillainId::new).collect(Collectors.toList());
         this.status = HeroStatus.fromValue(status);
         this.villainDefeater = villainDefeater.map(VillainId::new);
-    }
-
-    public Hero(String id, String name, String power) {
-        this.id = new HeroId(id);
-        this.name = new HeroName(name);
-        this.power = new HeroPower(power);
-        this.villainsDefeatedTotal = HeroVillainsDefeatedTotal.initialize();
-        this.villainsDefeated = new ArrayList<>();
-        this.status = HeroStatus.ACTIVE;
-        this.villainDefeater = Optional.empty();
     }
 
     public static Hero create(String id, String name, String power) {

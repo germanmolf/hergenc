@@ -14,14 +14,14 @@ public final class Villain extends AggregateRoot {
     private final VillainName name;
     private final VillainPower power;
     private final List<HeroId> heroesDefeated;
-    private Integer heroesDefeatedTotal;
+    private VillainHeroesDefeatedTotal heroesDefeatedTotal;
 
     public Villain(String id, String name, String power) {
         this.id = new VillainId(id);
         this.name = new VillainName(name);
         this.power = new VillainPower(power);
         this.heroesDefeated = new ArrayList<>();
-        this.heroesDefeatedTotal = 0;
+        this.heroesDefeatedTotal = VillainHeroesDefeatedTotal.initialize();
     }
 
     public Villain(String id, String name, String power, List<String> heroesDefeated, Integer heroesDefeatedTotal) {
@@ -29,7 +29,7 @@ public final class Villain extends AggregateRoot {
         this.name = new VillainName(name);
         this.power = new VillainPower(power);
         this.heroesDefeated = heroesDefeated.stream().map(HeroId::new).collect(Collectors.toList());
-        this.heroesDefeatedTotal = heroesDefeatedTotal;
+        this.heroesDefeatedTotal = new VillainHeroesDefeatedTotal(heroesDefeatedTotal);
     }
 
     public static Villain create(String id, String name, String power) {
@@ -43,7 +43,7 @@ public final class Villain extends AggregateRoot {
     }
 
     public void addHeroDefeated(HeroId heroId) {
-        heroesDefeatedTotal++;
+        heroesDefeatedTotal = heroesDefeatedTotal.increment();
         heroesDefeated.add(heroId);
     }
 
@@ -61,10 +61,6 @@ public final class Villain extends AggregateRoot {
 
     public List<HeroId> heroesDefeated() {
         return heroesDefeated;
-    }
-
-    public Integer heroesDefeatedTotal() {
-        return heroesDefeatedTotal;
     }
 
     @Override
