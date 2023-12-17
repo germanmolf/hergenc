@@ -31,7 +31,7 @@ final class VillainRepositoryMySqlTest extends PersistenceTestModule {
         Villain villain = VillainMother.random();
         repository.save(villain);
 
-        Optional<Villain> result = repository.search(villain.getId());
+        Optional<Villain> result = repository.search(villain.id());
 
         assertEquals(Optional.of(villain), result);
     }

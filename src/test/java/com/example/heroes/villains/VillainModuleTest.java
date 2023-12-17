@@ -28,6 +28,6 @@ public abstract class VillainModuleTest extends UnitTestModule {
     }
 
     protected void shouldSearch(Villain villain) {
-        when(repository.search(villain.getId())).thenReturn(Optional.of(villain));
+        when(repository.search(villain.id())).thenReturn(Optional.of(villain));
     }
 }

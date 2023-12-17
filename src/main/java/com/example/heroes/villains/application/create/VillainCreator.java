@@ -20,7 +20,7 @@ public final class VillainCreator {
 
     public void create(CreateVillainRequest request) {
         Villain villain = Villain.create(request.id(), request.name(), request.power());
-        checkVillainNotExists(villain.getId());
+        checkVillainNotExists(villain.id());
         repository.save(villain);
         eventBus.publish(villain.pullDomainEvents());
     }

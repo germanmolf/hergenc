@@ -21,7 +21,7 @@ public final class VillainJpa {
     private String power;
 
     public static VillainJpa fromAggregate(Villain villain) {
-        return new VillainJpa(villain.getId().value(), villain.getName().value(), villain.getPower().value());
+        return new VillainJpa(villain.id().value(), villain.name().value(), villain.power().value());
     }
 
     public static Villain fromJpaEntity(VillainJpa villainJpa) {

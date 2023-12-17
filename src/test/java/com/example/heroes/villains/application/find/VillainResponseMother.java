@@ -5,6 +5,6 @@ import com.example.heroes.villains.domain.Villain;
 public final class VillainResponseMother {
 
     public static VillainResponse fromAggregate(Villain villain) {
-        return new VillainResponse(villain.getId().value(), villain.getName().value(), villain.getPower().value());
+        return new VillainResponse(villain.id().value(), villain.name().value(), villain.power().value());
     }
 }
