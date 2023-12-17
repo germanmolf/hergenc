@@ -7,6 +7,7 @@ import com.example.heroes.villains.application.create.CreateVillainRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class VillainMother {
 
@@ -20,7 +21,9 @@ public final class VillainMother {
                 VillainNameMother.random().value(),
                 VillainPowerMother.random().value(),
                 heroesDefeated,
-                heroesDefeated.size());
+                heroesDefeated.size(),
+                "active",
+                Optional.empty());
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
@@ -40,6 +43,29 @@ public final class VillainMother {
                 villain.name().value(),
                 villain.power().value(),
                 heroesDefeated,
-                heroesDefeated.size());
+                heroesDefeated.size(),
+                villain.status(),
+                villain.heroDefeater().map(HeroId::value));
+    }
+
+    public static Villain withStatusActive() {
+        List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
+        return new Villain(VillainIdMother.random().value(),
+                VillainNameMother.random().value(),
+                VillainPowerMother.random().value(),
+                heroesDefeated,
+                heroesDefeated.size(),
+                "active",
+                Optional.empty());
+    }
+
+    public static Villain updatingStatusToDefeated(Villain villain, String heroId) {
+        return new Villain(villain.id().value(),
+                villain.name().value(),
+                villain.power().value(),
+                villain.heroesDefeated().stream().map(HeroId::value).toList(),
+                villain.heroesDefeatedTotal().value(),
+                "defeated",
+                Optional.of(heroId));
     }
 }
