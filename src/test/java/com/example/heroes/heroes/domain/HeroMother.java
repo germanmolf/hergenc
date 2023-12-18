@@ -21,12 +21,13 @@ public final class HeroMother {
 
     public static Hero random() {
         List<String> villainsDefeated = ListMother.random(() -> VillainIdMother.random().value());
+        HeroStatus status = HeroStatusMother.random();
         return new Hero(HeroIdMother.random().value(),
                 HeroNameMother.random().value(), HeroPowerMother.random().value(),
                 villainsDefeated.size(),
                 villainsDefeated,
-                HeroStatusMother.defeated().value(),
-                Optional.of(VillainIdMother.random().value()));
+                status.value(),
+                status.isActive() ? Optional.empty() : Optional.of(VillainIdMother.random().value()));
     }
 
     public static Hero fromRequest(CreateHeroRequest request) {

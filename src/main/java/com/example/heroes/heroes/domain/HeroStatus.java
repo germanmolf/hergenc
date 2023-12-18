@@ -19,6 +19,10 @@ public enum HeroStatus {
         };
     }
 
+    public boolean isActive() {
+        return this == ACTIVE;
+    }
+    
     public String value() {
         return status;
     }

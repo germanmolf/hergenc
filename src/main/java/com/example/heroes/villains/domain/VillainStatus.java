@@ -23,6 +23,10 @@ public enum VillainStatus {
         return status;
     }
 
+    public boolean isActive() {
+        return this == ACTIVE;
+    }
+
     public boolean isDefeated() {
         return this == DEFEATED;
     }

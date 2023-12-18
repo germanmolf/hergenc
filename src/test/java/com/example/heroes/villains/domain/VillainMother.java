@@ -17,13 +17,14 @@ public final class VillainMother {
 
     public static Villain random() {
         List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
+        VillainStatus status = VillainStatusMother.random();
         return new Villain(VillainIdMother.random().value(),
                 VillainNameMother.random().value(),
                 VillainPowerMother.random().value(),
                 heroesDefeated,
                 heroesDefeated.size(),
-                "active",
-                Optional.empty());
+                status.value(),
+                status.isActive() ? Optional.empty() : Optional.of(HeroIdMother.random().value()));
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
@@ -55,7 +56,7 @@ public final class VillainMother {
                 VillainPowerMother.random().value(),
                 heroesDefeated,
                 heroesDefeated.size(),
-                "active",
+                VillainStatusMother.active().value(),
                 Optional.empty());
     }
 
@@ -65,7 +66,7 @@ public final class VillainMother {
                 villain.power().value(),
                 villain.heroesDefeated().stream().map(HeroId::value).toList(),
                 villain.heroesDefeatedTotal().value(),
-                "defeated",
+                VillainStatusMother.defeated().value(),
                 Optional.of(heroId));
     }
 }
