@@ -16,7 +16,7 @@ public final class Villain extends AggregateRoot {
     private final VillainPower power;
     private final List<HeroId> heroesDefeated;
     private VillainHeroesDefeatedTotal heroesDefeatedTotal;
-    private String status;
+    private VillainStatus status;
     private Optional<HeroId> heroDefeater;
 
     public Villain(String id, String name, String power) {
@@ -25,7 +25,7 @@ public final class Villain extends AggregateRoot {
         this.power = new VillainPower(power);
         this.heroesDefeated = new ArrayList<>();
         this.heroesDefeatedTotal = VillainHeroesDefeatedTotal.initialize();
-        this.status = "active";
+        this.status = VillainStatus.ACTIVE;
         this.heroDefeater = Optional.empty();
     }
 
@@ -36,7 +36,7 @@ public final class Villain extends AggregateRoot {
         this.power = new VillainPower(power);
         this.heroesDefeated = heroesDefeated.stream().map(HeroId::new).collect(Collectors.toList());
         this.heroesDefeatedTotal = new VillainHeroesDefeatedTotal(heroesDefeatedTotal);
-        this.status = status;
+        this.status = VillainStatus.fromValue(status);
         this.heroDefeater = heroDefeater.map(HeroId::new);
     }
 
@@ -56,12 +56,12 @@ public final class Villain extends AggregateRoot {
     }
 
     public boolean isDefeated() {
-        return status.equals("defeated");
+        return status.isDefeated();
     }
 
     public void defeatedBy(HeroId heroId) {
         heroDefeater = Optional.of(heroId);
-        status = "defeated";
+        status = VillainStatus.DEFEATED;
     }
 
     public VillainId id() {
@@ -84,7 +84,7 @@ public final class Villain extends AggregateRoot {
         return heroesDefeatedTotal;
     }
 
-    public String status() {
+    public VillainStatus status() {
         return status;
     }
 

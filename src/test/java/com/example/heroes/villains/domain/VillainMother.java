@@ -44,7 +44,7 @@ public final class VillainMother {
                 villain.power().value(),
                 heroesDefeated,
                 heroesDefeated.size(),
-                villain.status(),
+                villain.status().value(),
                 villain.heroDefeater().map(HeroId::value));
     }
 
