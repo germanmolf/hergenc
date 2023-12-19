@@ -7,4 +7,8 @@ public final class VillainIdMother {
     public static VillainId random() {
         return new VillainId(UuidMother.random());
     }
+
+    public static VillainId create(String id) {
+        return new VillainId(id);
+    }
 }
