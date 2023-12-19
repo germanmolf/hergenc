@@ -25,11 +25,11 @@ public class VillainRepositoryMySql extends MySqlRepository<VillainJpa> implemen
 
     @Override
     public Optional<Villain> search(VillainId id) {
-        return byId(id).map(VillainJpa::fromJpaEntity);
+        return byId(id).map(VillainJpa::toAggregate);
     }
 
     @Override
     public List<Villain> search(Criteria criteria) {
-        return byCriteria(criteria).stream().map(VillainJpa::fromJpaEntity).toList();
+        return byCriteria(criteria).stream().map(VillainJpa::toAggregate).toList();
     }
 }
