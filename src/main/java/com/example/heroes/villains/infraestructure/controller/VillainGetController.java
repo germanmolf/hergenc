@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/villains")
-public final class VillainsGetController {
+public final class VillainGetController {
 
     private final VillainFinder finder;
     private final VillainsSearcher searcher;
@@ -21,13 +21,18 @@ public final class VillainsGetController {
     private static final HashSet<String> orderFields = new HashSet<>() {{
         add("name");
         add("power");
+        add("heroesDefeatedTotal");
+        add("status");
+        add("heroDefeater");
     }};
     private static final HashSet<String> filterFields = new HashSet<>() {{
         add("name");
         add("power");
+        add("heroesDefeatedTotal");
+        add("status");
     }};
 
-    public VillainsGetController(VillainFinder finder, VillainsSearcher searcher) {
+    public VillainGetController(VillainFinder finder, VillainsSearcher searcher) {
         this.finder = finder;
         this.searcher = searcher;
         this.criteriaParser = new CriteriaParser(filterFields, orderFields);

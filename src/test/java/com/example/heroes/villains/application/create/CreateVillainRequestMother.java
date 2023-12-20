@@ -18,7 +18,7 @@ public final class CreateVillainRequestMother {
     }
 
     public static CreateVillainRequest fromAggregate(Villain villain) {
-        return create(villain.getId().value(), villain.getName().value(), villain.getPower().value());
+        return create(villain.id().value(), villain.name().value(), villain.power().value());
     }
 
     public static CreateVillainRequest withIdNull() {

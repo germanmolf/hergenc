@@ -25,7 +25,7 @@ final class VillainFinderTest extends VillainModuleTest {
     void find_an_existing_villain() {
         Villain villain = VillainMother.random();
         VillainResponse response = VillainResponseMother.fromAggregate(villain);
-        String id = villain.getId().value();
+        String id = villain.id().value();
         shouldSearch(villain);
 
         assertEquals(response, finder.find(id));

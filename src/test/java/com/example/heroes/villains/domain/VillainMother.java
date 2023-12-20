@@ -1,6 +1,13 @@
 package com.example.heroes.villains.domain;
 
+import com.example.heroes.heroes.domain.HeroId;
+import com.example.heroes.heroes.domain.HeroIdMother;
+import com.example.heroes.shared.domain.ListMother;
 import com.example.heroes.villains.application.create.CreateVillainRequest;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public final class VillainMother {
 
@@ -9,8 +16,15 @@ public final class VillainMother {
     }
 
     public static Villain random() {
-        return create(VillainIdMother.random().value(), VillainNameMother.random().value(),
-                VillainPowerMother.random().value());
+        List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
+        VillainStatus status = VillainStatusMother.random();
+        return new Villain(VillainIdMother.random().value(),
+                VillainNameMother.random().value(),
+                VillainPowerMother.random().value(),
+                heroesDefeated,
+                heroesDefeated.size(),
+                status.value(),
+                status.isActive() ? Optional.empty() : Optional.of(HeroIdMother.random().value()));
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
@@ -21,7 +35,38 @@ public final class VillainMother {
         return create(VillainIdMother.random().value(), name, power);
     }
 
-    public static Villain create(String id) {
-        return new Villain(id, VillainNameMother.random().value(), VillainPowerMother.random().value());
+    public static Villain updatingHeroesDefeated(Villain villain, HeroId heroId) {
+        List<HeroId> heroIds = new ArrayList<>(villain.heroesDefeated());
+        heroIds.add(heroId);
+        List<String> heroesDefeated = heroIds.stream().map(HeroId::value).toList();
+
+        return new Villain(villain.id().value(),
+                villain.name().value(),
+                villain.power().value(),
+                heroesDefeated,
+                heroesDefeated.size(),
+                villain.status().value(),
+                villain.heroDefeater().map(HeroId::value));
+    }
+
+    public static Villain withStatusActive() {
+        List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
+        return new Villain(VillainIdMother.random().value(),
+                VillainNameMother.random().value(),
+                VillainPowerMother.random().value(),
+                heroesDefeated,
+                heroesDefeated.size(),
+                VillainStatusMother.active().value(),
+                Optional.empty());
+    }
+
+    public static Villain updatingStatusToDefeated(Villain villain, String heroId) {
+        return new Villain(villain.id().value(),
+                villain.name().value(),
+                villain.power().value(),
+                villain.heroesDefeated().stream().map(HeroId::value).toList(),
+                villain.heroesDefeatedTotal().value(),
+                VillainStatusMother.defeated().value(),
+                Optional.of(heroId));
     }
 }

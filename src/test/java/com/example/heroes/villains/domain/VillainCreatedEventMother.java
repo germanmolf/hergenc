@@ -9,7 +9,7 @@ public final class VillainCreatedEventMother {
     }
 
     public static VillainCreatedEvent fromAggregate(Villain villain) {
-        return create(villain.getId().value(), villain.getName().value(), villain.getPower().value());
+        return create(villain.id().value(), villain.name().value(), villain.power().value());
     }
 
     public static VillainCreatedEvent fromRequest(CreateVillainRequest request) {

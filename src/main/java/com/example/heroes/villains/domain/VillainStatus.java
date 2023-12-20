@@ -1,17 +1,17 @@
-package com.example.heroes.heroes.domain;
+package com.example.heroes.villains.domain;
 
-public enum HeroStatus {
+public enum VillainStatus {
 
     ACTIVE("active"),
     DEFEATED("defeated");
 
     private final String status;
 
-    HeroStatus(String status) {
+    VillainStatus(String status) {
         this.status = status;
     }
 
-    public static HeroStatus fromValue(String value) {
+    public static VillainStatus fromValue(String value) {
         return switch (value) {
             case "active" -> ACTIVE;
             case "defeated" -> DEFEATED;
@@ -19,11 +19,15 @@ public enum HeroStatus {
         };
     }
 
+    public String value() {
+        return status;
+    }
+
     public boolean isActive() {
         return this == ACTIVE;
     }
-    
-    public String value() {
-        return status;
+
+    public boolean isDefeated() {
+        return this == DEFEATED;
     }
 }

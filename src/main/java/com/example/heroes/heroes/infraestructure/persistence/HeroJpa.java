@@ -44,6 +44,7 @@ public final class HeroJpa {
     }
 
     public Hero toAggregate() {
-        return new Hero(id, name, power, villainsDefeatedTotal, villainsDefeated, status, Optional.ofNullable(villainDefeater));
+        return new Hero(id, name, power, villainsDefeatedTotal, villainsDefeated, status,
+                Optional.ofNullable(villainDefeater));
     }
 }
