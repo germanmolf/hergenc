@@ -5,25 +5,25 @@ import com.example.heroes.shared.domain.criteria.Filter;
 import com.example.heroes.shared.domain.criteria.FilterOperator;
 import jakarta.persistence.criteria.*;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 
 public final class CriteriaConverter<T> {
 
     private final CriteriaBuilder builder;
 
-    private final Map<FilterOperator, BiFunction<Filter, Root<T>, Predicate>> predicateTransformers = new HashMap<>() {{
-        put(FilterOperator.EQUAL, CriteriaConverter.this::equalsPredicateTransformer);
-        put(FilterOperator.NOT_EQUAL, CriteriaConverter.this::notEqualsPredicateTransformer);
-        put(FilterOperator.GT, CriteriaConverter.this::greaterThanPredicateTransformer);
-        put(FilterOperator.LT, CriteriaConverter.this::lowerThanPredicateTransformer);
-        put(FilterOperator.CONTAINS, CriteriaConverter.this::containsPredicateTransformer);
-        put(FilterOperator.NOT_CONTAINS, CriteriaConverter.this::notContainsPredicateTransformer);
-        put(FilterOperator.IN, CriteriaConverter.this::inPredicateTransformer);
-        put(FilterOperator.NOT_IN, CriteriaConverter.this::notInPredicateTransformer);
-    }};
+    private final EnumMap<FilterOperator, BiFunction<Filter, Root<T>, Predicate>> predicateTransformers =
+            new EnumMap<>(FilterOperator.class) {{
+                put(FilterOperator.EQUAL, CriteriaConverter.this::equalsPredicateTransformer);
+                put(FilterOperator.NOT_EQUAL, CriteriaConverter.this::notEqualsPredicateTransformer);
+                put(FilterOperator.GT, CriteriaConverter.this::greaterThanPredicateTransformer);
+                put(FilterOperator.LT, CriteriaConverter.this::lowerThanPredicateTransformer);
+                put(FilterOperator.CONTAINS, CriteriaConverter.this::containsPredicateTransformer);
+                put(FilterOperator.NOT_CONTAINS, CriteriaConverter.this::notContainsPredicateTransformer);
+                put(FilterOperator.IN, CriteriaConverter.this::inPredicateTransformer);
+                put(FilterOperator.NOT_IN, CriteriaConverter.this::notInPredicateTransformer);
+            }};
 
     private static final String IN_DIVIDER = ",";
 
