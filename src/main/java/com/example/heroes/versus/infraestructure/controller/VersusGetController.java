@@ -18,12 +18,12 @@ public final class VersusGetController {
     private final VersusFinder finder;
     private final VersusSearcher searcher;
     private final CriteriaParser criteriaParser;
-    private static final HashSet<String> orderFields = new HashSet<>() {{
+    private static final HashSet<String> filterFields = new HashSet<>() {{
         add("heroId");
         add("villainId");
         add("defeated");
     }};
-    private static final HashSet<String> filterFields = new HashSet<>() {{
+    private static final HashSet<String> orderFields = new HashSet<>() {{
         add("heroId");
         add("villainId");
         add("defeated");

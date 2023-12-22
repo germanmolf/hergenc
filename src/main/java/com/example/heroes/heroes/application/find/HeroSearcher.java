@@ -7,11 +7,11 @@ import com.example.heroes.shared.domain.criteria.Criteria;
 import java.util.List;
 
 @Injectable
-public final class HeroesSearcher {
+public final class HeroSearcher {
 
     private final HeroRepository repository;
 
-    public HeroesSearcher(HeroRepository repository) {
+    public HeroSearcher(HeroRepository repository) {
         this.repository = repository;
     }
 

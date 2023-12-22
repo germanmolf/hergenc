@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 public final class HeroSearcherTest extends HeroModuleTest {
 
-    private HeroesSearcher searcher;
+    private HeroSearcher searcher;
 
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        searcher = new HeroesSearcher(repository);
+        searcher = new HeroSearcher(repository);
     }
 
     @Test

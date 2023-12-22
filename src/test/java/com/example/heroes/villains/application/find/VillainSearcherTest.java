@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 public final class VillainSearcherTest extends VillainModuleTest {
 
-    private VillainsSearcher searcher;
+    private VillainSearcher searcher;
 
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        searcher = new VillainsSearcher(repository);
+        searcher = new VillainSearcher(repository);
     }
 
     @Test

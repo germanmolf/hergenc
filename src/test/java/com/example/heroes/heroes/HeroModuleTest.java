@@ -27,7 +27,7 @@ public abstract class HeroModuleTest extends UnitTestModule {
         verify(repository, never()).save(hero);
     }
 
-    public void shouldSearch(Hero hero) {
+    protected void shouldSearch(Hero hero) {
         when(repository.search(hero.id())).thenReturn(Optional.of(hero));
     }
 }

@@ -4,7 +4,7 @@ import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.infraestructure.controller.CriteriaParser;
 import com.example.heroes.villains.application.find.VillainFinder;
 import com.example.heroes.villains.application.find.VillainResponse;
-import com.example.heroes.villains.application.find.VillainsSearcher;
+import com.example.heroes.villains.application.find.VillainSearcher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -16,23 +16,23 @@ import java.util.Map;
 public final class VillainGetController {
 
     private final VillainFinder finder;
-    private final VillainsSearcher searcher;
+    private final VillainSearcher searcher;
     private final CriteriaParser criteriaParser;
-    private static final HashSet<String> orderFields = new HashSet<>() {{
+    private static final HashSet<String> filterFields = new HashSet<>() {{
         add("name");
         add("power");
         add("heroesDefeatedTotal");
         add("status");
         add("heroDefeater");
     }};
-    private static final HashSet<String> filterFields = new HashSet<>() {{
+    private static final HashSet<String> orderFields = new HashSet<>() {{
         add("name");
         add("power");
         add("heroesDefeatedTotal");
         add("status");
     }};
 
-    public VillainGetController(VillainFinder finder, VillainsSearcher searcher) {
+    public VillainGetController(VillainFinder finder, VillainSearcher searcher) {
         this.finder = finder;
         this.searcher = searcher;
         this.criteriaParser = new CriteriaParser(filterFields, orderFields);

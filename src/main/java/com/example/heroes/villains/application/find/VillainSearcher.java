@@ -7,11 +7,11 @@ import com.example.heroes.villains.domain.VillainRepository;
 import java.util.List;
 
 @Injectable
-public final class VillainsSearcher {
+public final class VillainSearcher {
 
     private final VillainRepository repository;
 
-    public VillainsSearcher(VillainRepository repository) {
+    public VillainSearcher(VillainRepository repository) {
         this.repository = repository;
     }
 
