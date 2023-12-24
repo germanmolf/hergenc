@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/heroes")
-public final class HeroesPostController {
+public final class HeroPostController {
 
     private final HeroCreator creator;
 
-    public HeroesPostController(HeroCreator creator) {
+    public HeroPostController(HeroCreator creator) {
         this.creator = creator;
     }
 
