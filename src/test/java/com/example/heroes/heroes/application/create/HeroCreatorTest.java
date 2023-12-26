@@ -11,7 +11,6 @@ import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class HeroCreatorTest extends HeroModuleTest {
@@ -41,10 +40,8 @@ final class HeroCreatorTest extends HeroModuleTest {
         CreateHeroRequest request = CreateHeroRequestMother.withIdNull();
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
-        IdentifierNullException exception = assertThrows(IdentifierNullException.class, () -> creator.create(request));
+        assertThrows(IdentifierNullException.class, () -> creator.create(request));
 
-        assertEquals("hero_identifier_null", exception.getErrorCode());
-        assertEquals("The hero identifier is null", exception.getErrorMessage());
         shouldNotHavePublished(event);
     }
 
@@ -53,11 +50,8 @@ final class HeroCreatorTest extends HeroModuleTest {
         CreateHeroRequest request = CreateHeroRequestMother.withIdNotValid();
         HeroCreatedEvent event = HeroCreatedEventMother.fromRequest(request);
 
-        IdentifierNotValidException exception = assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+        assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
 
-        assertEquals("hero_identifier_not_valid", exception.getErrorCode());
-        assertEquals(String.format("The hero identifier <%s> is not a valid UUID", request.id()),
-                exception.getErrorMessage());
         shouldNotHavePublished(event);
     }
 

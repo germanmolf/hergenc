@@ -2,7 +2,7 @@ package com.example.heroes.heroes.infraestructure.persistence;
 
 import com.example.heroes.heroes.domain.*;
 import com.example.heroes.shared.domain.criteria.Criteria;
-import com.example.heroes.shared.infraestructure.persistence.PersistenceTestModule;
+import com.example.heroes.shared.infraestructure.persistence.IntegrationTestModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-final class HeroRepositoryMySqlTest extends PersistenceTestModule {
+final class HeroRepositoryMySqlTest extends IntegrationTestModule {
 
     @Autowired
     private HeroRepository repository;

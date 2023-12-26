@@ -9,5 +9,5 @@ import org.springframework.test.context.TestPropertySource;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @TestPropertySource(locations = "classpath:application-test.properties")
 @Tag("IntegrationTest")
-public abstract class PersistenceTestModule {
+public abstract class IntegrationTestModule {
 }

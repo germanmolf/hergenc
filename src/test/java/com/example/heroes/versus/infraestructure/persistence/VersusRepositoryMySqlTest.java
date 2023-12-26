@@ -2,7 +2,7 @@ package com.example.heroes.versus.infraestructure.persistence;
 
 import com.example.heroes.heroes.domain.HeroIdMother;
 import com.example.heroes.shared.domain.criteria.Criteria;
-import com.example.heroes.shared.infraestructure.persistence.PersistenceTestModule;
+import com.example.heroes.shared.infraestructure.persistence.IntegrationTestModule;
 import com.example.heroes.versus.domain.*;
 import com.example.heroes.villains.domain.VillainIdMother;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-final class VersusRepositoryMySqlTest extends PersistenceTestModule {
+final class VersusRepositoryMySqlTest extends IntegrationTestModule {
 
     @Autowired
     private VersusRepository repository;
