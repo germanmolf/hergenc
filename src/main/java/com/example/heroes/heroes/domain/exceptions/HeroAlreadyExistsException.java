@@ -6,6 +6,6 @@ import com.example.heroes.shared.domain.DomainError;
 public final class HeroAlreadyExistsException extends DomainError {
 
     public HeroAlreadyExistsException(HeroId id) {
-        super("hero_already_exists", String.format("The hero <%s> already exists", id.value()));
+        super("hero_already_exists", "The hero <%s> already exists".formatted(id.value()));
     }
 }

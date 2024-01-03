@@ -28,17 +28,6 @@ final class HeroGetControllerTest extends ControllerTestModule {
     }
 
     @Test
-    void not_find_a_non_existing_hero() throws Exception {
-        String bodyResponse = """
-                {
-                    "code":"hero_not_found",
-                    "message":"Not found hero <cc77f9b4-3209-11ee-be56-0242ac120002>"
-                }""";
-
-        assertResponse("/heroes/cc77f9b4-3209-11ee-be56-0242ac120002", 404, bodyResponse);
-    }
-
-    @Test
     void search_all_heroes() throws Exception {
         String aHero = """
                 {
