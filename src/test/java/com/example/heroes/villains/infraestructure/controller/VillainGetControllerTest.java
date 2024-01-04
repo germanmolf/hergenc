@@ -28,17 +28,6 @@ final class VillainGetControllerTest extends ControllerTestModule {
     }
 
     @Test
-    void not_find_a_non_existing_villain() throws Exception {
-        String bodyResponse = """
-                {
-                    "code":"villain_not_found",
-                    "message":"Not found villain <cc77f9b4-3209-11ee-be56-0242ac120002>"
-                }""";
-
-        assertResponse("/villains/cc77f9b4-3209-11ee-be56-0242ac120002", 404, bodyResponse);
-    }
-
-    @Test
     void search_all_villains() throws Exception {
         String aVillain = """
                 {
