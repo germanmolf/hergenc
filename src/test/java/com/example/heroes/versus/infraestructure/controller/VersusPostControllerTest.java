@@ -1,9 +1,9 @@
 package com.example.heroes.versus.infraestructure.controller;
 
-import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
+import com.example.heroes.shared.infraestructure.controller.AcceptanceTestModule;
 import org.junit.jupiter.api.Test;
 
-final class VersusPostControllerTest extends ControllerTestModule {
+final class VersusPostControllerTest extends AcceptanceTestModule {
 
     @Test
     void create_a_valid_versus() throws Exception {
@@ -17,7 +17,7 @@ final class VersusPostControllerTest extends ControllerTestModule {
                     "defeated":"both"
                 }""";
 
-        assertRequestWithBody("POST", "/versus", body, 201);
+        assertRequest("POST", "/versus", body, 201);
     }
 
     private void givenThereIsAHero(String id) throws Exception {
@@ -28,7 +28,7 @@ final class VersusPostControllerTest extends ControllerTestModule {
                     "power":"superpoder"
                 }"""
                 .formatted(id);
-        assertRequestWithBody("POST", "/heroes", body, 201);
+        assertRequest("POST", "/heroes", body, 201);
     }
 
     private void givenThereIsAVillain(String id) throws Exception {
@@ -39,6 +39,6 @@ final class VersusPostControllerTest extends ControllerTestModule {
                     "power":"superpoder"
                 }"""
                 .formatted(id);
-        assertRequestWithBody("POST", "/villains", body, 201);
+        assertRequest("POST", "/villains", body, 201);
     }
 }

@@ -1,36 +1,28 @@
 package com.example.heroes.versus.infraestructure.controller;
 
-import com.example.heroes.shared.application.UnitTestModule;
 import com.example.heroes.shared.domain.CriteriaMother;
-import com.example.heroes.shared.domain.criteria.Criteria;
+import com.example.heroes.shared.infraestructure.controller.ControllerCriteriaFieldsTest;
 import com.example.heroes.versus.application.find.VersusFinder;
 import com.example.heroes.versus.application.find.VersusSearcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public final class VersusGetControllerCriteriaFieldsTest extends UnitTestModule {
+public final class VersusGetControllerCriteriaFieldsTest extends ControllerCriteriaFieldsTest {
 
     private VersusGetController controller;
     private VersusSearcher searcher;
-    private ArgumentCaptor<Criteria> argument;
 
     @BeforeEach
     protected void setUp() {
+        super.setUp();
         VersusFinder finder = mock(VersusFinder.class);
         searcher = mock(VersusSearcher.class);
         controller = new VersusGetController(finder, searcher);
-        argument = ArgumentCaptor.forClass(Criteria.class);
     }
 
     @Test
@@ -108,21 +100,21 @@ public final class VersusGetControllerCriteriaFieldsTest extends UnitTestModule 
 
     private void shouldFilterBy(String field) {
         verify(searcher).search(argument.capture());
-        assertThat(argument.getValue().getFilters(), contains(hasProperty("field", is(field))));
+        criteriaHasFilter(field);
     }
 
     private void shouldNoFilterBy(String field) {
         verify(searcher).search(argument.capture());
-        assertThat(argument.getValue().getFilters(), not(contains(hasProperty("field", is(field)))));
+        criteriaHasNoFilter(field);
     }
 
     private void shouldOrderBy(String orderBy) {
         verify(searcher).search(argument.capture());
-        assertThat(argument.getValue().getOrder().getOrderBy(), is(orderBy));
+        criteriaHasOrderBy(orderBy);
     }
 
     private void shouldNotOrderBy(String orderBy) {
         verify(searcher).search(argument.capture());
-        assertThat(argument.getValue().getOrder().getOrderBy(), is(not(orderBy)));
+        criteriaHasNoOrderBy(orderBy);
     }
 }

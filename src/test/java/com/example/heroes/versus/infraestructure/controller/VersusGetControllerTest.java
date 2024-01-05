@@ -1,9 +1,9 @@
 package com.example.heroes.versus.infraestructure.controller;
 
-import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
+import com.example.heroes.shared.infraestructure.controller.AcceptanceTestModule;
 import org.junit.jupiter.api.Test;
 
-final class VersusGetControllerTest extends ControllerTestModule {
+final class VersusGetControllerTest extends AcceptanceTestModule {
 
     @Test
     void find_an_existing_versus() throws Exception {
@@ -20,7 +20,7 @@ final class VersusGetControllerTest extends ControllerTestModule {
 
         assertResponse("/versus/cc77f9b4-3209-11ee-be56-0242ac120002", 200, body);
     }
-    
+
     @Test
     void search_all_versus() throws Exception {
         givenThereIsAHero("daa93fd0-52cb-46b7-a3d8-624ac2a396e1");
@@ -61,7 +61,7 @@ final class VersusGetControllerTest extends ControllerTestModule {
     }
 
     private void givenThereIsAVersus(String body) throws Exception {
-        assertRequestWithBody("POST", "/versus", body, 201);
+        assertRequest("POST", "/versus", body, 201);
     }
 
     private void givenThereIsAHero(String id) throws Exception {
@@ -72,7 +72,7 @@ final class VersusGetControllerTest extends ControllerTestModule {
                     "power":"superpoder"
                 }"""
                 .formatted(id);
-        assertRequestWithBody("POST", "/heroes", body, 201);
+        assertRequest("POST", "/heroes", body, 201);
     }
 
     private void givenThereIsAVillain(String id) throws Exception {
@@ -83,6 +83,6 @@ final class VersusGetControllerTest extends ControllerTestModule {
                     "power":"superpoder"
                 }"""
                 .formatted(id);
-        assertRequestWithBody("POST", "/villains", body, 201);
+        assertRequest("POST", "/villains", body, 201);
     }
 }

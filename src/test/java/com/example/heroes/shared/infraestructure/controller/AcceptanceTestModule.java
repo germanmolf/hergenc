@@ -20,12 +20,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
 @Tag("AcceptanceTest")
-public abstract class ControllerTestModule {
+public abstract class AcceptanceTestModule {
 
     @Autowired
     protected MockMvc mockMvc;
 
-    protected void assertRequestWithBody(String method, String url, String body, Integer expectedStatusCode) throws Exception {
+    protected void assertRequest(String method, String url, String body, Integer expectedStatusCode) throws Exception {
         mockMvc.perform(request(HttpMethod.valueOf(method), url).content(body).contentType(APPLICATION_JSON))
                 .andExpect(status().is(expectedStatusCode));
     }

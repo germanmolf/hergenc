@@ -1,9 +1,9 @@
 package com.example.heroes.villains.infraestructure.controller;
 
-import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
+import com.example.heroes.shared.infraestructure.controller.AcceptanceTestModule;
 import org.junit.jupiter.api.Test;
 
-final class VillainGetControllerTest extends ControllerTestModule {
+final class VillainGetControllerTest extends AcceptanceTestModule {
 
     @Test
     void find_an_existing_villain() throws Exception {
@@ -67,6 +67,6 @@ final class VillainGetControllerTest extends ControllerTestModule {
     }
 
     private void givenThereIsAVillain(String body) throws Exception {
-        assertRequestWithBody("POST", "/villains", body, 201);
+        assertRequest("POST", "/villains", body, 201);
     }
 }

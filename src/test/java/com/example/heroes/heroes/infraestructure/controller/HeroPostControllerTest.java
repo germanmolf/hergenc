@@ -1,9 +1,9 @@
 package com.example.heroes.heroes.infraestructure.controller;
 
-import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
+import com.example.heroes.shared.infraestructure.controller.AcceptanceTestModule;
 import org.junit.jupiter.api.Test;
 
-final class HeroPostControllerTest extends ControllerTestModule {
+final class HeroPostControllerTest extends AcceptanceTestModule {
 
     @Test
     void create_a_valid_hero() throws Exception {
@@ -14,7 +14,7 @@ final class HeroPostControllerTest extends ControllerTestModule {
                     "power":"superpoder"
                 }""";
 
-        assertRequestWithBody("POST", "/heroes", body, 201);
+        assertRequest("POST", "/heroes", body, 201);
     }
 
 }

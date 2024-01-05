@@ -1,9 +1,9 @@
 package com.example.heroes.heroes.infraestructure.controller;
 
-import com.example.heroes.shared.infraestructure.controller.ControllerTestModule;
+import com.example.heroes.shared.infraestructure.controller.AcceptanceTestModule;
 import org.junit.jupiter.api.Test;
 
-final class HeroGetControllerTest extends ControllerTestModule {
+final class HeroGetControllerTest extends AcceptanceTestModule {
 
     @Test
     void find_an_existing_hero() throws Exception {
@@ -67,6 +67,6 @@ final class HeroGetControllerTest extends ControllerTestModule {
     }
 
     private void givenThereIsAHero(String body) throws Exception {
-        assertRequestWithBody("POST", "/heroes", body, 201);
+        assertRequest("POST", "/heroes", body, 201);
     }
 }
