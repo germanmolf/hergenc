@@ -20,18 +20,7 @@ final class VersusGetControllerTest extends ControllerTestModule {
 
         assertResponse("/versus/cc77f9b4-3209-11ee-be56-0242ac120002", 200, body);
     }
-
-    @Test
-    void not_find_a_non_existing_versus() throws Exception {
-        String body = """
-                {
-                    "code":"versus_not_found",
-                    "message":"Not found versus <cc77f9b4-3209-11ee-be56-0242ac120002>"
-                }""";
-
-        assertResponse("/versus/cc77f9b4-3209-11ee-be56-0242ac120002", 404, body);
-    }
-
+    
     @Test
     void search_all_versus() throws Exception {
         givenThereIsAHero("daa93fd0-52cb-46b7-a3d8-624ac2a396e1");

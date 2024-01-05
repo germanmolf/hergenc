@@ -6,6 +6,6 @@ import com.example.heroes.versus.domain.VersusId;
 public final class VersusNotFoundException extends DomainError {
 
     public VersusNotFoundException(VersusId id) {
-        super("versus_not_found", String.format("Not found versus <%s>", id.value()));
+        super("versus_not_found", "Not found versus <%s>".formatted(id.value()));
     }
 }

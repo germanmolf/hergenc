@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-final class CriteriaConverterTest extends PersistenceTestModule {
+final class CriteriaConverterTest extends IntegrationTestModule {
 
     @Autowired
     private HeroRepository repository;

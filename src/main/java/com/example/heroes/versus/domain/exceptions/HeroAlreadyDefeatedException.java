@@ -6,6 +6,6 @@ import com.example.heroes.shared.domain.DomainError;
 public final class HeroAlreadyDefeatedException extends DomainError {
 
     public HeroAlreadyDefeatedException(HeroId id) {
-        super("hero_already_defeated", String.format("The hero <%s> is already defeated", id.value()));
+        super("hero_already_defeated", "The hero <%s> is already defeated".formatted(id.value()));
     }
 }

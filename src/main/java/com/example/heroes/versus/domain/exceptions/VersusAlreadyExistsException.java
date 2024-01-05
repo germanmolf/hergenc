@@ -6,6 +6,6 @@ import com.example.heroes.versus.domain.VersusId;
 public final class VersusAlreadyExistsException extends DomainError {
 
     public VersusAlreadyExistsException(VersusId id) {
-        super("versus_already_exists", String.format("The versus <%s> already exists", id.value()));
+        super("versus_already_exists", "The versus <%s> already exists".formatted(id.value()));
     }
 }

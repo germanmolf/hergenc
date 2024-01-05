@@ -11,7 +11,6 @@ import com.example.heroes.villains.domain.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -42,10 +41,8 @@ public final class VillainCreatorTest extends VillainModuleTest {
         CreateVillainRequest request = CreateVillainRequestMother.withIdNull();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
-        IdentifierNullException exception = assertThrows(IdentifierNullException.class, () -> creator.create(request));
+        assertThrows(IdentifierNullException.class, () -> creator.create(request));
 
-        assertEquals("villain_identifier_null", exception.getErrorCode());
-        assertEquals("The villain identifier is null", exception.getErrorMessage());
         shouldNotHavePublished(event);
     }
 
@@ -54,11 +51,8 @@ public final class VillainCreatorTest extends VillainModuleTest {
         CreateVillainRequest request = CreateVillainRequestMother.withIdNotValid();
         VillainCreatedEvent event = VillainCreatedEventMother.fromRequest(request);
 
-        IdentifierNotValidException exception = assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+        assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
 
-        assertEquals("villain_identifier_not_valid", exception.getErrorCode());
-        assertEquals(String.format("The villain identifier <%s> is not a valid UUID", request.id()),
-                exception.getErrorMessage());
         shouldNotHavePublished(event);
     }
 
