@@ -6,6 +6,6 @@ import com.example.heroes.villains.domain.VillainId;
 public final class VillainAlreadyDefeatedException extends DomainError {
 
     public VillainAlreadyDefeatedException(VillainId id) {
-        super("villain_already_defeated", String.format("The villain <%s> is already defeated", id.value()));
+        super("villain_already_defeated", "The villain <%s> is already defeated".formatted(id.value()));
     }
 }

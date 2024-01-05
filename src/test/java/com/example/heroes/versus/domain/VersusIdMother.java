@@ -7,4 +7,8 @@ public final class VersusIdMother {
     public static VersusId random() {
         return new VersusId(UuidMother.random());
     }
+
+    public static VersusId create(String id) {
+        return new VersusId(id);
+    }
 }
