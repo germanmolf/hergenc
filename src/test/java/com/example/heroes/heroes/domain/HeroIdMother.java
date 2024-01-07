@@ -8,6 +8,10 @@ public final class HeroIdMother {
         return new HeroId(UuidMother.random());
     }
 
+    public static String randomValue() {
+        return random().value();
+    }
+
     public static HeroId create(String id) {
         return new HeroId(id);
     }

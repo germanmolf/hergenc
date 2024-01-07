@@ -14,7 +14,7 @@ public final class CreateVillainRequestMother {
     }
 
     public static CreateVillainRequest random() {
-        return create(VillainIdMother.random().value(), VillainNameMother.random().value(), VillainPowerMother.random().value());
+        return create(VillainIdMother.randomValue(), VillainNameMother.randomValue(), VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest fromAggregate(Villain villain) {
@@ -22,34 +22,34 @@ public final class CreateVillainRequestMother {
     }
 
     public static CreateVillainRequest withIdNull() {
-        return create(null, VillainNameMother.random().value(), VillainPowerMother.random().value());
+        return create(null, VillainNameMother.randomValue(), VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest withIdNotValid() {
-        return create("qwe", VillainNameMother.random().value(), VillainPowerMother.random().value());
+        return create("qwe", VillainNameMother.randomValue(), VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest withNameNull() {
-        return create(VillainIdMother.random().value(), null, VillainPowerMother.random().value());
+        return create(VillainIdMother.randomValue(), null, VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest withNameBlank() {
-        return create(VillainIdMother.random().value(), Strings.EMPTY, VillainPowerMother.random().value());
+        return create(VillainIdMother.randomValue(), Strings.EMPTY, VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest withNameOverLength() {
-        return create(VillainIdMother.random().value(), WordMother.randomMin(21), VillainPowerMother.random().value());
+        return create(VillainIdMother.randomValue(), WordMother.randomMin(21), VillainPowerMother.randomValue());
     }
 
     public static CreateVillainRequest withPowerNull() {
-        return create(VillainIdMother.random().value(), VillainNameMother.random().value(), null);
+        return create(VillainIdMother.randomValue(), VillainNameMother.randomValue(), null);
     }
 
     public static CreateVillainRequest withPowerBlank() {
-        return create(VillainIdMother.random().value(), VillainNameMother.random().value(), Strings.EMPTY);
+        return create(VillainIdMother.randomValue(), VillainNameMother.randomValue(), Strings.EMPTY);
     }
 
     public static CreateVillainRequest withPowerOverLength() {
-        return create(VillainIdMother.random().value(), VillainNameMother.random().value(), WordMother.randomMin(31));
+        return create(VillainIdMother.randomValue(), VillainNameMother.randomValue(), WordMother.randomMin(31));
     }
 }

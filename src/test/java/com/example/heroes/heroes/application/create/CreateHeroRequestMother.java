@@ -14,7 +14,7 @@ public final class CreateHeroRequestMother {
     }
 
     public static CreateHeroRequest random() {
-        return create(HeroIdMother.random().value(), HeroNameMother.random().value(), HeroPowerMother.random().value());
+        return create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest fromAggregate(Hero hero) {
@@ -22,34 +22,34 @@ public final class CreateHeroRequestMother {
     }
 
     public static CreateHeroRequest withIdNull() {
-        return create(null, HeroNameMother.random().value(), HeroPowerMother.random().value());
+        return create(null, HeroNameMother.randomValue(), HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest withIdNotValid() {
-        return create("qwe", HeroNameMother.random().value(), HeroPowerMother.random().value());
+        return create("qwe", HeroNameMother.randomValue(), HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest withNameNull() {
-        return create(HeroIdMother.random().value(), null, HeroPowerMother.random().value());
+        return create(HeroIdMother.randomValue(), null, HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest withNameBlank() {
-        return create(HeroIdMother.random().value(), Strings.EMPTY, HeroPowerMother.random().value());
+        return create(HeroIdMother.randomValue(), Strings.EMPTY, HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest withNameOverLength() {
-        return create(HeroIdMother.random().value(), WordMother.randomMin(21), HeroPowerMother.random().value());
+        return create(HeroIdMother.randomValue(), WordMother.randomMin(21), HeroPowerMother.randomValue());
     }
 
     public static CreateHeroRequest withPowerNull() {
-        return create(HeroIdMother.random().value(), HeroNameMother.random().value(), null);
+        return create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), null);
     }
 
     public static CreateHeroRequest withPowerBlank() {
-        return create(HeroIdMother.random().value(), HeroNameMother.random().value(), Strings.EMPTY);
+        return create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), Strings.EMPTY);
     }
 
     public static CreateHeroRequest withPowerOverLength() {
-        return create(HeroIdMother.random().value(), HeroNameMother.random().value(), WordMother.randomMin(31));
+        return create(HeroIdMother.randomValue(), HeroNameMother.randomValue(), WordMother.randomMin(31));
     }
 }

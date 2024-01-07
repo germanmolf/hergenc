@@ -9,8 +9,8 @@ public final class HeroCreatedEventMother {
     }
 
     public static HeroCreatedEvent random() {
-        return create(HeroIdMother.random().value(), HeroNameMother.random().value(),
-                HeroPowerMother.random().value());
+        return create(HeroIdMother.randomValue(), HeroNameMother.randomValue(),
+                HeroPowerMother.randomValue());
     }
 
     public static HeroCreatedEvent fromAggregate(Hero hero) {

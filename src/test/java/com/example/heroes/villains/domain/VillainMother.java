@@ -16,15 +16,15 @@ public final class VillainMother {
     }
 
     public static Villain random() {
-        List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
+        List<String> heroesDefeated = ListMother.random(HeroIdMother::randomValue);
         VillainStatus status = VillainStatusMother.random();
-        return new Villain(VillainIdMother.random().value(),
-                VillainNameMother.random().value(),
-                VillainPowerMother.random().value(),
+        return new Villain(VillainIdMother.randomValue(),
+                VillainNameMother.randomValue(),
+                VillainPowerMother.randomValue(),
                 heroesDefeated,
                 heroesDefeated.size(),
                 status.value(),
-                status.isActive() ? Optional.empty() : Optional.of(HeroIdMother.random().value()));
+                status.isActive() ? Optional.empty() : Optional.of(HeroIdMother.randomValue()));
     }
 
     public static Villain fromRequest(CreateVillainRequest request) {
@@ -32,7 +32,7 @@ public final class VillainMother {
     }
 
     public static Villain create(String name, String power) {
-        return create(VillainIdMother.random().value(), name, power);
+        return create(VillainIdMother.randomValue(), name, power);
     }
 
     public static Villain updatingHeroesDefeated(Villain villain, HeroId heroId) {
@@ -50,10 +50,10 @@ public final class VillainMother {
     }
 
     public static Villain withStatusActive() {
-        List<String> heroesDefeated = ListMother.random(() -> HeroIdMother.random().value());
-        return new Villain(VillainIdMother.random().value(),
-                VillainNameMother.random().value(),
-                VillainPowerMother.random().value(),
+        List<String> heroesDefeated = ListMother.random(HeroIdMother::randomValue);
+        return new Villain(VillainIdMother.randomValue(),
+                VillainNameMother.randomValue(),
+                VillainPowerMother.randomValue(),
                 heroesDefeated,
                 heroesDefeated.size(),
                 VillainStatusMother.active().value(),

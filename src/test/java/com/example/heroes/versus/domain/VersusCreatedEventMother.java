@@ -15,44 +15,44 @@ public final class VersusCreatedEventMother {
     }
 
     public static VersusCreatedEvent random() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
-                VersusDefeatedMother.random().value());
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
+                VersusDefeatedMother.randomValue());
     }
 
     public static VersusCreatedEvent withHeroDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.heroDefeatedRandom().value());
     }
 
     public static VersusCreatedEvent withVillainDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.villainDefeatedRandom().value());
     }
 
     public static VersusCreatedEvent withOnlyHeroDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.onlyHeroDefeated().value());
     }
 
     public static VersusCreatedEvent withOnlyVillainDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.onlyVillainDefeated().value());
     }
 
     public static VersusCreatedEvent withNoneDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.noneDefeated().value());
     }
 }

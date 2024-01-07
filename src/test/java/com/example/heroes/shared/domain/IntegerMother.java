@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.domain;
+package com.example.heroes.shared.domain;
 
 import java.util.Random;
 

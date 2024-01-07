@@ -33,7 +33,7 @@ final class VillainFinderTest extends VillainModuleTest {
 
     @Test
     void throw_an_exception_when_villain_not_found() {
-        String id = VillainIdMother.random().value();
+        String id = VillainIdMother.randomValue();
 
         assertThrows(VillainNotFoundException.class, () -> finder.find(id));
     }

@@ -13,51 +13,51 @@ public final class CreateVersusRequestMother {
     }
 
     public static CreateVersusRequest random() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
-                VersusDefeatedMother.random().value());
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
+                VersusDefeatedMother.randomValue());
     }
 
     public static CreateVersusRequest withIdNull() {
         return create(null,
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
-                VersusDefeatedMother.random().value());
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
+                VersusDefeatedMother.randomValue());
     }
 
     public static CreateVersusRequest withIdNotValid() {
         return create("qwe",
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
-                VersusDefeatedMother.random().value());
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
+                VersusDefeatedMother.randomValue());
     }
 
     public static CreateVersusRequest withDefeatedNull() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 null);
     }
 
     public static CreateVersusRequest withDefeatedNotValid() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 WordMother.random());
     }
 
     public static CreateVersusRequest withHeroDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.heroDefeatedRandom().value());
     }
 
     public static CreateVersusRequest withVillainDefeated() {
-        return create(VersusIdMother.random().value(),
-                HeroIdMother.random().value(),
-                VillainIdMother.random().value(),
+        return create(VersusIdMother.randomValue(),
+                HeroIdMother.randomValue(),
+                VillainIdMother.randomValue(),
                 VersusDefeatedMother.villainDefeatedRandom().value());
     }
 }

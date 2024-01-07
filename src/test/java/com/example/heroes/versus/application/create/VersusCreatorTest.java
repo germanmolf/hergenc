@@ -2,6 +2,8 @@ package com.example.heroes.versus.application.create;
 
 import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 import com.example.heroes.shared.domain.LongMother;
+import com.example.heroes.shared.domain.exceptions.IdentifierNotValidException;
+import com.example.heroes.shared.domain.exceptions.IdentifierNullException;
 import com.example.heroes.versus.application.VersusModuleTest;
 import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusCreatedEvent;
@@ -35,7 +37,27 @@ public final class VersusCreatorTest extends VersusModuleTest {
         shouldHaveSaved(versus);
         shouldHavePublished(event);
     }
-    
+
+    @Test
+    void throw_an_exception_when_id_is_null() {
+        CreateVersusRequest request = CreateVersusRequestMother.withIdNull();
+        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
+
+        assertThrows(IdentifierNullException.class, () -> creator.create(request));
+
+        shouldNotHavePublished(event);
+    }
+
+    @Test
+    void throw_an_exception_when_id_is_not_valid() {
+        CreateVersusRequest request = CreateVersusRequestMother.withIdNotValid();
+        VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
+
+        assertThrows(IdentifierNotValidException.class, () -> creator.create(request));
+
+        shouldNotHavePublished(event);
+    }
+
     @Test
     void throw_an_exception_when_defeated_is_null() {
         CreateVersusRequest request = CreateVersusRequestMother.withDefeatedNull();

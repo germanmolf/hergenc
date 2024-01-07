@@ -8,6 +8,10 @@ public final class VillainIdMother {
         return new VillainId(UuidMother.random());
     }
 
+    public static String randomValue() {
+        return random().value();
+    }
+
     public static VillainId create(String id) {
         return new VillainId(id);
     }

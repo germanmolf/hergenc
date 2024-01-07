@@ -49,8 +49,8 @@ final class VersusRepositoryMySqlTest extends IntegrationTestModule {
 
     @Test
     void search_versus_using_criteria() {
-        String heroIdMatching = HeroIdMother.random().value();
-        String villainIdMatching = VillainIdMother.random().value();
+        String heroIdMatching = HeroIdMother.randomValue();
+        String villainIdMatching = VillainIdMother.randomValue();
         Versus matchingVersus1 = VersusMother.create(heroIdMatching, villainIdMatching, VersusDefeated.NONE.value());
         Versus matchingVersus2 = VersusMother.create(heroIdMatching, villainIdMatching, VersusDefeated.NONE.value());
         Versus noMatchingVersus1 = VersusMother.random();
@@ -72,8 +72,8 @@ final class VersusRepositoryMySqlTest extends IntegrationTestModule {
 
     @Test
     void count_versus_using_criteria() {
-        String heroIdMatching = HeroIdMother.random().value();
-        String villainIdMatching = VillainIdMother.random().value();
+        String heroIdMatching = HeroIdMother.randomValue();
+        String villainIdMatching = VillainIdMother.randomValue();
         Versus matchingVersus1 = VersusMother.create(heroIdMatching, villainIdMatching, VersusDefeated.NONE.value());
         Versus matchingVersus2 = VersusMother.create(heroIdMatching, villainIdMatching, VersusDefeated.NONE.value());
         Versus noMatchingVersus1 = VersusMother.random();

@@ -33,7 +33,7 @@ final class VersusFinderTest extends VersusModuleTest {
 
     @Test
     void throw_an_exception_when_versus_not_found() {
-        String id = VersusIdMother.random().value();
+        String id = VersusIdMother.randomValue();
 
         assertThrows(VersusNotFoundException.class, () -> finder.find(id));
     }

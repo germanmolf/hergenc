@@ -8,6 +8,10 @@ public final class VersusIdMother {
         return new VersusId(UuidMother.random());
     }
 
+    public static String randomValue() {
+        return random().value();
+    }
+
     public static VersusId create(String id) {
         return new VersusId(id);
     }
