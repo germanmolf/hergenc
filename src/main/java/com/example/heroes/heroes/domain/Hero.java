@@ -60,6 +60,10 @@ public final class Hero extends AggregateRoot {
         villainDefeater = Optional.of(villainId);
     }
 
+    public boolean isDefeated() {
+        return status.isDefeated();
+    }
+
     public HeroId id() {
         return id;
     }

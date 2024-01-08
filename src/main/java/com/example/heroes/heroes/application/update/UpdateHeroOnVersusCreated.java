@@ -27,7 +27,8 @@ public final class UpdateHeroOnVersusCreated {
         if (versusDefeated.villainIsDefeated() && !hero.hasDefeated(villainId)) {
             hero.addVillainDefeated(villainId);
         }
-        if (versusDefeated.heroIsDefeated()) {
+
+        if (versusDefeated.heroIsDefeated() && !hero.isDefeated()) {
             hero.defeatedBy(villainId);
         }
         repository.save(hero);

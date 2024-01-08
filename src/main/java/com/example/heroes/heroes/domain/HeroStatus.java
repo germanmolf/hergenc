@@ -19,11 +19,15 @@ public enum HeroStatus {
         };
     }
 
+    public String value() {
+        return status;
+    }
+
     public boolean isActive() {
         return this == ACTIVE;
     }
-    
-    public String value() {
-        return status;
+
+    public boolean isDefeated() {
+        return this == DEFEATED;
     }
 }

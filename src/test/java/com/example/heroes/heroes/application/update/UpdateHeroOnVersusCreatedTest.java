@@ -83,6 +83,19 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     }
 
     @Test
+    void no_change_status_when_is_already_defeated() {
+        VersusCreatedEvent event = VersusCreatedEventMother.withOnlyHeroDefeated();
+        Hero hero = HeroMother.createWithId(event.getHeroId());
+        hero = HeroMother.updatingHeroDefeated(hero, event.getVillainId());
+        Hero heroNotUpdated = HeroMother.copy(hero);
+        shouldSearch(hero);
+
+        subscriber.on(event);
+
+        shouldHaveSaved(heroNotUpdated);
+    }
+
+    @Test
     void throw_an_exception_when_hero_not_found() {
         VersusCreatedEvent event = VersusCreatedEventMother.random();
 
