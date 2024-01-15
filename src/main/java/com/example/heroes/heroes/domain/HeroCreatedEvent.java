@@ -2,6 +2,7 @@ package com.example.heroes.heroes.domain;
 
 import com.example.heroes.shared.domain.event.DomainEvent;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public final class HeroCreatedEvent extends DomainEvent {
@@ -15,9 +16,28 @@ public final class HeroCreatedEvent extends DomainEvent {
         this.power = power;
     }
 
+    public HeroCreatedEvent(String aggregateId, String eventId, String occurredOn, String name, String power) {
+        super(aggregateId, eventId, occurredOn);
+        this.name = name;
+        this.power = power;
+    }
+
     @Override
     public String eventName() {
         return "hero.created";
+    }
+
+    @Override
+    public HashMap<String, String> toPrimitives() {
+        return new HashMap<>() {{
+            put("name", name);
+            put("power", power);
+        }};
+    }
+
+    @Override
+    public HeroCreatedEvent fromPrimitives(String aggregateId, String eventId, String occurredOn, HashMap<String, String> body) {
+        return new HeroCreatedEvent(aggregateId, eventId, occurredOn, body.get("name"), body.get("power"));
     }
 
     @Override

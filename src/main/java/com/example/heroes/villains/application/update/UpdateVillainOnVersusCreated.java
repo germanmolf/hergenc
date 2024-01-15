@@ -18,9 +18,9 @@ public final class UpdateVillainOnVersusCreated {
     }
 
     public void on(VersusCreatedEvent event) {
-        VillainId villainId = new VillainId(event.getVillainId());
-        HeroId heroId = new HeroId(event.getHeroId());
-        VersusDefeated versusDefeated = VersusDefeated.fromValue(event.getDefeated());
+        VillainId villainId = new VillainId(event.villainId());
+        HeroId heroId = new HeroId(event.heroId());
+        VersusDefeated versusDefeated = VersusDefeated.fromValue(event.defeated());
         if (versusDefeated.heroIsDefeated()) {
             incrementer.increment(villainId, heroId);
         }

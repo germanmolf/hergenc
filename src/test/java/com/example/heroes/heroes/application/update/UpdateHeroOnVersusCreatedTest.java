@@ -24,8 +24,8 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void increment_total_and_include_villain_defeated_when_villain_is_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withOnlyVillainDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
-        Hero heroUpdated = HeroMother.updatingVillainsDefeated(hero, event.getVillainId());
+        Hero hero = HeroMother.createWithId(event.heroId());
+        Hero heroUpdated = HeroMother.updatingVillainsDefeated(hero, event.villainId());
         shouldSearch(hero);
 
         subscriber.on(event);
@@ -36,7 +36,7 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void not_increment_and_not_include_villain_when_villain_is_not_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withNoneDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
+        Hero hero = HeroMother.createWithId(event.heroId());
         Hero heroNotUpdated = HeroMother.copy(hero);
         shouldSearch(hero);
 
@@ -48,8 +48,8 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void not_increment_and_not_include_villain_when_villain_is_already_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withOnlyVillainDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
-        hero = HeroMother.updatingVillainsDefeated(hero, event.getVillainId());
+        Hero hero = HeroMother.createWithId(event.heroId());
+        hero = HeroMother.updatingVillainsDefeated(hero, event.villainId());
         Hero heroNotUpdated = HeroMother.copy(hero);
         shouldSearch(hero);
 
@@ -61,8 +61,8 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void change_status_when_is_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withOnlyHeroDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
-        Hero heroUpdated = HeroMother.updatingHeroDefeated(hero, event.getVillainId());
+        Hero hero = HeroMother.createWithId(event.heroId());
+        Hero heroUpdated = HeroMother.updatingHeroDefeated(hero, event.villainId());
         shouldSearch(hero);
 
         subscriber.on(event);
@@ -73,7 +73,7 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void no_change_status_when_is_not_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withNoneDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
+        Hero hero = HeroMother.createWithId(event.heroId());
         Hero heroNotUpdated = HeroMother.copy(hero);
         shouldSearch(hero);
 
@@ -85,8 +85,8 @@ public final class UpdateHeroOnVersusCreatedTest extends HeroModuleTest {
     @Test
     void no_change_status_when_is_already_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withOnlyHeroDefeated();
-        Hero hero = HeroMother.createWithId(event.getHeroId());
-        hero = HeroMother.updatingHeroDefeated(hero, event.getVillainId());
+        Hero hero = HeroMother.createWithId(event.heroId());
+        hero = HeroMother.updatingHeroDefeated(hero, event.villainId());
         Hero heroNotUpdated = HeroMother.copy(hero);
         shouldSearch(hero);
 

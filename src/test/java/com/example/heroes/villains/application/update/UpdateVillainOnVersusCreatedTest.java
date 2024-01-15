@@ -29,8 +29,8 @@ public final class UpdateVillainOnVersusCreatedTest extends VillainModuleTest {
     @Test
     void call_incrementer_when_hero_is_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withHeroDefeated();
-        VillainId villainId = VillainIdMother.create(event.getVillainId());
-        HeroId heroId = HeroIdMother.create(event.getHeroId());
+        VillainId villainId = VillainIdMother.create(event.villainId());
+        HeroId heroId = HeroIdMother.create(event.heroId());
 
         subscriber.on(event);
 
@@ -40,8 +40,8 @@ public final class UpdateVillainOnVersusCreatedTest extends VillainModuleTest {
     @Test
     void call_defeater_when_villain_is_defeated() {
         VersusCreatedEvent event = VersusCreatedEventMother.withVillainDefeated();
-        VillainId villainId = VillainIdMother.create(event.getVillainId());
-        HeroId heroId = HeroIdMother.create(event.getHeroId());
+        VillainId villainId = VillainIdMother.create(event.villainId());
+        HeroId heroId = HeroIdMother.create(event.heroId());
 
         subscriber.on(event);
 

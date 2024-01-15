@@ -19,10 +19,10 @@ public final class UpdateHeroOnVersusCreated {
     }
 
     public void on(VersusCreatedEvent event) {
-        HeroId heroId = new HeroId(event.getHeroId());
+        HeroId heroId = new HeroId(event.heroId());
         Hero hero = repository.search(heroId).orElseThrow(() -> new HeroNotFoundException(heroId));
-        VersusDefeated versusDefeated = VersusDefeated.fromValue(event.getDefeated());
-        VillainId villainId = new VillainId(event.getVillainId());
+        VersusDefeated versusDefeated = VersusDefeated.fromValue(event.defeated());
+        VillainId villainId = new VillainId(event.villainId());
 
         if (versusDefeated.villainIsDefeated() && !hero.hasDefeated(villainId)) {
             hero.addVillainDefeated(villainId);

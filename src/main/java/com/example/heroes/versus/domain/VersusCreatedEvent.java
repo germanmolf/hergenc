@@ -2,6 +2,7 @@ package com.example.heroes.versus.domain;
 
 import com.example.heroes.shared.domain.event.DomainEvent;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public final class VersusCreatedEvent extends DomainEvent {
@@ -17,20 +18,44 @@ public final class VersusCreatedEvent extends DomainEvent {
         this.defeated = defeated;
     }
 
+    public VersusCreatedEvent(String aggregateId, String eventId, String occurredOn, String heroId, String villainId,
+                              String defeated) {
+        super(aggregateId, eventId, occurredOn);
+        this.heroId = heroId;
+        this.villainId = villainId;
+        this.defeated = defeated;
+    }
+
     @Override
     public String eventName() {
         return "versus.created";
     }
 
-    public String getHeroId() {
+    @Override
+    public HashMap<String, String> toPrimitives() {
+        return new HashMap<>() {{
+            put("heroId", heroId);
+            put("villainId", villainId);
+            put("defeated", defeated);
+        }};
+    }
+
+    @Override
+    public VersusCreatedEvent fromPrimitives(String aggregateId, String eventId, String occurredOn,
+                                             HashMap<String, String> body) {
+        return new VersusCreatedEvent(aggregateId, eventId, occurredOn, body.get("heroId"), body.get("villainId"),
+                body.get("defeated"));
+    }
+
+    public String heroId() {
         return heroId;
     }
 
-    public String getVillainId() {
+    public String villainId() {
         return villainId;
     }
 
-    public String getDefeated() {
+    public String defeated() {
         return defeated;
     }
 
