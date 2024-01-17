@@ -5,12 +5,13 @@ import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
 import com.example.heroes.heroes.domain.exceptions.HeroNotFoundException;
 import com.example.heroes.shared.domain.Injectable;
+import com.example.heroes.shared.domain.event.DomainEventSubscriber;
 import com.example.heroes.versus.domain.VersusCreatedEvent;
 import com.example.heroes.versus.domain.VersusDefeated;
 import com.example.heroes.villains.domain.VillainId;
 
 @Injectable
-public final class UpdateHeroOnVersusCreated {
+public final class UpdateHeroOnVersusCreated implements DomainEventSubscriber<VersusCreatedEvent> {
 
     private final HeroRepository repository;
 
@@ -33,4 +34,5 @@ public final class UpdateHeroOnVersusCreated {
         }
         repository.save(hero);
     }
+
 }
