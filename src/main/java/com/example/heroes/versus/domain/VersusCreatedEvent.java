@@ -11,6 +11,13 @@ public final class VersusCreatedEvent extends DomainEvent {
     private final String villainId;
     private final String defeated;
 
+    public VersusCreatedEvent() {
+        super();
+        heroId = null;
+        villainId = null;
+        defeated = null;
+    }
+
     public VersusCreatedEvent(String aggregateId, String heroId, String villainId, String defeated) {
         super(aggregateId);
         this.heroId = heroId;

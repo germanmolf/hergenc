@@ -19,6 +19,7 @@ public final class UpdateHeroOnVersusCreated implements DomainEventSubscriber<Ve
         this.repository = repository;
     }
 
+    @Override
     public void on(VersusCreatedEvent event) {
         HeroId heroId = new HeroId(event.heroId());
         Hero hero = repository.search(heroId).orElseThrow(() -> new HeroNotFoundException(heroId));
@@ -33,6 +34,11 @@ public final class UpdateHeroOnVersusCreated implements DomainEventSubscriber<Ve
             hero.defeatedBy(villainId);
         }
         repository.save(hero);
+    }
+
+    @Override
+    public String subscriberName() {
+        return "update.hero";
     }
 
 }

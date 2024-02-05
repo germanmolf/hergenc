@@ -10,6 +10,12 @@ public final class VillainCreatedEvent extends DomainEvent {
     private final String name;
     private final String power;
 
+    public VillainCreatedEvent() {
+        super();
+        name = null;
+        power = null;
+    }
+
     public VillainCreatedEvent(String aggregateId, String name, String power) {
         super(aggregateId);
         this.name = name;

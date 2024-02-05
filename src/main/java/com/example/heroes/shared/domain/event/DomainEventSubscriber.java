@@ -4,4 +4,6 @@ public interface DomainEventSubscriber<T extends DomainEvent> {
 
     void on(T event);
 
+    String subscriberName();
+
 }

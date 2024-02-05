@@ -18,6 +18,7 @@ public final class UpdateVillainOnVersusCreated implements DomainEventSubscriber
         this.defeater = defeater;
     }
 
+    @Override
     public void on(VersusCreatedEvent event) {
         VillainId villainId = new VillainId(event.villainId());
         HeroId heroId = new HeroId(event.heroId());
@@ -28,5 +29,10 @@ public final class UpdateVillainOnVersusCreated implements DomainEventSubscriber
         if (versusDefeated.villainIsDefeated()) {
             defeater.defeat(villainId, heroId);
         }
+    }
+
+    @Override
+    public String subscriberName() {
+        return "update.villain";
     }
 }

@@ -10,6 +10,12 @@ public final class HeroCreatedEvent extends DomainEvent {
     private final String name;
     private final String power;
 
+    public HeroCreatedEvent() {
+        super();
+        name = null;
+        power = null;
+    }
+
     public HeroCreatedEvent(String aggregateId, String name, String power) {
         super(aggregateId);
         this.name = name;

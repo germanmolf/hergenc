@@ -12,6 +12,12 @@ public abstract class DomainEvent {
     private final String eventId;
     private final String occurredOn;
 
+    public DomainEvent() {
+        aggregateId = null;
+        eventId = null;
+        occurredOn = null;
+    }
+
     public DomainEvent(String aggregateId) {
         this.aggregateId = aggregateId;
         this.eventId = UUID.randomUUID().toString();

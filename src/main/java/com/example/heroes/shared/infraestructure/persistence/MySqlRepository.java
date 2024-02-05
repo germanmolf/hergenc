@@ -45,6 +45,10 @@ public abstract class MySqlRepository<T> {
                 .getResultList();
     }
 
+    protected List<T> all() {
+        return byCriteria(new Criteria());
+    }
+
     protected Long countByCriteria(Criteria criteria) {
         CriteriaQuery<Long> hibernateCriteria = criteriaConverter.convertForCount(criteria, aggregateClass);
         return entityManager.createQuery(hibernateCriteria).getSingleResult();
