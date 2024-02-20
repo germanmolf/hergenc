@@ -15,4 +15,8 @@ public final class VillainCreatedEventMother {
     public static VillainCreatedEvent fromRequest(CreateVillainRequest request) {
         return create(request.id(), request.name(), request.power());
     }
+
+    public static VillainCreatedEvent random() {
+        return create(VillainIdMother.randomValue(), VillainNameMother.randomValue(), VillainPowerMother.randomValue());
+    }
 }

@@ -26,8 +26,8 @@ public final class EventBusMySql implements EventBus {
     private void publish(DomainEvent event) {
         Set<String> subscribersNames =
                 domainEventSubscribersInformation.getDomainEventSubscribersNames(event.eventName());
-        DomainEventJpa domainEventJpa = DomainEventJpa.fromDomainEvent(event, subscribersNames);
-        repository.save(domainEventJpa);
+        EventQueued eventQueued = EventQueued.fromDomainEvent(event, subscribersNames);
+        repository.save(eventQueued);
     }
 
 }

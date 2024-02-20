@@ -55,6 +55,14 @@ public abstract class MySqlRepository<T> {
     }
 
     protected void remove(T entity) {
-        entityManager.remove(entity);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(entity);
+            entityManager.flush();
+            entityManager.clear();
+            entityManager.getTransaction().commit();
+        } finally {
+            entityManager.getTransaction().rollback();
+        }
     }
 }

@@ -5,7 +5,7 @@ import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.event.DomainEventSubscriber;
 
 @Injectable
-public final class HeroCreatedEventSubscriberMock implements DomainEventSubscriber<HeroCreatedEvent> {
+public final class OnHeroCreatedMock implements DomainEventSubscriber<HeroCreatedEvent> {
 
     public Boolean hasBeenExecuted = false;
 
@@ -16,7 +16,7 @@ public final class HeroCreatedEventSubscriberMock implements DomainEventSubscrib
 
     @Override
     public String subscriberName() {
-        return "subscriber.mock";
+        return "hero-subscriber.mock";
     }
 
 }

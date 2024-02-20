@@ -22,7 +22,7 @@ public class MySqlDomainEventsConsumer {
 
     public void consume() {
         while (on) {
-            List<DomainEventJpa> domainEvents = repository.searchAll();
+            List<EventQueued> domainEvents = repository.searchAll();
             for (var eventJpa : domainEvents) {
                 Class<? extends DomainEvent> eventClass = domainEventSubscribersInformation.getEventClass(eventJpa.getName());
                 DomainEvent event = null;

@@ -15,8 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "domain_event")
-public final class DomainEventJpa {
+@Table(name = "event_queued")
+public final class EventQueued {
 
     @Id
     private String id;
@@ -30,8 +30,8 @@ public final class DomainEventJpa {
     @Convert(converter = MapToJsonConverter.class)
     private Map<String, String> body;
 
-    public static DomainEventJpa fromDomainEvent(DomainEvent event, Set<String> subscribers) {
-        return new DomainEventJpa(event.eventId(), event.aggregateId(), event.occurredOn(), event.eventName(),
+    public static EventQueued fromDomainEvent(DomainEvent event, Set<String> subscribers) {
+        return new EventQueued(event.eventId(), event.aggregateId(), event.occurredOn(), event.eventName(),
                 subscribers, event.toPrimitives());
     }
 
