@@ -21,4 +21,7 @@ public class DomainEventRepositoryMySql extends MySqlRepository<DomainEventJpa> 
         return all();
     }
 
+    public void delete(DomainEventJpa event) {
+        remove(event);
+    }
 }

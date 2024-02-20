@@ -15,9 +15,11 @@ import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class EventBusMySqlTest extends IntegrationTestModule {
 
+    private final int MILLIS_TO_WAIT = 1000;
     @Autowired
     private EventBusMySql eventBus;
     @Autowired
@@ -28,6 +30,8 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     private UpdateHeroOnVersusCreated versusSubscriber1;
     @Autowired
     private UpdateVillainOnVersusCreated versusSubscriber2;
+    @Autowired
+    private MySqlDomainEventsConsumer consumer;
 
     @Test
     void publish_an_event() {
@@ -53,5 +57,16 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     }
 
     //consume an event
+    @Test
+    void consume_an_event() throws InterruptedException {
+        HeroCreatedEvent event = HeroCreatedEventMother.random();
+        eventBus.publish(List.of(event));
+        Thread consumerProcess = new Thread(() -> consumer.consume());
+
+        consumerProcess.start();
+        Thread.sleep(MILLIS_TO_WAIT);
+
+        assertTrue(subscriber.hasBeenExecuted);
+    }
 
 }

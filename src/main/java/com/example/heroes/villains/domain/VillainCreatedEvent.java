@@ -3,6 +3,7 @@ package com.example.heroes.villains.domain;
 import com.example.heroes.shared.domain.event.DomainEvent;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public final class VillainCreatedEvent extends DomainEvent {
@@ -34,7 +35,7 @@ public final class VillainCreatedEvent extends DomainEvent {
     }
 
     @Override
-    public HashMap<String, String> toPrimitives() {
+    public Map<String, String> toPrimitives() {
         return new HashMap<>() {{
             put("name", name);
             put("power", power);
@@ -42,7 +43,7 @@ public final class VillainCreatedEvent extends DomainEvent {
     }
 
     @Override
-    public VillainCreatedEvent fromPrimitives(String aggregateId, String eventId, String occurredOn, HashMap<String, String> body) {
+    public VillainCreatedEvent fromPrimitives(String aggregateId, String eventId, String occurredOn, Map<String, String> body) {
         return new VillainCreatedEvent(aggregateId, eventId, occurredOn, body.get("name"), body.get("power"));
     }
 

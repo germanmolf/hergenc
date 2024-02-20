@@ -3,15 +3,15 @@ package com.example.heroes.shared.infraestructure.persistence;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
 
-@Converter(autoApply = true)
-public class JsonJpaConverter implements AttributeConverter<Object, String> {
+import java.util.Map;
+
+public class MapToJsonConverter implements AttributeConverter<Map, String> {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String convertToDatabaseColumn(Object object) {
+    public String convertToDatabaseColumn(Map object) {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
@@ -20,9 +20,9 @@ public class JsonJpaConverter implements AttributeConverter<Object, String> {
     }
 
     @Override
-    public Object convertToEntityAttribute(String json) {
+    public Map convertToEntityAttribute(String json) {
         try {
-            return objectMapper.readValue(json, Object.class);
+            return objectMapper.readValue(json, Map.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

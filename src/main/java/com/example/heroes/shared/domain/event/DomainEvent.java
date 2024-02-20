@@ -3,7 +3,7 @@ package com.example.heroes.shared.domain.event;
 import com.example.heroes.shared.domain.Utils;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class DomainEvent {
@@ -32,13 +32,13 @@ public abstract class DomainEvent {
 
     public abstract String eventName();
 
-    public abstract HashMap<String, String> toPrimitives();
+    public abstract Map<String, String> toPrimitives();
 
     public abstract DomainEvent fromPrimitives(
             String aggregateId,
             String eventId,
             String occurredOn,
-            HashMap<String, String> body
+            Map<String, String> body
     );
 
     public String aggregateId() {

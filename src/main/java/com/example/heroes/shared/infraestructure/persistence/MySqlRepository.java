@@ -53,4 +53,8 @@ public abstract class MySqlRepository<T> {
         CriteriaQuery<Long> hibernateCriteria = criteriaConverter.convertForCount(criteria, aggregateClass);
         return entityManager.createQuery(hibernateCriteria).getSingleResult();
     }
+
+    protected void remove(T entity) {
+        entityManager.remove(entity);
+    }
 }

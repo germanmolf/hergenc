@@ -19,11 +19,15 @@ public final class DomainEventSubscribersInformation {
     private final ApplicationContext context;
 
     private final Map<String, HashSet<String>> information;
+    private final Map<String, Class<? extends DomainEvent>> eventsClasses;
+    private final Map<String, DomainEventSubscriber<DomainEvent>> subscribers;
 
     public DomainEventSubscribersInformation(ApplicationContext context) throws ReflectiveOperationException {
         this.context = context;
-        this.information = new HashMap<>();
-        this.scanDomainEventSubscribers();
+        information = new HashMap<>();
+        eventsClasses = new HashMap<>();
+        subscribers = new HashMap<>();
+        scanDomainEventSubscribers();
     }
 
     public Set<String> getDomainEventSubscribersNames(String eventName) {
@@ -32,10 +36,12 @@ public final class DomainEventSubscribersInformation {
 
     private void scanDomainEventSubscribers() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Reflections reflections = new Reflections("com.example.heroes");
-        var subscribers = reflections.getSubTypesOf(DomainEventSubscriber.class);
+        var subscribersClasses = reflections.getSubTypesOf(DomainEventSubscriber.class);
 
         for (var subscriberClass : subscribers) {
             DomainEventSubscriber<?> subscriber = context.getBean(subscriberClass);
+        for (var subscriberClass : subscribersClasses) {
+            DomainEventSubscriber<DomainEvent> subscriber = context.getBean(subscriberClass);
             String subscriberName = subscriber.subscriberName();
 
             Class<DomainEvent> eventClass = getSubscribedEventClass(subscriberClass);
@@ -45,6 +51,10 @@ public final class DomainEventSubscribersInformation {
             HashSet<String> eventSubscribersNames = information.getOrDefault(eventName, new HashSet<>());
             eventSubscribersNames.add(subscriberName);
             information.put(eventName, eventSubscribersNames);
+
+            eventsClasses.put(eventName, eventClass);
+
+            subscribers.put(subscriberName, subscriber);
         }
     }
 
@@ -52,4 +62,13 @@ public final class DomainEventSubscribersInformation {
         ParameterizedType genericInterface = (ParameterizedType) subscriberClass.getGenericInterfaces()[0];
         return (Class<DomainEvent>) genericInterface.getActualTypeArguments()[0];
     }
+
+    public Class<? extends DomainEvent> getEventClass(String eventName) {
+        return eventsClasses.get(eventName);
+    }
+
+    public DomainEventSubscriber<DomainEvent> getSubscriber(String subscriberName) {
+        return subscribers.get(subscriberName);
+    }
+
 }
