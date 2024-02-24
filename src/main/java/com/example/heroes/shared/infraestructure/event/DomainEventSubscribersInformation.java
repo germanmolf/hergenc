@@ -1,5 +1,6 @@
 package com.example.heroes.shared.infraestructure.event;
 
+import com.example.heroes.shared.domain.Injectable;
 import com.example.heroes.shared.domain.event.DomainEvent;
 import com.example.heroes.shared.domain.event.DomainEventSubscriber;
 import org.reflections.Reflections;
@@ -13,54 +14,48 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.reflections.util.ReflectionUtilsPredicates.withAnnotation;
+
 @Service
 public final class DomainEventSubscribersInformation {
 
     private final ApplicationContext context;
-
-    private final Map<String, HashSet<String>> information;
-    private final Map<String, Class<? extends DomainEvent>> eventsClasses;
-    private final Map<String, DomainEventSubscriber<DomainEvent>> subscribers;
+    private Map<String, Set<String>> subscribersOfEvents;
+    private Map<String, Class<? extends DomainEvent>> eventsClasses;
+    private Map<String, DomainEventSubscriber<DomainEvent>> subscribers;
 
     public DomainEventSubscribersInformation(ApplicationContext context) throws ReflectiveOperationException {
         this.context = context;
-        information = new HashMap<>();
+        subscribersOfEvents = new HashMap<>();
         eventsClasses = new HashMap<>();
         subscribers = new HashMap<>();
         scanDomainEventSubscribers();
     }
 
     public Set<String> getDomainEventSubscribersNames(String eventName) {
-        return information.getOrDefault(eventName, new HashSet<>());
+        return subscribersOfEvents.getOrDefault(eventName, new HashSet<>());
     }
 
     private void scanDomainEventSubscribers() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Reflections reflections = new Reflections("com.example.heroes");
-        var subscribersClasses = reflections.getSubTypesOf(DomainEventSubscriber.class);
+        var subscribersClasses = reflections.getSubTypesOf(DomainEventSubscriber.class).stream()
+                .filter(withAnnotation(Injectable.class))
+                .toList();
 
-        for (var subscriberClass : subscribers) {
-            DomainEventSubscriber<?> subscriber = context.getBean(subscriberClass);
         for (var subscriberClass : subscribersClasses) {
             DomainEventSubscriber<DomainEvent> subscriber = context.getBean(subscriberClass);
             String subscriberName = subscriber.subscriberName();
+            subscribers.put(subscriberName, subscriber);
 
-            Class<DomainEvent> eventClass = getSubscribedEventClass(subscriberClass);
+            Class<DomainEvent> eventClass = getEventClass(subscriberClass);
             DomainEvent event = eventClass.getConstructor().newInstance();
             String eventName = event.eventName();
-
-            HashSet<String> eventSubscribersNames = information.getOrDefault(eventName, new HashSet<>());
-            eventSubscribersNames.add(subscriberName);
-            information.put(eventName, eventSubscribersNames);
-
             eventsClasses.put(eventName, eventClass);
 
-            subscribers.put(subscriberName, subscriber);
+            Set<String> eventSubscribersNames = subscribersOfEvents.getOrDefault(eventName, new HashSet<>());
+            eventSubscribersNames.add(subscriberName);
+            subscribersOfEvents.put(eventName, eventSubscribersNames);
         }
-    }
-
-    private Class<DomainEvent> getSubscribedEventClass(Class<?> subscriberClass) {
-        ParameterizedType genericInterface = (ParameterizedType) subscriberClass.getGenericInterfaces()[0];
-        return (Class<DomainEvent>) genericInterface.getActualTypeArguments()[0];
     }
 
     public Class<? extends DomainEvent> getEventClass(String eventName) {
@@ -71,4 +66,16 @@ public final class DomainEventSubscribersInformation {
         return subscribers.get(subscriberName);
     }
 
+    private Class<DomainEvent> getEventClass(Class<?> subscriberClass) {
+        ParameterizedType genericInterface = (ParameterizedType) subscriberClass.getGenericInterfaces()[0];
+        return (Class<DomainEvent>) genericInterface.getActualTypeArguments()[0];
+    }
+
+    public void withInformation(Map<String, Set<String>> subscribersOfEvents,
+                                Map<String, Class<? extends DomainEvent>> eventsClasses,
+                                Map<String, DomainEventSubscriber<DomainEvent>> subscribers) {
+        this.subscribersOfEvents = subscribersOfEvents;
+        this.eventsClasses = eventsClasses;
+        this.subscribers = subscribers;
+    }
 }

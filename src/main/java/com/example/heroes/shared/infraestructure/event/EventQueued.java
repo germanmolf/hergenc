@@ -35,4 +35,7 @@ public final class EventQueued {
                 subscribers, event.toPrimitives());
     }
 
+    public boolean hasSubscribers() {
+        return !subscribers.isEmpty();
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public final class EventQueuedMother {
 
-    private static final Map<String, Set<String>> information = Map.of(
+    private static final Map<String, Set<String>> SUBSCRIBERS_OF_EVENTS = Map.of(
             "hero.created", Set.of("hero-subscriber.mock"),
             "villain.created", Set.of("villain-subscriber.mock", "villain-subscriber.mock-fails")
     );
@@ -17,7 +17,7 @@ public final class EventQueuedMother {
                 event.aggregateId(),
                 event.occurredOn(),
                 event.eventName(),
-                information.get(event.eventName()),
+                SUBSCRIBERS_OF_EVENTS.get(event.eventName()),
                 event.toPrimitives());
     }
 

@@ -1,5 +1,6 @@
 package com.example.heroes.shared.infraestructure.event;
 
+import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.infraestructure.persistence.MySqlRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Repository;
@@ -17,8 +18,8 @@ public class DomainEventRepositoryMySql extends MySqlRepository<EventQueued> {
         persist(event);
     }
 
-    public List<EventQueued> searchAll() {
-        return all();
+    public List<EventQueued> search(Criteria criteria) {
+        return byCriteria(criteria);
     }
 
     public void delete(EventQueued event) {

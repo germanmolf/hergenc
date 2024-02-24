@@ -27,7 +27,9 @@ public final class EventBusMySql implements EventBus {
         Set<String> subscribersNames =
                 domainEventSubscribersInformation.getDomainEventSubscribersNames(event.eventName());
         EventQueued eventQueued = EventQueued.fromDomainEvent(event, subscribersNames);
-        repository.save(eventQueued);
+        if (eventQueued.hasSubscribers()) {
+            repository.save(eventQueued);
+        }
     }
 
 }
