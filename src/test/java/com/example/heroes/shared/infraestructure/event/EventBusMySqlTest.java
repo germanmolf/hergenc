@@ -70,12 +70,9 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     @Test
     void consume_an_event() throws InterruptedException {
         HeroCreatedEvent event = HeroCreatedEventMother.random();
+        
         eventBus.publish(List.of(event));
-        Thread consumerProcess = new Thread(() -> consumer.consume());
-
-        consumerProcess.start();
         Thread.sleep(MILLIS_TO_WAIT);
-        consumer.stop();
 
         assertTrue(subscriber.hasBeenExecuted);
     }
@@ -83,12 +80,9 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     @Test
     void delete_event_consumed_by_all_subscribers() throws InterruptedException {
         HeroCreatedEvent event = HeroCreatedEventMother.random();
-        eventBus.publish(List.of(event));
-        Thread consumerProcess = new Thread(() -> consumer.consume());
 
-        consumerProcess.start();
+        eventBus.publish(List.of(event));
         Thread.sleep(MILLIS_TO_WAIT);
-        consumer.stop();
         List<EventQueued> result = repository.findAll();
 
         assertTrue(result.isEmpty());
@@ -98,12 +92,9 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     void update_event_with_failed_call() throws InterruptedException {
         VillainCreatedEvent event = VillainCreatedEventMother.random();
         EventQueued eventPublished = EventQueuedMother.withSubscribers(event, "villain-subscriber.mock-fails");
-        eventBus.publish(List.of(event));
-        Thread consumerProcess = new Thread(() -> consumer.consume());
 
-        consumerProcess.start();
+        eventBus.publish(List.of(event));
         Thread.sleep(MILLIS_TO_WAIT);
-        consumer.stop();
         List<EventQueued> result = repository.findAll();
 
         assertThat(List.of(eventPublished), containsInAnyOrder(result.toArray()));
