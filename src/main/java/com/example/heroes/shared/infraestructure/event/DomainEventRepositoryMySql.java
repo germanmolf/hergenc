@@ -19,53 +19,53 @@ public class DomainEventRepositoryMySql {
     }
 
     public void save(EventQueued event) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        NativeQuery<EventQueued> query = session.createNativeQuery(
-                "INSERT INTO event_queued (id,  aggregate_id, occurred_on, name, subscribers, body) " +
-                        "VALUES (:id, :aggregateId, :occurredOn, :name, :subscribers, :body);", EventQueued.class);
-        query.setParameter("id", event.getId())
-                .setParameter("aggregateId", event.getAggregateId())
-                .setParameter("occurredOn", event.getOccurredOn())
-                .setParameter("name", event.getName())
-                .setParameter("subscribers", Utils.jsonEncode(event.getSubscribers()))
-                .setParameter("body", Utils.jsonEncode(event.getBody()));
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            NativeQuery<EventQueued> query = session.createNativeQuery(
+                    "INSERT INTO event_queued (id,  aggregate_id, occurred_on, name, subscribers, body) " +
+                            "VALUES (:id, :aggregateId, :occurredOn, :name, :subscribers, :body);", EventQueued.class);
+            query.setParameter("id", event.getId())
+                    .setParameter("aggregateId", event.getAggregateId())
+                    .setParameter("occurredOn", event.getOccurredOn())
+                    .setParameter("name", event.getName())
+                    .setParameter("subscribers", Utils.jsonEncode(event.getSubscribers()))
+                    .setParameter("body", Utils.jsonEncode(event.getBody()));
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
     }
 
     public void update(EventQueued event) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        NativeQuery<EventQueued> query = session.createNativeQuery(
-                "UPDATE event_queued set subscribers = :subscribers WHERE id = :id", EventQueued.class);
-        query.setParameter("id", event.getId())
-                .setParameter("subscribers", Utils.jsonEncode(event.getSubscribers()));
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            NativeQuery<EventQueued> query = session.createNativeQuery(
+                    "UPDATE event_queued set subscribers = :subscribers WHERE id = :id", EventQueued.class);
+            query.setParameter("id", event.getId())
+                    .setParameter("subscribers", Utils.jsonEncode(event.getSubscribers()));
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
     }
 
     public List<EventQueued> findAll() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query<EventQueued> query = session.createNativeQuery(
-                "SELECT * FROM event_queued ORDER BY occurred_on ASC", EventQueued.class);
-        List<EventQueued> list = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<EventQueued> query = session.createNativeQuery(
+                    "SELECT * FROM event_queued ORDER BY occurred_on ASC", EventQueued.class);
+            List<EventQueued> list = query.list();
+            session.getTransaction().commit();
+            return list;
+        }
     }
 
     public void delete(EventQueued event) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query<EventQueued> query = session.createNativeQuery(
-                "DELETE FROM event_queued WHERE id = :id", EventQueued.class);
-        query.setParameter("id", event.getId());
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<EventQueued> query = session.createNativeQuery(
+                    "DELETE FROM event_queued WHERE id = :id", EventQueued.class);
+            query.setParameter("id", event.getId());
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
     }
 }

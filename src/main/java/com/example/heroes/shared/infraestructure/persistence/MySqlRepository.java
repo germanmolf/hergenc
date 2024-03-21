@@ -50,15 +50,4 @@ public abstract class MySqlRepository<T> {
         return entityManager.createQuery(hibernateCriteria).getSingleResult();
     }
 
-    protected void remove(T entity) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.remove(entity);
-            entityManager.flush();
-            entityManager.clear();
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.getTransaction().rollback();
-        }
-    }
 }
