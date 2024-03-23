@@ -24,7 +24,7 @@ public abstract class MySqlRepository<T> {
     protected void persist(T entity) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(entity);
+            entityManager.merge(entity);
             entityManager.flush();
             entityManager.clear();
             entityManager.getTransaction().commit();
@@ -49,4 +49,5 @@ public abstract class MySqlRepository<T> {
         CriteriaQuery<Long> hibernateCriteria = criteriaConverter.convertForCount(criteria, aggregateClass);
         return entityManager.createQuery(hibernateCriteria).getSingleResult();
     }
+
 }
