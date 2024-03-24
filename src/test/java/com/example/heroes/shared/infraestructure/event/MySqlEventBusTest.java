@@ -18,14 +18,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final class EventBusMySqlTest extends IntegrationTestModule {
+final class MySqlEventBusTest extends IntegrationTestModule {
 
     private static final int MILLIS_TO_WAIT = 1000;
     private OnHeroCreatedMock subscriber;
     @Autowired
-    private EventBusMySql eventBus;
+    private MySqlEventBus eventBus;
     @Autowired
-    private DomainEventRepositoryMySql repository;
+    private MySqlDomainEventRepository repository;
     @Autowired
     private MySqlDomainEventsConsumer consumer;
 
@@ -70,7 +70,7 @@ final class EventBusMySqlTest extends IntegrationTestModule {
     @Test
     void consume_an_event() throws InterruptedException {
         HeroCreatedEvent event = HeroCreatedEventMother.random();
-        
+
         eventBus.publish(List.of(event));
         Thread.sleep(MILLIS_TO_WAIT);
 

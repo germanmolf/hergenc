@@ -14,10 +14,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-final class VillainRepositoryMySqlTest extends IntegrationTestModule {
+final class MySqlVillainRepositoryTest extends IntegrationTestModule {
 
     @Autowired
-    private VillainRepository repository;
+    private MySqlVillainRepository repository;
 
     @Test
     void save_a_villain() {

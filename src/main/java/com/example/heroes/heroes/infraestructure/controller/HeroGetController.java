@@ -5,6 +5,7 @@ import com.example.heroes.heroes.application.find.HeroResponse;
 import com.example.heroes.heroes.application.find.HeroSearcher;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.infraestructure.controller.CriteriaParser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -39,13 +40,15 @@ public final class HeroGetController {
     }
 
     @GetMapping
-    public List<HeroResponse> getHeroes(@RequestParam Map<String, String> params) {
+    public ResponseEntity<List<HeroResponse>> getHeroes(@RequestParam Map<String, String> params) {
         Criteria criteria = criteriaParser.fromParams(params);
-        return searcher.search(criteria);
+        var heroes = searcher.search(criteria);
+        return ResponseEntity.ok(heroes);
     }
 
     @GetMapping("/{id}")
-    public HeroResponse getHero(@PathVariable String id) {
-        return finder.find(id);
+    public ResponseEntity<HeroResponse> getHero(@PathVariable String id) {
+        var hero = finder.find(id);
+        return ResponseEntity.ok(hero);
     }
 }

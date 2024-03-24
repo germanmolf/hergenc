@@ -22,6 +22,6 @@ public final class VillainPostController {
     @PostMapping
     public ResponseEntity<String> post(@RequestBody CreateVillainRequest request) {
         creator.create(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -22,6 +22,6 @@ public final class VersusPostController {
     @PostMapping
     public ResponseEntity<String> post(@RequestBody CreateVersusRequest request) {
         creator.create(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

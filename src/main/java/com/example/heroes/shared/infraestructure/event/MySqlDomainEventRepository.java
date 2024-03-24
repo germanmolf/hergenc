@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DomainEventRepositoryMySql {
+public class MySqlDomainEventRepository {
 
     private final SessionFactory sessionFactory;
 
-    public DomainEventRepositoryMySql(SessionFactory sessionFactory) {
+    public MySqlDomainEventRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

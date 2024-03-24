@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public abstract class Identifier implements Serializable {
 
-    final protected String value;
+    private final String value;
 
     public Identifier(String value, String aggregateRootName) {
         checkIsNotNull(value, aggregateRootName);

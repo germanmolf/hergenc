@@ -5,6 +5,7 @@ import com.example.heroes.shared.infraestructure.controller.CriteriaParser;
 import com.example.heroes.villains.application.find.VillainFinder;
 import com.example.heroes.villains.application.find.VillainResponse;
 import com.example.heroes.villains.application.find.VillainSearcher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -39,13 +40,15 @@ public final class VillainGetController {
     }
 
     @GetMapping
-    public List<VillainResponse> getVillains(@RequestParam Map<String, String> params) {
+    public ResponseEntity<List<VillainResponse>> getVillains(@RequestParam Map<String, String> params) {
         Criteria criteria = criteriaParser.fromParams(params);
-        return searcher.search(criteria);
+        var villains = searcher.search(criteria);
+        return ResponseEntity.ok(villains);
     }
 
     @GetMapping("/{id}")
-    public VillainResponse getVillain(@PathVariable String id) {
-        return finder.find(id);
+    public ResponseEntity<VillainResponse> getVillain(@PathVariable String id) {
+        var villain = finder.find(id);
+        return ResponseEntity.ok(villain);
     }
 }

@@ -5,6 +5,7 @@ import com.example.heroes.shared.infraestructure.controller.CriteriaParser;
 import com.example.heroes.versus.application.find.VersusFinder;
 import com.example.heroes.versus.application.find.VersusResponse;
 import com.example.heroes.versus.application.find.VersusSearcher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -36,13 +37,15 @@ public final class VersusGetController {
     }
 
     @GetMapping
-    public List<VersusResponse> getVersus(@RequestParam Map<String, String> params) {
+    public ResponseEntity<List<VersusResponse>> getVersus(@RequestParam Map<String, String> params) {
         Criteria criteria = criteriaParser.fromParams(params);
-        return searcher.search(criteria);
+        var versus = searcher.search(criteria);
+        return ResponseEntity.ok(versus);
     }
 
     @GetMapping("/{id}")
-    public VersusResponse getVersus(@PathVariable String id) {
-        return finder.find(id);
+    public ResponseEntity<VersusResponse> getVersus(@PathVariable String id) {
+        var versusResponse = finder.find(id);
+        return ResponseEntity.ok(versusResponse);
     }
 }

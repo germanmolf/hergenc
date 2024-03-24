@@ -16,10 +16,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-final class VersusRepositoryMySqlTest extends IntegrationTestModule {
+final class MySqlVersusRepositoryTest extends IntegrationTestModule {
 
     @Autowired
-    private VersusRepository repository;
+    private MySqlVersusRepository repository;
 
     @Test
     void save_a_versus() {

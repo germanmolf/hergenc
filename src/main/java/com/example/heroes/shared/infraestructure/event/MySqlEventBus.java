@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public final class EventBusMySql implements EventBus {
+public final class MySqlEventBus implements EventBus {
 
-    private final DomainEventRepositoryMySql repository;
+    private final MySqlDomainEventRepository repository;
     private final DomainEventSubscribersInformation domainEventSubscribersInformation;
 
-    public EventBusMySql(DomainEventRepositoryMySql repository, DomainEventSubscribersInformation domainEventSubscribersInformation) {
+    public MySqlEventBus(MySqlDomainEventRepository repository, DomainEventSubscribersInformation domainEventSubscribersInformation) {
         this.repository = repository;
         this.domainEventSubscribersInformation = domainEventSubscribersInformation;
     }

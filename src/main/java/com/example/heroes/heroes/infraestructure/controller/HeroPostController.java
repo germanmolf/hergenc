@@ -22,6 +22,6 @@ public final class HeroPostController {
     @PostMapping
     public ResponseEntity<String> post(@RequestBody CreateHeroRequest request) {
         creator.create(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

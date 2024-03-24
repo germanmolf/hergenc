@@ -1,16 +1,12 @@
 package com.example.heroes.villains.infraestructure.persistence;
 
 import com.example.heroes.heroes.domain.HeroId;
+import com.example.heroes.shared.infraestructure.persistence.ListToJsonConverter;
 import com.example.heroes.villains.domain.Villain;
-import io.hypersistence.utils.hibernate.type.json.JsonType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +22,8 @@ public final class VillainJpa {
     private String id;
     private String name;
     private String power;
-    @Type(JsonType.class)
     @Column(columnDefinition = "json")
+    @Convert(converter = ListToJsonConverter.class)
     private List<String> villainsDefeated;
     private Integer villainsDefeatedTotal;
     private String status;

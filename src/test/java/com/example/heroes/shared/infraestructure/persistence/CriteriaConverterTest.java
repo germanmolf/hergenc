@@ -3,7 +3,7 @@ package com.example.heroes.shared.infraestructure.persistence;
 import com.example.heroes.heroes.domain.Hero;
 import com.example.heroes.heroes.domain.HeroCriteriaMother;
 import com.example.heroes.heroes.domain.HeroMother;
-import com.example.heroes.heroes.domain.HeroRepository;
+import com.example.heroes.heroes.infraestructure.persistence.MySqlHeroRepository;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 final class CriteriaConverterTest extends IntegrationTestModule {
 
     @Autowired
-    private HeroRepository repository;
+    private MySqlHeroRepository repository;
 
     @Test
     void search_by_equal() {

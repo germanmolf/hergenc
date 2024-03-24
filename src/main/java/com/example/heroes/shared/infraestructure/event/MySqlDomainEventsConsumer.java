@@ -12,11 +12,11 @@ import java.util.Set;
 @Component
 public class MySqlDomainEventsConsumer {
 
-    private final DomainEventRepositoryMySql repository;
+    private final MySqlDomainEventRepository repository;
     private final DomainEventSubscribersInformation subscribersInformation;
     private boolean on = true;
 
-    public MySqlDomainEventsConsumer(DomainEventRepositoryMySql repository, DomainEventSubscribersInformation subscribersInformation) {
+    public MySqlDomainEventsConsumer(MySqlDomainEventRepository repository, DomainEventSubscribersInformation subscribersInformation) {
         this.repository = repository;
         this.subscribersInformation = subscribersInformation;
     }
