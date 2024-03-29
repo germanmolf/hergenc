@@ -2,52 +2,67 @@ package com.example.heroes.shared.infraestructure.persistence;
 
 import com.example.heroes.shared.domain.Identifier;
 import com.example.heroes.shared.domain.criteria.Criteria;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
+import com.example.heroes.shared.infraestructure.event.EventQueued;
 import jakarta.persistence.criteria.CriteriaQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 import java.util.Optional;
 
 public abstract class MySqlRepository<T> {
 
-    private final EntityManager entityManager;
+    private final SessionFactory sessionFactory;
     private final Class<T> aggregateClass;
     private final CriteriaConverter<T> criteriaConverter;
 
-    public MySqlRepository(EntityManagerFactory entityManagerFactory, Class<T> aggregateClass) {
+    public MySqlRepository(SessionFactory sessionFactory, Class<T> aggregateClass) {
+        this.sessionFactory = sessionFactory;
         this.aggregateClass = aggregateClass;
-        this.entityManager = entityManagerFactory.createEntityManager();
-        this.criteriaConverter = new CriteriaConverter<>(entityManagerFactory.getCriteriaBuilder());
+        this.criteriaConverter = new CriteriaConverter<>(sessionFactory.getCriteriaBuilder());
     }
 
     protected void persist(T entity) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(entity);
-            entityManager.flush();
-            entityManager.clear();
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.getTransaction().rollback();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(entity);
+            session.getTransaction().commit();
         }
     }
 
     protected Optional<T> byId(Identifier id) {
-        return Optional.ofNullable(entityManager.find(aggregateClass, id.value()));
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.find(aggregateClass, id.value()));
+        }
     }
 
     protected List<T> byCriteria(Criteria criteria) {
         CriteriaQuery<T> hibernateCriteria = criteriaConverter.convert(criteria, aggregateClass);
-        return entityManager.createQuery(hibernateCriteria)
-                .setFirstResult(criteria.getStart())
-                .setMaxResults(criteria.getLimit())
-                .getResultList();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            List<T> list = session.createQuery(hibernateCriteria)
+                    .setFirstResult(criteria.getStart())
+                    .setMaxResults(criteria.getLimit())
+                    .getResultList();
+            session.getTransaction().commit();
+            return list;
+        }
     }
 
     protected Long countByCriteria(Criteria criteria) {
         CriteriaQuery<Long> hibernateCriteria = criteriaConverter.convertForCount(criteria, aggregateClass);
-        return entityManager.createQuery(hibernateCriteria).getSingleResult();
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery(hibernateCriteria).getSingleResult();
+        }
+    }
+
+    public void remove(EventQueued event) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            EventQueued entityDetached = session.contains(event) ? event : session.find(EventQueued.class, event.getId());
+            session.remove(entityDetached);
+            session.getTransaction().commit();
+        }
     }
 
 }

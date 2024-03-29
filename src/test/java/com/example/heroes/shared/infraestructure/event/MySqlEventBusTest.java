@@ -2,6 +2,7 @@ package com.example.heroes.shared.infraestructure.event;
 
 import com.example.heroes.heroes.domain.HeroCreatedEvent;
 import com.example.heroes.heroes.domain.HeroCreatedEventMother;
+import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.domain.event.DomainEventSubscriber;
 import com.example.heroes.shared.infraestructure.persistence.IntegrationTestModule;
 import com.example.heroes.villains.domain.VillainCreatedEvent;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 final class MySqlEventBusTest extends IntegrationTestModule {
 
     private static final int MILLIS_TO_WAIT = 1000;
+    private static final Criteria firstTheOldestOnesCriteria = EventQueuedCriteria.firstTheOldestOnes();
     private OnHeroCreatedMock subscriber;
     @Autowired
     private MySqlEventBus eventBus;
@@ -52,7 +54,7 @@ final class MySqlEventBusTest extends IntegrationTestModule {
         EventQueued eventPublished = EventQueuedMother.fromDomainEvent(event);
 
         eventBus.publish(List.of(event));
-        List<EventQueued> result = repository.findAll();
+        List<EventQueued> result = repository.search(firstTheOldestOnesCriteria);
 
         assertThat(List.of(eventPublished), containsInAnyOrder(result.toArray()));
     }
@@ -62,7 +64,7 @@ final class MySqlEventBusTest extends IntegrationTestModule {
         OnMockEvent event = new OnMockEvent();
 
         eventBus.publish(List.of(event));
-        List<EventQueued> result = repository.findAll();
+        List<EventQueued> result = repository.search(firstTheOldestOnesCriteria);
 
         assertTrue(result.isEmpty());
     }
@@ -83,7 +85,7 @@ final class MySqlEventBusTest extends IntegrationTestModule {
 
         eventBus.publish(List.of(event));
         Thread.sleep(MILLIS_TO_WAIT);
-        List<EventQueued> result = repository.findAll();
+        List<EventQueued> result = repository.search(firstTheOldestOnesCriteria);
 
         assertTrue(result.isEmpty());
     }
@@ -95,7 +97,7 @@ final class MySqlEventBusTest extends IntegrationTestModule {
 
         eventBus.publish(List.of(event));
         Thread.sleep(MILLIS_TO_WAIT);
-        List<EventQueued> result = repository.findAll();
+        List<EventQueued> result = repository.search(firstTheOldestOnesCriteria);
 
         assertThat(List.of(eventPublished), containsInAnyOrder(result.toArray()));
     }

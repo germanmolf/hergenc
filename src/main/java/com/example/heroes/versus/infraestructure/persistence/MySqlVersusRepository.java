@@ -5,7 +5,7 @@ import com.example.heroes.shared.infraestructure.persistence.MySqlRepository;
 import com.example.heroes.versus.domain.Versus;
 import com.example.heroes.versus.domain.VersusId;
 import com.example.heroes.versus.domain.VersusRepository;
-import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public class MySqlVersusRepository extends MySqlRepository<VersusJpa> implements VersusRepository {
 
-    public MySqlVersusRepository(EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory, VersusJpa.class);
+    public MySqlVersusRepository(SessionFactory sessionFactory) {
+        super(sessionFactory, VersusJpa.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.heroes.shared.infraestructure.event;
 
+import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.domain.event.DomainEvent;
 import com.example.heroes.shared.domain.event.DomainEventSubscriber;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Component
 public class MySqlDomainEventsConsumer {
 
+    private static final Criteria firstTheOldestOnesCriteria = EventQueuedCriteria.firstTheOldestOnes();
     private final MySqlDomainEventRepository repository;
     private final DomainEventSubscribersInformation subscribersInformation;
     private boolean on = true;
@@ -27,7 +29,7 @@ public class MySqlDomainEventsConsumer {
 
     public void consume() {
         while (on) {
-            List<EventQueued> eventsQueued = repository.findAll();
+            List<EventQueued> eventsQueued = repository.search(firstTheOldestOnesCriteria);
             for (var eventQueued : eventsQueued) {
                 Class<? extends DomainEvent> eventClass = subscribersInformation.getEventClass(eventQueued.getName());
                 DomainEvent event;
@@ -39,7 +41,7 @@ public class MySqlDomainEventsConsumer {
                 }
                 callSubscribers(eventQueued, event);
                 if (eventQueued.hasSubscribers()) {
-                    repository.update(eventQueued);
+                    repository.save(eventQueued);
                 } else {
                     repository.delete(eventQueued);
                 }

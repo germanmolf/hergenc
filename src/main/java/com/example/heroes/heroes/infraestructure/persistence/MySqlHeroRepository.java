@@ -5,7 +5,7 @@ import com.example.heroes.heroes.domain.HeroId;
 import com.example.heroes.heroes.domain.HeroRepository;
 import com.example.heroes.shared.domain.criteria.Criteria;
 import com.example.heroes.shared.infraestructure.persistence.MySqlRepository;
-import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public class MySqlHeroRepository extends MySqlRepository<HeroJpa> implements HeroRepository {
 
-    public MySqlHeroRepository(EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory, HeroJpa.class);
+    public MySqlHeroRepository(SessionFactory sessionFactory) {
+        super(sessionFactory, HeroJpa.class);
     }
 
     @Override

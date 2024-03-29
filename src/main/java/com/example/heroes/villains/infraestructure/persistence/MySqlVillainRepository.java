@@ -5,7 +5,7 @@ import com.example.heroes.shared.infraestructure.persistence.MySqlRepository;
 import com.example.heroes.villains.domain.Villain;
 import com.example.heroes.villains.domain.VillainId;
 import com.example.heroes.villains.domain.VillainRepository;
-import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public class MySqlVillainRepository extends MySqlRepository<VillainJpa> implements VillainRepository {
 
-    public MySqlVillainRepository(EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory, VillainJpa.class);
+    public MySqlVillainRepository(SessionFactory sessionFactory) {
+        super(sessionFactory, VillainJpa.class);
     }
 
     @Override
