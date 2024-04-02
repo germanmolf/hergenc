@@ -85,12 +85,12 @@ public final class CriteriaParser {
             if (!containsFieldAndValue(params, possibleKey)) {
                 continue;
             }
-            String field = params.get(String.format("filters.%s.field", possibleKey));
+            String field = params.get(String.format("filters[%s][field]", possibleKey));
             if (!filterFields.contains(field)) {
                 continue;
             }
-            String operator = params.getOrDefault(String.format("filters.%s.operator", possibleKey), Strings.EMPTY);
-            String value = params.get(String.format("filters.%s.value", possibleKey));
+            String operator = params.getOrDefault(String.format("filters[%s][operator]", possibleKey), Strings.EMPTY);
+            String value = params.get(String.format("filters[%s][value]", possibleKey));
             if (field.isBlank() || value.isBlank()) {
                 continue;
             }
@@ -102,6 +102,6 @@ public final class CriteriaParser {
     }
 
     private static boolean containsFieldAndValue(Map<String, String> params, int possibleKey) {
-        return params.containsKey(String.format("filters.%s.field", possibleKey)) && params.containsKey(String.format("filters.%s.value", possibleKey));
+        return params.containsKey(String.format("filters[%s][field]", possibleKey)) && params.containsKey(String.format("filters[%s][value]", possibleKey));
     }
 }

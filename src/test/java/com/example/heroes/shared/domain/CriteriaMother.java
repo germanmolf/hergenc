@@ -7,9 +7,9 @@ public final class CriteriaMother {
 
     public static Map<String, String> createParamsWithFilter(String field, String operator, String value) {
         Map<String, String> params = new HashMap<>();
-        params.put("filters.0.field", field);
-        params.put("filters.0.operator", operator);
-        params.put("filters.0.value", value);
+        params.put("filters[0][field]", field);
+        params.put("filters[0][operator]", operator);
+        params.put("filters[0][value]", value);
         return params;
     }
 
@@ -19,15 +19,15 @@ public final class CriteriaMother {
 
     public static Map<String, String> createParamsWithFilterWithNoField(String operator, String value) {
         Map<String, String> params = new HashMap<>();
-        params.put("filters.0.operator", operator);
-        params.put("filters.0.value", value);
+        params.put("filters[0][operator]", operator);
+        params.put("filters[0][value]", value);
         return params;
     }
 
     public static Map<String, String> createParamsWithFilterWithNoValue(String field, String operator) {
         Map<String, String> params = new HashMap<>();
-        params.put("filters.0.field", field);
-        params.put("filters.0.operator", operator);
+        params.put("filters[0][field]", field);
+        params.put("filters[0][operator]", operator);
         return params;
     }
 
