@@ -4,16 +4,16 @@ import com.example.heroes.shared.domain.event.DomainEvent;
 import com.example.heroes.shared.infraestructure.persistence.MapToJsonConverter;
 import com.example.heroes.shared.infraestructure.persistence.SetToJsonConverter;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "event_queued")
 public final class EventQueued {

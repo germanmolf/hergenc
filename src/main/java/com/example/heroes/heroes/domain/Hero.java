@@ -104,4 +104,17 @@ public final class Hero extends AggregateRoot {
     public int hashCode() {
         return Objects.hash(id, name, power, villainsDefeatedTotal, villainsDefeated, status, villainDefeater);
     }
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "id=" + id +
+                ", name=" + name +
+                ", power=" + power +
+                ", villainsDefeated=" + villainsDefeated +
+                ", villainsDefeatedTotal=" + villainsDefeatedTotal +
+                ", status=" + status +
+                ", villainDefeater=" + villainDefeater +
+                '}';
+    }
 }

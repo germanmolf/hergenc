@@ -26,19 +26,19 @@ public final class Versus extends AggregateRoot {
         return versus;
     }
 
-    public VersusId getId() {
+    public VersusId id() {
         return id;
     }
 
-    public HeroId getHeroId() {
+    public HeroId heroId() {
         return heroId;
     }
 
-    public VillainId getVillainId() {
+    public VillainId villainid() {
         return villainId;
     }
 
-    public VersusDefeated getDefeated() {
+    public VersusDefeated defeated() {
         return defeated;
     }
 
@@ -53,5 +53,15 @@ public final class Versus extends AggregateRoot {
     @Override
     public int hashCode() {
         return Objects.hash(id, heroId, villainId, defeated);
+    }
+
+    @Override
+    public String toString() {
+        return "Versus{" +
+                "id=" + id +
+                ", heroId=" + heroId +
+                ", villainId=" + villainId +
+                ", defeated=" + defeated +
+                '}';
     }
 }

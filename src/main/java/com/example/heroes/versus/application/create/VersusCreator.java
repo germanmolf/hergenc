@@ -33,18 +33,18 @@ public final class VersusCreator {
     public void create(CreateVersusRequest request) {
         Versus versus = Versus.create(request.id(), request.heroId(), request.villainId(),
                 request.defeated());
-        checkVersusNotExists(versus.getId());
-        checkHeroExists(versus.getHeroId().value());
-        checkVillainExists(versus.getVillainId().value());
-        checkHeroIsNotAlreadyDefeated(versus.getHeroId());
-        checkVillainIsNotAlreadyDefeated(versus.getVillainId());
+        checkVersusNotExists(versus.id());
+        checkHeroExists(versus.heroId().value());
+        checkVillainExists(versus.villainid().value());
+        checkHeroIsNotAlreadyDefeated(versus.heroId());
+        checkVillainIsNotAlreadyDefeated(versus.villainid());
         repository.save(versus);
         eventBus.publish(versus.pullDomainEvents());
     }
 
     private void checkVersusNotExists(VersusId id) {
         repository.search(id).ifPresent(versus -> {
-            throw new VersusAlreadyExistsException(versus.getId());
+            throw new VersusAlreadyExistsException(versus.id());
         });
     }
 

@@ -38,7 +38,7 @@ public class VersusModuleTest extends UnitTestModule {
     }
 
     public void shouldSearch(Versus versus) {
-        when(repository.search(versus.getId())).thenReturn(Optional.of(versus));
+        when(repository.search(versus.id())).thenReturn(Optional.of(versus));
     }
 
     public void shouldCount(Long heroCount, Long villainCount) {

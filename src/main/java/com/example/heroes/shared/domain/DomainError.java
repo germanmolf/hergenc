@@ -11,11 +11,11 @@ public abstract class DomainError extends RuntimeException {
         this.errorMessage = errorMessage;
     }
 
-    public String getErrorCode() {
+    public String errorCode() {
         return errorCode;
     }
 
-    public String getErrorMessage() {
+    public String errorMessage() {
         return errorMessage;
     }
 }

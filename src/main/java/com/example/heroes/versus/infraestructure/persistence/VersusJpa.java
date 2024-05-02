@@ -22,10 +22,10 @@ public final class VersusJpa {
     private String defeated;
 
     public static VersusJpa fromAggregate(Versus versus) {
-        return new VersusJpa(versus.getId().value(),
-                versus.getHeroId().value(),
-                versus.getVillainId().value(),
-                versus.getDefeated().value());
+        return new VersusJpa(versus.id().value(),
+                versus.heroId().value(),
+                versus.villainid().value(),
+                versus.defeated().value());
     }
 
     public static Versus fromJpaEntity(VersusJpa versusJpa) {

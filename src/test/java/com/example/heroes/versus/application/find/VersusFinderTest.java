@@ -25,7 +25,7 @@ final class VersusFinderTest extends VersusModuleTest {
     void find_an_existing_versus() {
         Versus versus = VersusMother.random();
         VersusResponse response = VersusResponseMother.fromAggregate(versus);
-        String id = versus.getId().value();
+        String id = versus.id().value();
         shouldSearch(versus);
 
         assertEquals(response, finder.find(id));

@@ -33,7 +33,7 @@ final class MySqlVersusRepositoryTest extends IntegrationTestModule {
         Versus versus = VersusMother.random();
         repository.save(versus);
 
-        Optional<Versus> result = repository.search(versus.getId());
+        Optional<Versus> result = repository.search(versus.id());
 
         assertEquals(Optional.of(versus), result);
     }

@@ -14,6 +14,6 @@ public final class ErrorResponse {
     private String message;
 
     public static ErrorResponse fromDomainError(DomainError domainError) {
-        return new ErrorResponse(domainError.getErrorCode(), domainError.getErrorMessage());
+        return new ErrorResponse(domainError.errorCode(), domainError.errorMessage());
     }
 }

@@ -97,7 +97,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.random();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        shouldNotFindHero(versus.getHeroId());
+        shouldNotFindHero(versus.heroId());
 
         assertThrows(HeroNotFoundException.class, () -> creator.create(request));
 
@@ -110,7 +110,7 @@ public final class VersusCreatorTest extends VersusModuleTest {
         CreateVersusRequest request = CreateVersusRequestMother.random();
         Versus versus = VersusMother.fromRequest(request);
         VersusCreatedEvent event = VersusCreatedEventMother.fromRequest(request);
-        shouldNotFindVillain(versus.getVillainId());
+        shouldNotFindVillain(versus.villainid());
 
         assertThrows(VillainNotFoundException.class, () -> creator.create(request));
 

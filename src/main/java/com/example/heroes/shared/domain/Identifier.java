@@ -49,4 +49,9 @@ public abstract class Identifier implements Serializable {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
