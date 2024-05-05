@@ -5,7 +5,7 @@ plugins {
     id 'idea'
 }
 
-group = 'com.example'
+group = 'germanmolf'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 targetCompatibility = '17'
