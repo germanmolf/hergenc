@@ -1,9 +1,8 @@
 package germanmolf.hergenc.shared.infraestructure.controller;
 
-import germanmolf.hergenc.shared.application.UnitTestModule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import germanmolf.hergenc.shared.infraestructure.persistence.IntegrationTestModule;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -12,14 +11,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ExceptionHandlerTestModule extends UnitTestModule {
+public class ExceptionHandlerTestModule extends IntegrationTestModule {
 
     protected MockMvc mockMvc;
-
-    @BeforeEach
-    protected void setUp() {
-        super.setUp();
-    }
 
     protected String objectToJson(Object object) throws JsonProcessingException {
         return new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(object);
